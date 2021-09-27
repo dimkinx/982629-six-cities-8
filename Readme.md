@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Dmitry Ostroukhov](https://up.htmlacademy.ru/react/8/user/982629).
-* Наставник: `Неизвестно`.
+* Наставник: [Vladyslav Zubko](https://htmlacademy.ru/profile/whatislove).
 
 ---
 
