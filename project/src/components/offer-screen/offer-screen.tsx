@@ -1,4 +1,4 @@
-function PropertyScreen(): JSX.Element {
+function OfferScreen(): JSX.Element {
   return (
     <div className="page">
       <header className="header">
@@ -34,22 +34,22 @@ function PropertyScreen(): JSX.Element {
           <div className="property__gallery-container container">
             <div className="property__gallery">
               <div className="property__image-wrapper">
-                <img className="property__image" src="img/room.jpg" alt="Photo studio" />
+                <img className="property__image" src="img/room.jpg" alt="Some kind of studio" />
               </div>
               <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
+                <img className="property__image" src="img/apartment-01.jpg" alt="Some kind of studio" />
               </div>
               <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-02.jpg" alt="Photo studio" />
+                <img className="property__image" src="img/apartment-02.jpg" alt="Some kind of studio" />
               </div>
               <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-03.jpg" alt="Photo studio" />
+                <img className="property__image" src="img/apartment-03.jpg" alt="Some kind of studio" />
               </div>
               <div className="property__image-wrapper">
-                <img className="property__image" src="img/studio-01.jpg" alt="Photo studio" />
+                <img className="property__image" src="img/studio-01.jpg" alt="Some kind of studio" />
               </div>
               <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
+                <img className="property__image" src="img/apartment-01.jpg" alt="Some kind of studio" />
               </div>
             </div>
           </div>
@@ -236,7 +236,7 @@ function PropertyScreen(): JSX.Element {
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <a href="#">
-                    <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image" />
+                    <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Some place" />
                   </a>
                 </div>
                 <div className="place-card__info">
@@ -268,7 +268,7 @@ function PropertyScreen(): JSX.Element {
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <a href="#">
-                    <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place image" />
+                    <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Some place" />
                   </a>
                 </div>
                 <div className="place-card__info">
@@ -300,7 +300,7 @@ function PropertyScreen(): JSX.Element {
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <a href="#">
-                    <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place image" />
+                    <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Some place" />
                   </a>
                 </div>
                 <div className="place-card__info">
@@ -336,4 +336,4 @@ function PropertyScreen(): JSX.Element {
   );
 }
 
-export default PropertyScreen;
+export default OfferScreen;
