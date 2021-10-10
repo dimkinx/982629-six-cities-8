@@ -6,22 +6,24 @@ import FavoritesScreen from '../favorites-screen/favorites-screen';
 import OfferScreen from '../offer-screen/offer-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, OfferSettings} from '../../const';
 import Offer from '../../types/offer';
 import Review from '../../types/review';
 
 type AppProps = {
-  placesCount: number;
   offers: Offer[];
   reviews: Review[];
 }
 
-function App({placesCount, offers, reviews}: AppProps): JSX.Element {
+function App({offers, reviews}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MainScreen}>
-          <MainScreen placesCount={placesCount} />
+          <MainScreen
+            offerSittings={OfferSettings.Main}
+            offers={offers}
+          />
         </Route>
         <Route exact path={AppRoute.LoginScreen}>
           <LoginScreen />
