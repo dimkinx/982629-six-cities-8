@@ -5,13 +5,18 @@ import Offer from '../../types/offer';
 type OfferCardProps = {
   offerSittings: typeof OfferSettings.Main;
   offer: Offer;
+  setActiveCardId: (id: null | number) => void;
 }
 
-function OfferCard({offerSittings, offer}: OfferCardProps): JSX.Element {
-  const {isPremium, previewImage, price, isFavorite, rating, title, type} = offer;
+function OfferCard({offerSittings, offer, setActiveCardId}: OfferCardProps): JSX.Element {
+  const {id, isPremium, previewImage, price, isFavorite, rating, title, type} = offer;
 
   return (
-    <article className={`${offerSittings.Modifier}__place-card place-card`}>
+    <article
+      className={`${offerSittings.Modifier}__place-card place-card`}
+      onMouseEnter={() => setActiveCardId(id)}
+      onMouseLeave={() => setActiveCardId(null)}
+    >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
