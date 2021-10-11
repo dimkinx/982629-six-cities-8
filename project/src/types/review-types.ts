@@ -1,4 +1,4 @@
-type Review = {
+type ReviewType = {
   comment: string;
   date: string;
   id: number;
@@ -11,4 +11,4 @@ type Review = {
   };
 };
 
-export default Review;
+export type {ReviewType};

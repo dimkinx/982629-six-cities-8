@@ -1,10 +1,9 @@
 import OfferList from '../offer-list/offer-list';
-import {OfferSettings} from '../../const';
-import Offer from '../../types/offer';
+import {OfferType, OfferSittingsType} from '../../types/offer-types';
 
 type MainScreenProps = {
-  offerSittings: typeof OfferSettings.Main;
-  offers: Offer[];
+  offerSittings: OfferSittingsType;
+  offers: OfferType[];
 }
 
 function MainScreen({offerSittings, offers}: MainScreenProps): JSX.Element {

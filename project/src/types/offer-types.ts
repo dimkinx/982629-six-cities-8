@@ -1,13 +1,13 @@
-type Location = {
+type LocationType = {
   latitude: number,
   longitude: number,
   zoom: number,
 };
 
-type Offer = {
+type OfferType = {
   bedrooms: number;
   city: {
-    location: Location;
+    location: LocationType;
     name: string;
   };
   description: string;
@@ -22,7 +22,7 @@ type Offer = {
   images: string[];
   isFavorite: boolean;
   isPremium: boolean;
-  location: Location;
+  location: LocationType;
   maxAdults: number;
   previewImage: string;
   price: number;
@@ -31,7 +31,7 @@ type Offer = {
   type: string;
 };
 
-type OfferSittings = {
+type OfferSittingsType = {
   ListClassName: string,
   ArticleClassName: string,
   ImageClassName: string,
@@ -42,4 +42,4 @@ type OfferSittings = {
   },
 };
 
-export type {Offer, OfferSittings};
+export type {OfferType, OfferSittingsType};
