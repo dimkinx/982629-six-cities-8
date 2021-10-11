@@ -1,4 +1,4 @@
-import OfferList from '../offer-list/offer-list';
+import FavoritesList from '../favorites-list/favorites-list';
 import {OfferType, OfferSittingsType} from '../../types/offer-types';
 
 type FavoritesScreenProps = {
@@ -41,21 +41,10 @@ function FavoritesScreen({offerSittings, offers}: FavoritesScreenProps): JSX.Ele
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <OfferList
-                  offerSittings={offerSittings}
-                  offers={offers}
-                />
-              </li>
-            </ul>
+            <FavoritesList
+              offerSittings={offerSittings}
+              offers={offers}
+            />
           </section>
         </div>
       </main>
