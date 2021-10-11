@@ -1,10 +1,9 @@
 import {addActiveClass, getRatingPercentage} from '../../utils';
-import {OfferSettings} from '../../const';
-import Offer from '../../types/offer';
+import {OfferType, OfferSittingsType} from '../../types/offer-types';
 
 type OfferCardProps = {
-  offerSittings: typeof OfferSettings.Main;
-  offer: Offer;
+  offerSittings: OfferSittingsType;
+  offer: OfferType;
   setActiveCardId: (id: null | number) => void;
 }
 
@@ -13,7 +12,7 @@ function OfferCard({offerSittings, offer, setActiveCardId}: OfferCardProps): JSX
 
   return (
     <article
-      className={`${offerSittings.Modifier}__place-card place-card`}
+      className={offerSittings.ArticleClassName}
       onMouseEnter={() => setActiveCardId(id)}
       onMouseLeave={() => setActiveCardId(null)}
     >
@@ -22,7 +21,7 @@ function OfferCard({offerSittings, offer, setActiveCardId}: OfferCardProps): JSX
           <span>Premium</span>
         </div>
       )}
-      <div className={`${offerSittings.Modifier}__image-wrapper place-card__image-wrapper`}>
+      <div className={offerSittings.ImageClassName}>
         <a href="#">
           <img
             className="place-card__image"
@@ -33,7 +32,7 @@ function OfferCard({offerSittings, offer, setActiveCardId}: OfferCardProps): JSX
           />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={offerSittings.InfoClassName}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>

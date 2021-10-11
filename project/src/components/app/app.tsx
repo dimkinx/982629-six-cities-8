@@ -7,12 +7,12 @@ import OfferScreen from '../offer-screen/offer-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import {AppRoute, AuthorizationStatus, OfferSettings} from '../../const';
-import Offer from '../../types/offer';
-import Review from '../../types/review';
+import {OfferType} from '../../types/offer-types';
+import {ReviewType} from '../../types/review-types';
 
 type AppProps = {
-  offers: Offer[];
-  reviews: Review[];
+  offers: OfferType[];
+  reviews: ReviewType[];
 }
 
 function App({offers, reviews}: AppProps): JSX.Element {
@@ -31,8 +31,13 @@ function App({offers, reviews}: AppProps): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.FavoritesScreen}
-          render={() => <FavoritesScreen />}
-          authorizationStatus={AuthorizationStatus.NoAuth}
+          render={() => (
+            <FavoritesScreen
+              offerSittings={OfferSettings.Favorites}
+              offers={offers}
+            />
+          )}
+          authorizationStatus={AuthorizationStatus.Auth}
         />
         <Route exact path={AppRoute.OfferScreen}>
           <OfferScreen />
