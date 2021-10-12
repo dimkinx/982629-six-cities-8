@@ -40,7 +40,9 @@ function App({offers, reviews}: AppProps): JSX.Element {
           authorizationStatus={AuthorizationStatus.Auth}
         />
         <Route exact path={AppRoute.OfferScreen}>
-          <OfferScreen />
+          <OfferScreen
+            offers={offers}
+          />
         </Route>
         <Route>
           <NotFoundScreen />

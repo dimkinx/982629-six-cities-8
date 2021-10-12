@@ -5,6 +5,8 @@ const AppRoute = {
   LoginScreen: '/login',
   FavoritesScreen: '/favorites',
   OfferScreen: '/offer/:id',
+  Offer: '/offer/',
+  NotFoundScreen: '/404',
 } as const;
 
 const AuthorizationStatus = {

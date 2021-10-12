@@ -1,13 +1,29 @@
-function OfferScreen(): JSX.Element {
+import {useParams} from 'react-router-dom';
+import Logo from '../logo/logo';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+import {OfferType} from '../../types/offer-types';
+
+type OfferScreenProps = {
+  offers: OfferType[];
+}
+
+function OfferScreen({offers}: OfferScreenProps): JSX.Element {
+  const {id} = useParams() as {id: string};
+  const property = offers.find((offer) => offer.id.toString() === id);
+
+  if (!property) {
+    return <NotFoundScreen />;
+  }
+
+  const {title} = property;
+
   return (
     <div className="page">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </a>
+              <Logo />
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -60,7 +76,7 @@ function OfferScreen(): JSX.Element {
               </div>
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  Beautiful &amp; luxurious studio at great location
+                  {title}
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">

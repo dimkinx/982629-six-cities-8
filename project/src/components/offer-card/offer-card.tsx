@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 import {addActiveClass, getRatingPercentage} from '../../utils';
 import {OfferType, OfferSittingsType} from '../../types/offer-types';
 
@@ -22,7 +24,7 @@ function OfferCard({offerSittings, offer, setActiveCardId}: OfferCardProps): JSX
         </div>
       )}
       <div className={offerSittings.ImageClassName}>
-        <a href="#">
+        <Link to={`${AppRoute.Offer}${id}`}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -30,7 +32,7 @@ function OfferCard({offerSittings, offer, setActiveCardId}: OfferCardProps): JSX
             height={offerSittings.ImageSize.Height}
             alt="Some place"
           />
-        </a>
+        </Link>
       </div>
       <div className={offerSittings.InfoClassName}>
         <div className="place-card__price-wrapper">
@@ -55,7 +57,7 @@ function OfferCard({offerSittings, offer, setActiveCardId}: OfferCardProps): JSX
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`${AppRoute.Offer}${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
