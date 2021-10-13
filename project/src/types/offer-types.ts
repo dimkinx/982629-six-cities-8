@@ -1,15 +1,15 @@
 type LocationType = {
-  latitude: number,
-  longitude: number,
-  zoom: number,
-};
+  latitude: number;
+  longitude: number;
+  zoom: number;
+}
 
 type OfferType = {
   bedrooms: number;
   city: {
     location: LocationType;
     name: string;
-  };
+  }
   description: string;
   goods: string[];
   host: {
@@ -17,7 +17,7 @@ type OfferType = {
     id: number;
     isPro: boolean;
     name: string;
-  };
+  }
   id: number;
   images: string[];
   isFavorite: boolean;
@@ -29,17 +29,18 @@ type OfferType = {
   rating: number;
   title: string;
   type: string;
-};
+}
 
-type OfferSittingsType = {
-  ListClassName: string,
-  ArticleClassName: string,
-  ImageClassName: string,
-  InfoClassName: string,
+type OfferListSittingsType = {
+  ListClassName: string;
+  ArticleClassName: string;
+  ImageClassName: string;
+  InfoClassName: string;
+  MaxCount: number;
   ImageSize: {
     Width: number;
     Height: number;
-  },
-};
+  }
+}
 
-export type {OfferType, OfferSittingsType};
+export type {OfferType, OfferListSittingsType};

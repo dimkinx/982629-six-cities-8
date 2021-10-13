@@ -1,13 +1,13 @@
 import OfferList from '../offer-list/offer-list';
 import {getOfferCities} from '../../utils';
-import {OfferType, OfferSittingsType} from '../../types/offer-types';
+import {OfferType, OfferListSittingsType} from '../../types/offer-types';
 
 type FavoritesListProps = {
-  offerSittings: OfferSittingsType;
+  offerListSittings: OfferListSittingsType;
   offers: OfferType[];
 }
 
-function FavoritesList({offerSittings, offers}: FavoritesListProps): JSX.Element {
+function FavoritesList({offerListSittings, offers}: FavoritesListProps): JSX.Element {
   const favoritesOffers = offers.filter((offer) => offer.isFavorite);
   const cities = getOfferCities(favoritesOffers);
 
@@ -26,7 +26,7 @@ function FavoritesList({offerSittings, offers}: FavoritesListProps): JSX.Element
             </div>
           </div>
           <OfferList
-            offerSittings={offerSittings}
+            offerListSittings={offerListSittings}
             offers={favoritesOffers.filter((offer) => offer.city.name === city)}
           />
         </li>

@@ -1,5 +1,16 @@
 const MAX_NUMBER_STARS = 5;
 
+const LogoSize = {
+  Header: {
+    Width: 81,
+    Height: 41,
+  },
+  Footer: {
+    Width: 64,
+    Height: 33,
+  },
+} as const;
+
 const AppRoute = {
   MainScreen: '/',
   LoginScreen: '/login',
@@ -14,12 +25,13 @@ const AuthorizationStatus = {
   NoAuth: 'NO_AUTH',
 } as const;
 
-const OfferSettings = {
+const OfferListSettings = {
   Main: {
     ListClassName: 'cities__places-list places__list tabs__content',
     ArticleClassName: 'cities__place-card place-card',
     ImageClassName: 'cities__image-wrapper place-card__image-wrapper',
     InfoClassName: 'place-card__info',
+    MaxCount: Infinity,
     ImageSize: {
       Width: 260,
       Height: 200,
@@ -30,6 +42,7 @@ const OfferSettings = {
     ArticleClassName: 'near-places__card place-card',
     ImageClassName: 'near-places__image-wrapper place-card__image-wrapper',
     InfoClassName: 'place-card__info',
+    MaxCount: 3,
     ImageSize: {
       Width: 260,
       Height: 200,
@@ -40,6 +53,7 @@ const OfferSettings = {
     ArticleClassName: 'favorites__card place-card',
     ImageClassName: 'favorites__image-wrapper place-card__image-wrapper',
     InfoClassName: 'favorites__card-info place-card__info',
+    MaxCount: Infinity,
     ImageSize: {
       Width: 150,
       Height: 110,
@@ -47,4 +61,4 @@ const OfferSettings = {
   },
 } as const;
 
-export {MAX_NUMBER_STARS, AppRoute, AuthorizationStatus, OfferSettings};
+export {MAX_NUMBER_STARS, LogoSize, AppRoute, AuthorizationStatus, OfferListSettings};

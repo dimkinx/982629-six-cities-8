@@ -1,20 +1,20 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {addActiveClass, getRatingPercentage} from '../../utils';
-import {OfferType, OfferSittingsType} from '../../types/offer-types';
+import {OfferType, OfferListSittingsType} from '../../types/offer-types';
 
 type OfferCardProps = {
-  offerSittings: OfferSittingsType;
+  offerListSittings: OfferListSittingsType;
   offer: OfferType;
   setActiveCardId: (id: null | number) => void;
 }
 
-function OfferCard({offerSittings, offer, setActiveCardId}: OfferCardProps): JSX.Element {
+function OfferCard({offerListSittings, offer, setActiveCardId}: OfferCardProps): JSX.Element {
   const {id, isPremium, previewImage, price, isFavorite, rating, title, type} = offer;
 
   return (
     <article
-      className={offerSittings.ArticleClassName}
+      className={offerListSittings.ArticleClassName}
       onMouseEnter={() => setActiveCardId(id)}
       onMouseLeave={() => setActiveCardId(null)}
     >
@@ -23,18 +23,18 @@ function OfferCard({offerSittings, offer, setActiveCardId}: OfferCardProps): JSX
           <span>Premium</span>
         </div>
       )}
-      <div className={offerSittings.ImageClassName}>
+      <div className={offerListSittings.ImageClassName}>
         <Link to={`${AppRoute.Offer}${id}`}>
           <img
             className="place-card__image"
             src={previewImage}
-            width={offerSittings.ImageSize.Width}
-            height={offerSittings.ImageSize.Height}
+            width={offerListSittings.ImageSize.Width}
+            height={offerListSittings.ImageSize.Height}
             alt="Some place"
           />
         </Link>
       </div>
-      <div className={offerSittings.InfoClassName}>
+      <div className={offerListSittings.InfoClassName}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>

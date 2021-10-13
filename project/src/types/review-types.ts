@@ -8,7 +8,7 @@ type ReviewType = {
     id: number;
     isPro: boolean;
     name: string;
-  };
-};
+  }
+}
 
 export type {ReviewType};
