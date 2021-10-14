@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
-import {addActiveClass, getRatingPercentage} from '../../utils';
+import {AppRoute} from '../../common/const';
+import {addClassModifier, getRatingPercentage} from '../../common/utils';
 import {OfferType, OfferListSittingsType} from '../../types/offer-types';
 
 type OfferCardProps = {
@@ -41,7 +41,7 @@ function OfferCard({offerListSittings, offer, setActiveCardId}: OfferCardProps):
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            className={`${addActiveClass(isFavorite, 'place-card__bookmark-button')} button`}
+            className={`${addClassModifier(isFavorite, 'place-card__bookmark-button')} button`}
             type="button"
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">

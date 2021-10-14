@@ -1,5 +1,5 @@
 import OfferList from '../offer-list/offer-list';
-import {getOfferCities} from '../../utils';
+import {getOfferCities} from '../../common/utils';
 import {OfferType, OfferListSittingsType} from '../../types/offer-types';
 
 type FavoritesListProps = {

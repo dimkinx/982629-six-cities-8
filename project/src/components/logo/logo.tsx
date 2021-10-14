@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {LogoSize, AppRoute} from '../../const';
+import {LogoSize, AppRoute} from '../../common/const';
 
 type LogoProps = {
   width?: number;

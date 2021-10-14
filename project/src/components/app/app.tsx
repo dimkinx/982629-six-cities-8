@@ -6,7 +6,7 @@ import FavoritesScreen from '../favorites-screen/favorites-screen';
 import OfferScreen from '../offer-screen/offer-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import {AppRoute, AuthorizationStatus, OfferListSettings} from '../../const';
+import {AppRoute, AuthorizationStatus, OfferListSettings} from '../../common/const';
 import {OfferType} from '../../types/offer-types';
 import {ReviewType} from '../../types/review-types';
 
@@ -43,6 +43,7 @@ function App({offers, reviews}: AppProps): JSX.Element {
           <OfferScreen
             offerListSittings={OfferListSettings.Near}
             offers={offers}
+            reviews={reviews}
           />
         </Route>
         <Route>

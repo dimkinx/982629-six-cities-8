@@ -5,7 +5,7 @@ const reviews: ReviewType[] = [
     comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
     date: '2019-05-08T14:13:56.569Z',
     id: 0,
-    rating: 4,
+    rating: 2.5,
     user: {
       avatarUrl: 'img/avatar-max.jpg',
       id: 4,
@@ -15,9 +15,9 @@ const reviews: ReviewType[] = [
   },
   {
     comment: 'Apartment maintenance and staff is very courteous and kind and everything is completed in a timely manner.',
-    date: '2020-01-03T16:14:50.569Z',
+    date: '2020-01-01T16:14:50.569Z',
     id: 1,
-    rating: 3.5,
+    rating: 4.4,
     user: {
       avatarUrl: 'img/avatar-max.jpg',
       id: 4,
@@ -27,9 +27,9 @@ const reviews: ReviewType[] = [
   },
   {
     comment: 'Apartment in great shape.',
-    date: '2019-05-08T14:13:56.569Z',
+    date: '2021-10-14T14:13:56.569Z',
     id: 2,
-    rating: 4.9,
+    rating: 4.5,
     user: {
       avatarUrl: 'img/avatar-max.jpg',
       id: 4,

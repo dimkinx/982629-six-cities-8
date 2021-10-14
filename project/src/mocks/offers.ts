@@ -11,9 +11,9 @@ const offers: OfferType[] = [
       },
       name: 'Amsterdam',
     },
-    description: 'A quiet cozy and picturesque that hides behind a river by the unique lightness of Amsterdam.' +
-      'The building is green and from 18th century.' +
-      'An independent House, strategically located between Rembrand Square and National Opera,' +
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. ' +
+      'The building is green and from 18th century. \n'+
+      'An independent House, strategically located between Rembrand Square and National Opera, ' +
       'but where the bustle of the city comes to rest in this alley flowery and colorful.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
@@ -48,7 +48,10 @@ const offers: OfferType[] = [
       },
       name: 'Dusseldorf',
     },
-    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    description: 'This place is ideal for creativity, work, romantic family holidays for two. ' +
+      'The house has everything you need, including two very important cats. \n' +
+      'Near the house there is a beautiful Orthodox church with regular services, ' +
+      'as well as a forest with routes for walking and sports.',
     goods: ['Wi-Fi', 'Cable TV', 'Kitchen', 'Washing machine', 'Dishwasher'],
     host: {
       avatarUrl: 'img/avatar-angelina.jpg',
@@ -82,7 +85,11 @@ const offers: OfferType[] = [
       },
       name: 'Amsterdam',
     },
-    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    description: 'Guests will enjoy private bedroom/bathroom as well as living areas. ' +
+      'Incredibly comfortable bed with memorary foam topper, pottery barn sheets and duvet.\n' +
+      'Enjoy fresh breakfast each morning as well as delicious snacks throughout your stay. \n' +
+      'Wonderful coffee shops and restaurants close by. All kitchen items needed for cooking provided by host. ' +
+      'Bathrooms stocked with luxury shampoos, conditioners, bath products and more.',
     goods: ['Towels', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
       avatarUrl: 'img/avatar-angelina.jpg',
@@ -116,7 +123,10 @@ const offers: OfferType[] = [
       },
       name: 'Paris',
     },
-    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    description: 'Have a glass of wine while enjoying Netflix on the comfortable sofa after exploring local culture.\n' +
+      'Pull the back the curtains after a restful night’s sleep and let light flood into this studio. ' +
+      'This central apartment makes excellent use of the space with a calming neutral palette and sleek finished ' +
+      'floors alongside thoughtful details.',
     goods: ['Kitchen', 'Heating', 'Cable TV', 'Dishwasher'],
     host: {
       avatarUrl: 'img/avatar-angelina.jpg',

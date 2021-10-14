@@ -1,7 +1,7 @@
 import Header from '../header/header';
 import FavoritesList from '../favorites-list/favorites-list';
 import Logo from '../logo/logo';
-import {LogoSize} from '../../const';
+import {LogoSize} from '../../common/const';
 import {OfferType, OfferListSittingsType} from '../../types/offer-types';
 
 type FavoritesScreenProps = {

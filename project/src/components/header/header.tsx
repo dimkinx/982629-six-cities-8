@@ -1,6 +1,6 @@
 import Logo from '../logo/logo';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute} from '../../common/const';
 
 function Header(): JSX.Element {
   return (

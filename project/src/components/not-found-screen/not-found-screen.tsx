@@ -1,5 +1,5 @@
 import {useHistory, useLocation} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute} from '../../common/const';
 import './style.scss';
 
 function NotFoundScreen(): JSX.Element {
