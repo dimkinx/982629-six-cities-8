@@ -6,13 +6,13 @@ import FavoritesScreen from '../favorites-screen/favorites-screen';
 import OfferScreen from '../offer-screen/offer-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import {AppRoute, AuthorizationStatus, OfferListSettings} from '../../common/const';
-import {OfferType} from '../../types/offer-types';
-import {ReviewType} from '../../types/review-types';
+import {AppRoute, AuthorizationStatus} from '../../common/const';
+import {Offer} from '../../types/offer-types';
+import {Review} from '../../types/review-types';
 
 type AppProps = {
-  offers: OfferType[];
-  reviews: ReviewType[];
+  offers: Offer[];
+  reviews: Review[];
 }
 
 function App({offers, reviews}: AppProps): JSX.Element {
@@ -21,7 +21,6 @@ function App({offers, reviews}: AppProps): JSX.Element {
       <Switch>
         <Route exact path={AppRoute.MainScreen}>
           <MainScreen
-            offerListSittings={OfferListSettings.Main}
             offers={offers}
           />
         </Route>
@@ -33,7 +32,6 @@ function App({offers, reviews}: AppProps): JSX.Element {
           path={AppRoute.FavoritesScreen}
           render={() => (
             <FavoritesScreen
-              offerListSittings={OfferListSettings.Favorites}
               offers={offers}
             />
           )}
@@ -41,7 +39,6 @@ function App({offers, reviews}: AppProps): JSX.Element {
         />
         <Route exact path={AppRoute.OfferScreen}>
           <OfferScreen
-            offerListSittings={OfferListSettings.Near}
             offers={offers}
             reviews={reviews}
           />

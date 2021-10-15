@@ -1,6 +1,6 @@
-import {OfferType} from '../types/offer-types';
+import {Offer} from '../types/offer-types';
 
-const offers: OfferType[] = [
+const offers: Offer[] = [
   {
     bedrooms: 3,
     city: {

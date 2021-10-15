@@ -1,26 +1,26 @@
 import {useState} from 'react';
 import OfferCard from '../offer-card/offer-card';
-import {OfferType, OfferListSittingsType} from '../../types/offer-types';
+import {Offer} from '../../types/offer-types';
 
 type OfferListProps = {
-  offerListSittings: OfferListSittingsType;
-  offers: OfferType[];
+  offers: Offer[];
+  offerType: string;
 }
 
-function OfferList({offerListSittings, offers}: OfferListProps): JSX.Element {
+function OfferList({offers, offerType}: OfferListProps): JSX.Element {
   const [activeCardId, setActiveCardId] = useState<null | number>(null);
 
   // eslint-disable-next-line no-console
   console.log(activeCardId);
 
   return (
-    <div className={offerListSittings.ListClassName}>
+    <div className={`${offerType === 'cities' ? `${offerType}__places-list tabs__content` : `${offerType}__list`} places__list`}>
       {offers.map((offer) => (
         <OfferCard
-          key={offer.id.toString()}
-          offerListSittings={offerListSittings}
+          key={offer.id}
           offer={offer}
-          setActiveCardId={setActiveCardId}
+          offerType={offerType}
+          onActiveCardIdSelect={setActiveCardId}
         />
       ))}
     </div>

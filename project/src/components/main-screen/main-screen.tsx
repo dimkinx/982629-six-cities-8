@@ -1,13 +1,13 @@
 import Header from '../header/header';
 import OfferList from '../offer-list/offer-list';
-import {OfferType, OfferListSittingsType} from '../../types/offer-types';
+import {Offer} from '../../types/offer-types';
+import {OfferType} from '../../common/const';
 
 type MainScreenProps = {
-  offerListSittings: OfferListSittingsType;
-  offers: OfferType[];
+  offers: Offer[];
 }
 
-function MainScreen({offerListSittings, offers}: MainScreenProps): JSX.Element {
+function MainScreen({offers}: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -71,8 +71,8 @@ function MainScreen({offerListSittings, offers}: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <OfferList
-                offerListSittings={offerListSittings}
                 offers={offers}
+                offerType={OfferType.Main}
               />
             </section>
             <div className="cities__right-section">

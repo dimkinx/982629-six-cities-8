@@ -1,6 +1,6 @@
-import {ReviewType} from '../types/review-types';
+import {Review} from '../types/review-types';
 
-const reviews: ReviewType[] = [
+const reviews: Review[] = [
   {
     comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
     date: '2019-05-08T14:13:56.569Z',

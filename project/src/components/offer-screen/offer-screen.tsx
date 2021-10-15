@@ -5,16 +5,16 @@ import ReviewForm from '../review-form/review-form';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {addClassModifier, getRatingPercentage, getStatefulItems} from '../../common/utils';
 import {getDateForHuman, getDateForRobot} from '../../common/date-time-utils';
-import {OfferListSittingsType, OfferType} from '../../types/offer-types';
-import {ReviewType} from '../../types/review-types';
+import {Offer} from '../../types/offer-types';
+import {Review} from '../../types/review-types';
+import {OfferType} from '../../common/const';
 
 type OfferScreenProps = {
-  offerListSittings: OfferListSittingsType;
-  offers: OfferType[];
-  reviews: ReviewType[];
+  offers: Offer[];
+  reviews: Review[];
 }
 
-function OfferScreen({offerListSittings, offers, reviews}: OfferScreenProps): JSX.Element {
+function OfferScreen({offers, reviews}: OfferScreenProps): JSX.Element {
   const {id} = useParams() as {id: string};
   const property = offers.find((offer) => offer.id.toString() === id);
 
@@ -39,7 +39,7 @@ function OfferScreen({offerListSittings, offers, reviews}: OfferScreenProps): JS
             <div className="property__gallery">
               {statefulImages.map((image) => (
                 <div
-                  key={image.id.toString()}
+                  key={image.id}
                   className="property__image-wrapper"
                 >
                   <img
@@ -99,7 +99,7 @@ function OfferScreen({offerListSittings, offers, reviews}: OfferScreenProps): JS
                 <ul className="property__inside-list">
                   {statefulGoods.map((good) => (
                     <li
-                      key={good.id.toString()}
+                      key={good.id}
                       className="property__inside-item"
                     >
                       {good.name}
@@ -188,8 +188,8 @@ function OfferScreen({offerListSittings, offers, reviews}: OfferScreenProps): JS
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <OfferList
-              offerListSittings={offerListSittings}
-              offers={offers.slice(0, offerListSittings.MaxCount)}
+              offers={offers.slice(0, 3)}
+              offerType={OfferType.Near}
             />
           </section>
         </div>

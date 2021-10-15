@@ -2,14 +2,13 @@ import Header from '../header/header';
 import FavoritesList from '../favorites-list/favorites-list';
 import Logo from '../logo/logo';
 import {LogoSize} from '../../common/const';
-import {OfferType, OfferListSittingsType} from '../../types/offer-types';
+import {Offer} from '../../types/offer-types';
 
 type FavoritesScreenProps = {
-  offerListSittings: OfferListSittingsType;
-  offers: OfferType[];
+  offers: Offer[];
 }
 
-function FavoritesScreen({offerListSittings, offers}: FavoritesScreenProps): JSX.Element {
+function FavoritesScreen({offers}: FavoritesScreenProps): JSX.Element {
   return (
     <div className="page">
       <Header />
@@ -19,7 +18,6 @@ function FavoritesScreen({offerListSittings, offers}: FavoritesScreenProps): JSX
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <FavoritesList
-              offerListSittings={offerListSittings}
               offers={offers}
             />
           </section>

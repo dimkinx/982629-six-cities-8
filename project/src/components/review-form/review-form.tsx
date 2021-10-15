@@ -16,7 +16,7 @@ function ReviewForm(): JSX.Element {
 
   const handleFieldChange = (evt: {target: HTMLInputElement | HTMLTextAreaElement}) => {
     const {name, value} = evt.target;
-    setState({...state, [name]: value});
+    setState({...state, [name]: name === 'rating' ? +value : value});
   };
 
   useEffect(() => {
@@ -28,31 +28,27 @@ function ReviewForm(): JSX.Element {
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {statefulRatings.map((rating) => {
-          const ratingValue = rating.id + 1;
-
-          return (
-            <Fragment key={rating.id}>
-              <input
-                onChange={handleFieldChange}
-                className="form__rating-input visually-hidden"
-                name="rating"
-                value={ratingValue}
-                id={`${ratingValue}-stars`}
-                type="radio"
-              />
-              <label
-                htmlFor={`${ratingValue}-stars`}
-                className="reviews__rating-label form__rating-label"
-                title={rating.title}
-              >
-                <svg className="form__star-image" width="37" height="33">
-                  <use xlinkHref="#icon-star" />
-                </svg>
-              </label>
-            </Fragment>
-          );
-        })}
+        {statefulRatings.map((rating) => (
+          <Fragment key={rating.id}>
+            <input
+              onChange={handleFieldChange}
+              className="form__rating-input visually-hidden"
+              name="rating"
+              value={+rating.id + 1}
+              id={`${+rating.id + 1}-stars`}
+              type="radio"
+            />
+            <label
+              htmlFor={`${+rating.id + 1}-stars`}
+              className="reviews__rating-label form__rating-label"
+              title={rating.title}
+            >
+              <svg className="form__star-image" width="37" height="33">
+                <use xlinkHref="#icon-star" />
+              </svg>
+            </label>
+          </Fragment>
+        ))}
       </div>
       <textarea
         onChange={handleFieldChange}
