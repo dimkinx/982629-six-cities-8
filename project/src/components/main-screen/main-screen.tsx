@@ -1,13 +1,17 @@
+import {useState} from 'react';
 import Header from '../header/header';
 import OfferList from '../offer-list/offer-list';
-import {Offer} from '../../types/offer-types';
+import Map from '../map/map';
 import {OfferType} from '../../common/const';
+import {Offer} from '../../types/offer-types';
 
 type MainScreenProps = {
   offers: Offer[];
 }
 
 function MainScreen({offers}: MainScreenProps): JSX.Element {
+  const [activeCardId, setActiveCardId] = useState<null | number>(null);
+
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -73,10 +77,14 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
               <OfferList
                 offers={offers}
                 offerType={OfferType.Main}
+                onActiveCardIdSelect={setActiveCardId}
               />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <Map
+                offers={offers}
+                activeCardId={activeCardId}
+              />
             </div>
           </div>
         </div>
