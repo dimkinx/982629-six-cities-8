@@ -9,7 +9,7 @@ const ratings = [
   'perfect',
 ];
 
-function ReviewForm(): JSX.Element {
+function ReviewsForm(): JSX.Element {
   const [state, setState] = useState({rating: 0, review: ''});
 
   const statefulRatings = getStatefulItems(ratings, 'title').reverse();
@@ -69,4 +69,4 @@ function ReviewForm(): JSX.Element {
   );
 }
 
-export default ReviewForm;
+export default ReviewsForm;

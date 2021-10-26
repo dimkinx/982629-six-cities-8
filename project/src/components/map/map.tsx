@@ -5,8 +5,9 @@ import useMap from '../../hooks/use-map';
 import {Offer} from '../../types/offer-types';
 
 type MapProps = {
+  className: string;
   offers: Offer[];
-  activeCardId: null | number;
+  activeCardId?: null | number;
 }
 
 const defaultCustomIcon = new Icon({
@@ -21,7 +22,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [13, 39],
 });
 
-function Map({offers, activeCardId}: MapProps): JSX.Element {
+function Map({className, offers, activeCardId}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, offers[0].city.location);
 
@@ -46,7 +47,7 @@ function Map({offers, activeCardId}: MapProps): JSX.Element {
 
   return (
     <section
-      className="cities__map map"
+      className={`${className} map`}
       ref={mapRef}
     />
   );
