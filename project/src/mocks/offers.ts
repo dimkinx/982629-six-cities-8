@@ -5,8 +5,8 @@ const offers: Offer[] = [
     bedrooms: 3,
     city: {
       location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
+        latitude: 52.383330,
+        longitude: 4.900000,
         zoom: 10,
       },
       name: 'Amsterdam',
@@ -27,8 +27,8 @@ const offers: Offer[] = [
     isFavorite: false,
     isPremium: true,
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 8,
     },
     maxAdults: 4,
@@ -42,11 +42,11 @@ const offers: Offer[] = [
     bedrooms: 2,
     city: {
       location: {
-        latitude: 52.370217,
-        longitude: 4.895169,
+        latitude: 52.383330,
+        longitude: 4.900000,
         zoom: 10,
       },
-      name: 'Dusseldorf',
+      name: 'Amsterdam',
     },
     description: 'This place is ideal for creativity, work, romantic family holidays for two. ' +
       'The house has everything you need, including two very important cats. \n' +
@@ -64,8 +64,8 @@ const offers: Offer[] = [
     isFavorite: true,
     isPremium: false,
     location: {
-      latitude: 52.45514938496378,
-      longitude: 4.773877537499948,
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198,
       zoom: 8,
     },
     maxAdults: 2,
@@ -79,8 +79,8 @@ const offers: Offer[] = [
     bedrooms: 1,
     city: {
       location: {
-        latitude: 52.470216,
-        longitude: 4.995168,
+        latitude: 52.383330,
+        longitude: 4.900000,
         zoom: 10,
       },
       name: 'Amsterdam',
@@ -102,8 +102,8 @@ const offers: Offer[] = [
     isFavorite: true,
     isPremium: true,
     location: {
-      latitude: 52.36514938496378,
-      longitude: 4.683877537499948,
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
       zoom: 8,
     },
     maxAdults: 2,
@@ -117,11 +117,11 @@ const offers: Offer[] = [
     bedrooms: 3,
     city: {
       location: {
-        latitude: 52.380216,
-        longitude: 4.896168,
+        latitude: 52.383330,
+        longitude: 4.900000,
         zoom: 10,
       },
-      name: 'Paris',
+      name: 'Amsterdam',
     },
     description: 'Have a glass of wine while enjoying Netflix on the comfortable sofa after exploring local culture.\n' +
       'Pull the back the curtains after a restful night’s sleep and let light flood into this studio. ' +
@@ -139,8 +139,8 @@ const offers: Offer[] = [
     isFavorite: false,
     isPremium: false,
     location: {
-      latitude: 52.35524938496378,
-      longitude: 4.673887537499948,
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
       zoom: 8,
     },
     maxAdults: 6,
