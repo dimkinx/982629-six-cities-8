@@ -82,6 +82,7 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
             </section>
             <div className="cities__right-section">
               <Map
+                className={'cities__map'}
                 offers={offers}
                 activeCardId={activeCardId}
               />

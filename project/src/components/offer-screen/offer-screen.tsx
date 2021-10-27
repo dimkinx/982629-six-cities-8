@@ -1,10 +1,11 @@
 import {useParams} from 'react-router-dom';
 import Header from '../header/header';
 import OfferList from '../offer-list/offer-list';
-import ReviewForm from '../review-form/review-form';
+import ReviewsList from '../reviews-list/reviews-list';
+import ReviewsForm from '../reviews-form/reviews-form';
+import Map from '../map/map';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {addClassModifier, getRatingPercentage, getStatefulItems} from '../../common/utils';
-import {getDateForHuman, getDateForRobot} from '../../common/date-time-utils';
 import {Offer} from '../../types/offer-types';
 import {Review} from '../../types/review-types';
 import {OfferType} from '../../common/const';
@@ -135,54 +136,17 @@ function OfferScreen({offers, reviews}: OfferScreenProps): JSX.Element {
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ul className="reviews__list">
-                  {reviews.map((review) => {
-                    const {comment, date: reviewDate, id: reviewId, rating: reviewRating, user: {avatarUrl: reviewUserAvatarUrl, name: reviewUserName}} = review;
-                    return (
-                      <li
-                        key={reviewId}
-                        className="reviews__item"
-                      >
-                        <div className="reviews__user user">
-                          <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                            <img
-                              className="reviews__avatar user__avatar"
-                              src={reviewUserAvatarUrl}
-                              width="54"
-                              height="54"
-                              alt="Reviews avatar"
-                            />
-                          </div>
-                          <span className="reviews__user-name">
-                            {reviewUserName}
-                          </span>
-                        </div>
-                        <div className="reviews__info">
-                          <div className="reviews__rating rating">
-                            <div className="reviews__stars rating__stars">
-                              <span style={{width: getRatingPercentage(reviewRating)}} />
-                              <span className="visually-hidden">Rating</span>
-                            </div>
-                          </div>
-                          <p className="reviews__text">
-                            {comment}
-                          </p>
-                          <time
-                            className="reviews__time"
-                            dateTime={getDateForRobot(reviewDate)}
-                          >
-                            {getDateForHuman(reviewDate)}
-                          </time>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-                <ReviewForm />
+                <ReviewsList
+                  reviews={reviews}
+                />
+                <ReviewsForm />
               </section>
             </div>
           </div>
-          <section className="property__map map" />
+          <Map
+            className={'property__map'}
+            offers={offers.slice(0, 3)}
+          />
         </section>
         <div className="container">
           <section className="near-places places">
