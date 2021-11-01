@@ -1,5 +1,5 @@
 import {MAX_NUMBER_STARS} from './const';
-import {Offer} from '../types/offer-types';
+import {Offer} from '../types/offer';
 
 const addClassModifier = (predicate: boolean, className: string, modifier = 'active'): string => predicate
   ? `${className} ${className}--${modifier}`

@@ -2,7 +2,7 @@ import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {useEffect, useRef} from 'react';
 import useMap from '../../hooks/use-map';
-import {Offer} from '../../types/offer-types';
+import {Offer} from '../../types/offer';
 
 type MapProps = {
   className: string;

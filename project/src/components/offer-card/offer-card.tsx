@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../common/const';
 import {addClassModifier, getRatingPercentage} from '../../common/utils';
-import {Offer} from '../../types/offer-types';
+import {Offer} from '../../types/offer';
 
 type OfferCardProps = {
   offer: Offer;

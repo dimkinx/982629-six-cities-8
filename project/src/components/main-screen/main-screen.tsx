@@ -3,7 +3,7 @@ import Header from '../header/header';
 import OfferList from '../offer-list/offer-list';
 import Map from '../map/map';
 import {OfferType} from '../../common/const';
-import {Offer} from '../../types/offer-types';
+import {Offer} from '../../types/offer';
 
 type MainScreenProps = {
   offers: Offer[];
@@ -82,7 +82,7 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
             </section>
             <div className="cities__right-section">
               <Map
-                className={'cities__map'}
+                className="cities__map"
                 offers={offers}
                 activeCardId={activeCardId}
               />

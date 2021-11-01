@@ -6,8 +6,8 @@ import ReviewsForm from '../reviews-form/reviews-form';
 import Map from '../map/map';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {addClassModifier, getRatingPercentage, getStatefulItems} from '../../common/utils';
-import {Offer} from '../../types/offer-types';
-import {Review} from '../../types/review-types';
+import {Offer} from '../../types/offer';
+import {Review} from '../../types/review';
 import {OfferType} from '../../common/const';
 
 type OfferScreenProps = {
@@ -144,7 +144,7 @@ function OfferScreen({offers, reviews}: OfferScreenProps): JSX.Element {
             </div>
           </div>
           <Map
-            className={'property__map'}
+            className="property__map"
             offers={offers.slice(0, 3)}
           />
         </section>
