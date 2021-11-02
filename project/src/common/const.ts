@@ -25,10 +25,24 @@ const AuthorizationStatus = {
   NoAuth: 'NO_AUTH',
 } as const;
 
-const OfferType = {
-  Main: 'cities',
-  Near: 'near-places',
-  Favorites: 'favorites',
-} as const;
+const enum OfferType {
+  Main = 'cities',
+  Near = 'near-places',
+  Favorites = 'favorites',
+}
 
-export {MAX_NUMBER_STARS, LogoSize, AppRoute, AuthorizationStatus, OfferType};
+const enum ActionType {
+  SetCity = 'main/setCity',
+  SetOffers = 'main/setOffers',
+}
+
+enum CityType {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
+}
+
+export {MAX_NUMBER_STARS, LogoSize, AppRoute, AuthorizationStatus, OfferType, ActionType, CityType};

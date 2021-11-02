@@ -1,6 +1,6 @@
 import {getRatingPercentage} from '../../common/utils';
 import {getDateForHuman, getDateForRobot} from '../../common/date-time-utils';
-import {Review} from '../../types/review-types';
+import {Review} from '../../types/review';
 
 type ReviewsItemProps = {
   review: Review;

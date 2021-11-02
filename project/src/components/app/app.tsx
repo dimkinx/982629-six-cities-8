@@ -7,8 +7,8 @@ import OfferScreen from '../offer-screen/offer-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import {AppRoute, AuthorizationStatus} from '../../common/const';
-import {Offer} from '../../types/offer-types';
-import {Review} from '../../types/review-types';
+import {Offer} from '../../types/offer';
+import {Review} from '../../types/review';
 
 type AppProps = {
   offers: Offer[];
@@ -20,9 +20,7 @@ function App({offers, reviews}: AppProps): JSX.Element {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MainScreen}>
-          <MainScreen
-            offers={offers}
-          />
+          <MainScreen />;
         </Route>
         <Route exact path={AppRoute.LoginScreen}>
           <LoginScreen />

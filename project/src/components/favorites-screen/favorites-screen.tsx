@@ -2,7 +2,7 @@ import Header from '../header/header';
 import FavoritesList from '../favorites-list/favorites-list';
 import Logo from '../logo/logo';
 import {LogoSize} from '../../common/const';
-import {Offer} from '../../types/offer-types';
+import {Offer} from '../../types/offer';
 
 type FavoritesScreenProps = {
   offers: Offer[];
