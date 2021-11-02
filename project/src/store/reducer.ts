@@ -1,10 +1,11 @@
-import {ActionType, CityType} from '../common/const';
+import {ActionType, CityType, SortingType} from '../common/const';
 import {State} from '../types/state';
 import {Actions} from '../types/actions';
 
 const initialState = {
   city: CityType.Paris,
   offers: [],
+  sort: SortingType.Popular,
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
@@ -14,6 +15,9 @@ const reducer = (state: State = initialState, action: Actions): State => {
     }
     case ActionType.SetOffers: {
       return {...state, offers: action.payload};
+    }
+    case ActionType.SetSorting: {
+      return {...state, sort: action.payload};
     }
     default: {
       return state;

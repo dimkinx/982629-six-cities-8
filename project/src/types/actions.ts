@@ -1,4 +1,4 @@
-import {ActionType, CityType} from '../common/const';
+import {ActionType, CityType, SortingType} from '../common/const';
 import {Offer} from './offer';
 
 type SetCity = {
@@ -11,6 +11,14 @@ type SetOffers = {
   payload: Offer[],
 };
 
-type Actions = SetCity | SetOffers;
+type SetSorting = {
+  type: ActionType.SetSorting,
+  payload: SortingType,
+};
 
-export type {SetCity, SetOffers, Actions};
+type Actions =
+  | SetCity
+  | SetOffers
+  | SetSorting;
+
+export type {SetCity, SetOffers, SetSorting, Actions};
