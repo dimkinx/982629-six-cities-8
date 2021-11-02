@@ -1,9 +1,10 @@
 import OfferCard from '../offer-card/offer-card';
 import {Offer} from '../../types/offer';
+import {OfferType} from '../../common/const';
 
 type OfferListProps = {
   offers: Offer[];
-  offerType: string;
+  offerType: OfferType;
   onActiveCardIdSelect?: (id: null | number) => void;
 }
 

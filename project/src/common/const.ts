@@ -36,7 +36,7 @@ const enum ActionType {
   SetOffers = 'main/setOffers',
 }
 
-const enum CityType {
+enum CityType {
   Paris = 'Paris',
   Cologne = 'Cologne',
   Brussels = 'Brussels',

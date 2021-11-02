@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {createStore} from '@reduxjs/toolkit';
 import {reducer} from './store/reducer';
+import {setOffers} from './store/actions';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
@@ -12,6 +13,8 @@ const store = createStore(
   reducer,
   composeWithDevTools(),
 );
+
+store.dispatch(setOffers(offers));
 
 ReactDOM.render(
   <React.StrictMode>

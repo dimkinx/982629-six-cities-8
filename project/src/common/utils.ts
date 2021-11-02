@@ -1,4 +1,4 @@
-import {MAX_NUMBER_STARS} from './const';
+import {CityType, MAX_NUMBER_STARS} from './const';
 import {Offer} from '../types/offer';
 
 const addClassModifier = (predicate: boolean, className: string, modifier = 'active'): string => predicate
@@ -15,4 +15,8 @@ const getStatefulItems = (items: string[], itemValueName: string): {id: string; 
   items.map((item, index) => ({id: index.toString(), [itemValueName]: item}))
 );
 
-export {addClassModifier, getRatingPercentage, getOfferCities, getStatefulItems};
+const getOffersByCity = (offers: Offer[], city: CityType): Offer[] => (
+  offers.filter((offer: Offer) => offer.city.name === city)
+);
+
+export {addClassModifier, getRatingPercentage, getOfferCities, getStatefulItems, getOffersByCity};
