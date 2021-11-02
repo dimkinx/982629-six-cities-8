@@ -8,7 +8,7 @@ type SetCity = {
 
 type SetOffers = {
   type: ActionType.SetOffers,
-  payload: Offer[] | [],
+  payload: Offer[],
 };
 
 type Actions = SetCity | SetOffers;

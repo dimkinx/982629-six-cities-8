@@ -9,12 +9,15 @@ const initialState = {
 
 const reducer = (state: State = initialState, action: Actions): State => {
   switch (action.type) {
-    case ActionType.SetCity:
+    case ActionType.SetCity: {
       return {...state, city: action.payload};
-    case ActionType.SetOffers:
+    }
+    case ActionType.SetOffers: {
       return {...state, offers: action.payload};
-    default:
+    }
+    default: {
       return state;
+    }
   }
 };
 

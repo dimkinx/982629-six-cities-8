@@ -17,9 +17,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function MainScreenTabs(props: PropsFromRedux): JSX.Element {
+function MainScreenTabs(props: ConnectedProps<typeof connector>): JSX.Element {
   const {city: currentCity, onLinkClick} = props;
 
   const handleLinkClick = (evt: React.MouseEvent<HTMLAnchorElement>, city: CityType) => {
