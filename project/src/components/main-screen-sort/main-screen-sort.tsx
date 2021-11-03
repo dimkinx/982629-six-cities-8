@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {Dispatch} from '@reduxjs/toolkit';
 import {connect, ConnectedProps} from 'react-redux';
 import {setSorting} from '../../store/actions';
@@ -22,11 +22,11 @@ function MainScreenSort(props: ConnectedProps<typeof connector>): JSX.Element {
   const [isSortingOpen, setIsSortingOpen] = useState(false);
 
   const handleSortingTypeClick = () => {
-    setIsSortingOpen(!isSortingOpen);
+    setIsSortingOpen(true);
   };
 
-  const handleSortingOptionClick = (sort: SortingType) => {
-    onItemClick(sort);
+  const handleSortingOptionClick = (evt: React.MouseEvent<HTMLElement>) => {
+    onItemClick((evt.target as HTMLElement).innerText as SortingType);
     setIsSortingOpen(false);
   };
 
@@ -50,7 +50,7 @@ function MainScreenSort(props: ConnectedProps<typeof connector>): JSX.Element {
         {Object.values(SortingType).map((sort) => (
           <li
             key={sort}
-            onClick={() => handleSortingOptionClick(sort)}
+            onClick={handleSortingOptionClick}
             className={addClassModifier(sort === currentSort, 'places__option')}
             tabIndex={0}
           >

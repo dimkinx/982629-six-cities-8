@@ -20,9 +20,9 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 function MainScreenTabs(props: ConnectedProps<typeof connector>): JSX.Element {
   const {city: currentCity, onLinkClick} = props;
 
-  const handleLinkClick = (evt: React.MouseEvent<HTMLAnchorElement>, city: CityType) => {
+  const handleLinkClick = (evt: React.MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
-    onLinkClick(city);
+    onLinkClick((evt.target as HTMLAnchorElement).innerText as CityType);
   };
 
   return (
@@ -35,7 +35,7 @@ function MainScreenTabs(props: ConnectedProps<typeof connector>): JSX.Element {
               className="locations__item"
             >
               <a
-                onClick={(evt) => handleLinkClick(evt, city)}
+                onClick={handleLinkClick}
                 className={`${addClassModifier(city === currentCity, 'tabs__item')} locations__item-link`}
                 href="/"
               >
