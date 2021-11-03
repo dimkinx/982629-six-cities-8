@@ -1,9 +1,10 @@
-import {CityType} from '../common/const';
+import {CityType, SortingType} from '../common/const';
 import {Offer} from './offer';
 
 type State = {
   city: CityType,
-  offers: Offer[] | [],
+  offers: Offer[],
+  sort: SortingType,
 };
 
 export type {State};

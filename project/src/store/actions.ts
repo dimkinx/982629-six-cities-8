@@ -1,6 +1,6 @@
-import {ActionType, CityType} from '../common/const';
+import {ActionType, CityType, SortingType} from '../common/const';
+import {SetCity, SetOffers, SetSorting} from '../types/actions';
 import {Offer} from '../types/offer';
-import {SetCity, SetOffers} from '../types/actions';
 
 const setCity = (city: CityType): SetCity => ({
   type: ActionType.SetCity,
@@ -12,4 +12,9 @@ const setOffers = (offers: Offer[]): SetOffers => ({
   payload: offers,
 });
 
-export {setCity, setOffers};
+const setSorting = (sorting: SortingType): SetSorting => ({
+  type: ActionType.SetSorting,
+  payload: sorting,
+});
+
+export {setCity, setOffers, setSorting};

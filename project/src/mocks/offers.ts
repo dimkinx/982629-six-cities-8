@@ -146,7 +146,7 @@ const offers: Offer[] = [
     maxAdults: 6,
     previewImage: 'img/apartment-03.jpg',
     price: 160,
-    rating: 1.9,
+    rating: 4.9,
     title: 'Nice, cozy, warm big bed apartment',
     type: 'apartment',
   },

@@ -34,6 +34,7 @@ const enum OfferType {
 const enum ActionType {
   SetCity = 'main/setCity',
   SetOffers = 'main/setOffers',
+  SetSorting = 'main/setSorting',
 }
 
 enum CityType {
@@ -45,4 +46,11 @@ enum CityType {
   Dusseldorf = 'Dusseldorf',
 }
 
-export {MAX_NUMBER_STARS, LogoSize, AppRoute, AuthorizationStatus, OfferType, ActionType, CityType};
+enum SortingType {
+  Popular = 'Popular',
+  LowToHigh = 'Price: low to high',
+  HighToLow = 'Price: high to low',
+  Rating = 'Top rated first',
+}
+
+export {MAX_NUMBER_STARS, LogoSize, AppRoute, AuthorizationStatus, OfferType, ActionType, CityType, SortingType};
