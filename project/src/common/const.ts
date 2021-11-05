@@ -20,10 +20,17 @@ const AppRoute = {
   NotFoundScreen: '/404',
 } as const;
 
-const AuthorizationStatus = {
-  Auth: 'AUTH',
-  NoAuth: 'NO_AUTH',
+const APIRoute = {
+  Offers: '/hotels',
+  Login: '/login',
+  Logout: '/logout',
 } as const;
+
+const enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
 
 const enum OfferType {
   Main = 'cities',
@@ -33,8 +40,10 @@ const enum OfferType {
 
 const enum ActionType {
   SetCity = 'main/setCity',
-  SetOffers = 'main/setOffers',
   SetSorting = 'main/setSorting',
+  LoadOffers = 'data/loadOffers',
+  RequireAuthorization = 'user/requireAuthorization',
+  RequireLogout = 'user/requireLogout',
 }
 
 enum CityType {
@@ -53,4 +62,14 @@ enum SortingType {
   Rating = 'Top rated first',
 }
 
-export {MAX_NUMBER_STARS, LogoSize, AppRoute, AuthorizationStatus, OfferType, ActionType, CityType, SortingType};
+export {
+  MAX_NUMBER_STARS,
+  LogoSize,
+  AppRoute,
+  APIRoute,
+  AuthorizationStatus,
+  OfferType,
+  ActionType,
+  CityType,
+  SortingType
+};
