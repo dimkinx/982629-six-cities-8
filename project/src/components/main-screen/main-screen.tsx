@@ -45,7 +45,7 @@ function MainScreen(props: ConnectedProps<typeof connector>): JSX.Element {
               <div className="cities__right-section">
                 <Map
                   className="cities__map"
-                  cityLocation={currentOffers[0].city.location}
+                  cityLocation={(currentOffers.length !== 0) ? currentOffers[0].city.location : undefined}
                   offers={sortedOffers}
                   activeCardId={activeCardId}
                 />

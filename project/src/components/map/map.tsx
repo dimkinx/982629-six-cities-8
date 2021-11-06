@@ -6,7 +6,7 @@ import {Location, Offer} from '../../types/offer';
 
 type MapProps = {
   className: string;
-  cityLocation: Location;
+  cityLocation: Location | undefined;
   offers: Offer[];
   activeCardId?: null | number;
 }
@@ -44,13 +44,15 @@ function Map({className, cityLocation, offers, activeCardId}: MapProps): JSX.Ele
           .addTo(map);
       });
 
-      map.setView(
-        [
-          cityLocation.latitude,
-          cityLocation.longitude,
-        ],
-        cityLocation.zoom,
-      );
+      if (cityLocation) {
+        map.setView(
+          [
+            cityLocation.latitude,
+            cityLocation.longitude,
+          ],
+          cityLocation.zoom,
+        );
+      }
     }
   }, [map, cityLocation, offers, activeCardId]);
 
