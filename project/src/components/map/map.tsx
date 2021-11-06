@@ -2,10 +2,11 @@ import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {useEffect, useRef} from 'react';
 import useMap from '../../hooks/use-map';
-import {Offer} from '../../types/offer';
+import {Location, Offer} from '../../types/offer';
 
 type MapProps = {
   className: string;
+  cityLocation: Location | undefined;
   offers: Offer[];
   activeCardId?: null | number;
 }
@@ -22,9 +23,9 @@ const currentCustomIcon = new Icon({
   iconAnchor: [13, 39],
 });
 
-function Map({className, offers, activeCardId}: MapProps): JSX.Element {
+function Map({className, cityLocation, offers, activeCardId}: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, offers[0].city.location);
+  const map = useMap(mapRef, cityLocation);
 
   useEffect(() => {
     if (map) {
@@ -42,8 +43,29 @@ function Map({className, offers, activeCardId}: MapProps): JSX.Element {
           )
           .addTo(map);
       });
+
+      if (cityLocation) {
+        map.setView(
+          [
+            cityLocation.latitude,
+            cityLocation.longitude,
+          ],
+          cityLocation.zoom,
+        );
+      }
+
+      if (activeCardId) {
+        const activeOffer: Offer | undefined = offers.find((offer) => offer.id === activeCardId);
+
+        activeOffer && map.panTo(
+          [
+            activeOffer.location.latitude,
+            activeOffer.location.longitude,
+          ],
+        );
+      }
     }
-  }, [map, offers, activeCardId]);
+  }, [map, cityLocation, offers, activeCardId]);
 
   return (
     <section

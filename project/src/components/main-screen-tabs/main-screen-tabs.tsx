@@ -1,47 +1,25 @@
-import React from 'react';
-import {Dispatch} from '@reduxjs/toolkit';
 import {connect, ConnectedProps} from 'react-redux';
-import {setCity} from '../../store/actions';
-import {Actions} from '../../types/actions';
 import {State} from '../../types/state';
 import {addClassModifier} from '../../common/utils';
 import {CityType} from '../../common/const';
+import MainScreenTabsItem from '../main-screen-tabs-item/main-screen-tabs-item';
 
 const mapStateToProps = ({city}: State) => ({city});
-
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  onLinkClick(city: CityType) {
-    dispatch(setCity(city));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps);
 
 function MainScreenTabs(props: ConnectedProps<typeof connector>): JSX.Element {
-  const {city: currentCity, onLinkClick} = props;
-
-  const handleLinkClick = (evt: React.MouseEvent<HTMLAnchorElement>, city: CityType) => {
-    evt.preventDefault();
-    onLinkClick(city);
-  };
+  const {city: currentCity} = props;
 
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
           {Object.values(CityType).map((city) => (
-            <li
+            <MainScreenTabsItem
               key={city}
-              className="locations__item"
-            >
-              <a
-                onClick={(evt) => handleLinkClick(evt, city)}
-                className={`${addClassModifier(city === currentCity, 'tabs__item')} locations__item-link`}
-                href="/"
-              >
-                <span>{city}</span>
-              </a>
-            </li>
+              city={city}
+              className={`${addClassModifier(city === currentCity, 'tabs__item')} locations__item-link`}
+            />
           ))}
         </ul>
       </section>

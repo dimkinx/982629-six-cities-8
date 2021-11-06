@@ -17,13 +17,13 @@ type OfferScreenProps = {
 
 function OfferScreen({offers, reviews}: OfferScreenProps): JSX.Element {
   const {id} = useParams() as {id: string};
-  const property = offers.find((offer) => offer.id.toString() === id);
+  const offer = offers.find((item) => item.id.toString() === id);
 
-  if (!property) {
+  if (!offer) {
     return <NotFoundScreen />;
   }
 
-  const {images, isPremium, title, isFavorite, rating, type, bedrooms, maxAdults, price, goods, description, host} = property;
+  const {images, isPremium, title, isFavorite, rating, type, bedrooms, maxAdults, price, goods, description, host} = offer;
   const {avatarUrl, isPro, name} = host;
 
   const statefulImages = getStatefulItems(images, 'src');
@@ -145,6 +145,7 @@ function OfferScreen({offers, reviews}: OfferScreenProps): JSX.Element {
           </div>
           <Map
             className="property__map"
+            cityLocation={offer.city.location}
             offers={offers.slice(0, 3)}
           />
         </section>

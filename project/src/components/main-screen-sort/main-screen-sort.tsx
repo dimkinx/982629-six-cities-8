@@ -1,33 +1,19 @@
-import {useState} from 'react';
-import {Dispatch} from '@reduxjs/toolkit';
+import React, {useState} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
-import {setSorting} from '../../store/actions';
-import {Actions} from '../../types/actions';
 import {State} from '../../types/state';
 import {addClassModifier} from '../../common/utils';
 import {SortingType} from '../../common/const';
+import MainScreenSortItem from '../main-screen-sort-item/main-screen-sort-item';
 
 const mapStateToProps = ({sort}: State) => ({sort});
-
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  onItemClick(sort: SortingType) {
-    dispatch(setSorting(sort));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps);
 
 function MainScreenSort(props: ConnectedProps<typeof connector>): JSX.Element {
-  const {sort: currentSort, onItemClick} = props;
+  const {sort: currentSort} = props;
   const [isSortingOpen, setIsSortingOpen] = useState(false);
 
   const handleSortingTypeClick = () => {
-    setIsSortingOpen(!isSortingOpen);
-  };
-
-  const handleSortingOptionClick = (sort: SortingType) => {
-    onItemClick(sort);
-    setIsSortingOpen(false);
+    setIsSortingOpen(true);
   };
 
   return (
@@ -48,14 +34,12 @@ function MainScreenSort(props: ConnectedProps<typeof connector>): JSX.Element {
         className={`${addClassModifier(isSortingOpen, 'places__options', 'opened')} places__options--custom`}
       >
         {Object.values(SortingType).map((sort) => (
-          <li
+          <MainScreenSortItem
             key={sort}
-            onClick={() => handleSortingOptionClick(sort)}
+            sort={sort}
             className={addClassModifier(sort === currentSort, 'places__option')}
-            tabIndex={0}
-          >
-            {sort}
-          </li>
+            onOpenedItemClick={setIsSortingOpen}
+          />
         ))}
       </ul>
     </form>
