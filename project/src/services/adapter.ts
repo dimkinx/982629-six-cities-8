@@ -1,30 +1,27 @@
 import {Offer, RawOffer} from '../types/offer';
 
-const adaptOfferToClient = (offer: RawOffer): Offer => {
-  const adaptedOffer = Object.assign(
-    {},
-    offer,
-    {
-      host: {
-        ...offer.host,
-        avatarUrl: offer.host.avatar_url,
-        isPro: offer.host.is_pro,
-      },
-      isFavorite: offer.is_favorite,
-      isPremium: offer.is_premium,
-      maxAdults: offer.max_adults,
-      previewImage: offer.preview_image,
-    },
-  );
-
-  delete adaptedOffer.host.avatar_url;
-  delete adaptedOffer.host.is_pro;
-  delete adaptedOffer.is_favorite;
-  delete adaptedOffer.is_premium;
-  delete adaptedOffer.max_adults;
-  delete adaptedOffer.preview_image;
-
-  return adaptedOffer as Offer;
-};
+const adaptOfferToClient = (rawOffer: RawOffer): Offer => ({
+  bedrooms: rawOffer.bedrooms,
+  city: rawOffer.city,
+  description: rawOffer.description,
+  goods: rawOffer.goods,
+  host: {
+    avatarUrl: rawOffer.host.avatar_url,
+    id: rawOffer.host.id,
+    isPro: rawOffer.host.is_pro,
+    name: rawOffer.host.name,
+  },
+  id: rawOffer.id,
+  images: rawOffer.images,
+  isFavorite: rawOffer.is_favorite,
+  isPremium: rawOffer.is_premium,
+  location: rawOffer.location,
+  maxAdults: rawOffer.max_adults,
+  previewImage: rawOffer.preview_image,
+  price: rawOffer.price,
+  rating: rawOffer.rating,
+  title: rawOffer.title,
+  type: rawOffer.type,
+});
 
 export {adaptOfferToClient};
