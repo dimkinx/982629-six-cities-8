@@ -4,11 +4,12 @@ import {saveToken, dropToken, Token} from '../services/token';
 import {APIRoute, AuthorizationStatus} from '../common/const';
 import {AuthData} from '../types/auth-data';
 import {Offer} from '../types/offer';
+import {adaptOfferToClient} from '../services/adapter';
 
 const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data} = await api.get<Offer[]>(APIRoute.Offers);
-    dispatch(loadOffers(data));
+    dispatch(loadOffers(data.map(adaptOfferToClient)));
   };
 
 const checkAuthAction = (): ThunkActionResult =>
