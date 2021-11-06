@@ -7,6 +7,7 @@ const initialState = {
   offers: [],
   sort: SortingType.Popular,
   authorizationStatus: AuthorizationStatus.Unknown,
+  isDataLoaded: false,
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
@@ -18,7 +19,11 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {...state, sort: action.payload};
     }
     case ActionType.LoadOffers: {
-      return {...state, offers: action.payload};
+      return {
+        ...state,
+        offers: action.payload,
+        isDataLoaded: true,
+      };
     }
     case ActionType.RequireAuthorization: {
       return {...state, authorizationStatus: action.payload};

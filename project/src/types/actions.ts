@@ -17,6 +17,7 @@ type SetSorting = {
 type LoadOffers = {
   type: ActionType.LoadOffers,
   payload: Offer[],
+  isDataLoaded: boolean,
 };
 
 type RequireAuthorization = {

@@ -15,6 +15,7 @@ const setSorting = (sorting: SortingType): SetSorting => ({
 const loadOffers = (offers: Offer[]): LoadOffers => ({
   type: ActionType.LoadOffers,
   payload: offers,
+  isDataLoaded: true,
 } as const);
 
 const requireAuthorization = (authStatus: AuthorizationStatus) => ({

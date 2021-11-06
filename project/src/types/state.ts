@@ -6,6 +6,7 @@ type State = {
   offers: Offer[],
   sort: SortingType,
   authorizationStatus: AuthorizationStatus,
+  isDataLoaded: boolean,
 };
 
 export type {State};
