@@ -1,5 +1,12 @@
-import {ActionType, AuthorizationStatus, CityType, SortingType} from '../common/const';
-import {SetCity, SetSorting, LoadOffers} from '../types/actions';
+import {ActionType, AuthorizationStatus, CityType, FetchStatus, SortingType} from '../common/const';
+import {
+  SetCity,
+  SetSorting,
+  LoadOffers,
+  LoadFavoriteOffers,
+  SetOffersFetchStatus,
+  SetFavoriteOffersFetchStatus
+} from '../types/actions';
 import {Offer} from '../types/offer';
 
 const setCity = (city: CityType): SetCity => ({
@@ -14,8 +21,30 @@ const setSorting = (sorting: SortingType): SetSorting => ({
 
 const loadOffers = (offers: Offer[]): LoadOffers => ({
   type: ActionType.LoadOffers,
-  payload: offers,
-  isDataLoaded: true,
+  payload: {
+    data: offers,
+  },
+} as const);
+
+const setOffersFetchStatus = (fetchStatus: FetchStatus): SetOffersFetchStatus => ({
+  type: ActionType.SetOffersFetchStatus,
+  payload: {
+    fetchStatus: fetchStatus,
+  },
+} as const);
+
+const loadFavoriteOffers = (favoriteOffers: Offer[]): LoadFavoriteOffers => ({
+  type: ActionType.LoadFavoriteOffers,
+  payload: {
+    data: favoriteOffers,
+  },
+} as const);
+
+const setFavoriteOffersFetchStatus = (fetchStatus: FetchStatus): SetFavoriteOffersFetchStatus => ({
+  type: ActionType.SetFavoriteOffersFetchStatus,
+  payload: {
+    fetchStatus: fetchStatus,
+  },
 } as const);
 
 const requireAuthorization = (authStatus: AuthorizationStatus) => ({
@@ -27,4 +56,12 @@ const requireLogout = () => ({
   type: ActionType.RequireLogout,
 } as const);
 
-export {setCity, setSorting, loadOffers, requireAuthorization, requireLogout};
+export {
+  setCity,
+  setSorting,
+  loadOffers,
+  setOffersFetchStatus,
+  loadFavoriteOffers,
+  setFavoriteOffersFetchStatus,
+  requireAuthorization,
+  requireLogout};

@@ -22,13 +22,26 @@ const AppRoute = {
 
 const APIRoute = {
   Offers: '/hotels',
+  FavoriteOffers: '/favorite',
   Login: '/login',
   Logout: '/logout',
+} as const;
+
+const ErrorMessage = {
+  FailLoadOffers: 'Failed to load rental places',
+  FailLoadFavoriteOffers: 'Failed to load saved places',
 } as const;
 
 const enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
+const enum FetchStatus {
+  Success = 'SUCCESS',
+  Fail = 'FAIL',
+  Loading = 'LOADING',
   Unknown = 'UNKNOWN',
 }
 
@@ -41,9 +54,12 @@ const enum OfferType {
 const enum ActionType {
   SetCity = 'main/setCity',
   SetSorting = 'main/setSorting',
-  LoadOffers = 'data/loadOffers',
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
+  LoadOffers = 'data/loadOffers',
+  SetOffersFetchStatus = 'data/setOffersFetchStatus',
+  LoadFavoriteOffers = 'data/loadFavoriteOffers',
+  SetFavoriteOffersFetchStatus = 'data/setFavoriteOffersFetchStatus',
 }
 
 enum CityType {
@@ -67,7 +83,9 @@ export {
   LogoSize,
   AppRoute,
   APIRoute,
+  ErrorMessage,
   AuthorizationStatus,
+  FetchStatus,
   OfferType,
   ActionType,
   CityType,

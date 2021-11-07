@@ -1,6 +1,6 @@
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {AxiosInstance} from 'axios';
-import {ActionType, AuthorizationStatus, CityType, SortingType} from '../common/const';
+import {ActionType, AuthorizationStatus, CityType, FetchStatus, SortingType} from '../common/const';
 import {State} from './state';
 import {Offer} from './offer';
 
@@ -16,8 +16,30 @@ type SetSorting = {
 
 type LoadOffers = {
   type: ActionType.LoadOffers,
-  payload: Offer[],
-  isDataLoaded: boolean,
+  payload: {
+    data: Offer[],
+  },
+};
+
+type SetOffersFetchStatus = {
+  type: ActionType.SetOffersFetchStatus,
+  payload: {
+    fetchStatus: FetchStatus,
+  },
+};
+
+type LoadFavoriteOffers = {
+  type: ActionType.LoadFavoriteOffers,
+  payload: {
+    data: Offer[],
+  },
+};
+
+type SetFavoriteOffersFetchStatus = {
+  type: ActionType.SetFavoriteOffersFetchStatus,
+  payload: {
+    fetchStatus: FetchStatus,
+  },
 };
 
 type RequireAuthorization = {
@@ -29,10 +51,28 @@ type RequireLogout = {
   type: ActionType.RequireLogout,
 };
 
-type Actions = SetCity | SetSorting | LoadOffers | RequireAuthorization | RequireLogout;
+type Actions =
+  | SetCity
+  | SetSorting
+  | LoadOffers
+  | SetOffersFetchStatus
+  | LoadFavoriteOffers
+  | SetFavoriteOffersFetchStatus
+  | RequireAuthorization
+  | RequireLogout;
 
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 
 type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
 
-export type {SetCity, SetSorting, LoadOffers, Actions, ThunkActionResult, ThunkAppDispatch};
+export type {
+  SetCity,
+  SetSorting,
+  LoadOffers,
+  SetOffersFetchStatus,
+  LoadFavoriteOffers,
+  SetFavoriteOffersFetchStatus,
+  Actions,
+  ThunkActionResult,
+  ThunkAppDispatch
+};

@@ -1,12 +1,18 @@
-import {AuthorizationStatus, CityType, SortingType} from '../common/const';
+import {AuthorizationStatus, CityType, FetchStatus, SortingType} from '../common/const';
 import {Offer} from './offer';
 
 type State = {
   city: CityType,
-  offers: Offer[],
   sort: SortingType,
+  offers: {
+    data: Offer[],
+    fetchStatus: FetchStatus,
+  },
+  favoriteOffers: {
+    data: Offer[],
+    fetchStatus: FetchStatus,
+  },
   authorizationStatus: AuthorizationStatus,
-  isDataLoaded: boolean,
 };
 
 export type {State};
