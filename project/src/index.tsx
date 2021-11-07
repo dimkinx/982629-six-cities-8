@@ -10,11 +10,13 @@ import App from './components/app/app';
 import {AuthorizationStatus} from './common/const';
 import {requireAuthorization} from './store/actions';
 import {ThunkAppDispatch} from './types/actions';
-import {checkAuthAction, fetchOffersAction} from './store/api-actions';
+import {checkAuthAction} from './store/api-actions';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const api = createAPI(
-  () => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)),
-);
+const api = createAPI(() => {
+  store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+});
 
 const store = createStore(
   reducer,
@@ -22,13 +24,16 @@ const store = createStore(
 );
 
 (store.dispatch as ThunkAppDispatch)(checkAuthAction());
-(store.dispatch as ThunkAppDispatch)(fetchOffersAction());
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
+    <ToastContainer
+      theme="colored"
+      position="top-center"
+    />
   </React.StrictMode>,
   document.getElementById('root'),
 );
