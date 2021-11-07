@@ -1,13 +1,15 @@
 import {State} from '../../types/state';
-import {connect, ConnectedProps} from 'react-redux';
-import {useState} from 'react';
+import {connect, ConnectedProps, useDispatch} from 'react-redux';
+import React, {useEffect, useState} from 'react';
 import Header from '../header/header';
 import MainScreenTabs from '../main-screen-tabs/main-screen-tabs';
 import MainScreenSort from '../main-screen-sort/main-screen-sort';
 import OfferList from '../offer-list/offer-list';
 import Map from '../map/map';
 import {addClassModifier, getOffersByCity, getSortedOffers} from '../../common/utils';
-import {OfferType} from '../../common/const';
+import {FetchStatus, OfferType} from '../../common/const';
+import {fetchOffersAction} from '../../store/api-actions';
+import LoadingScreen from '../loading-screen/loadingScreen';
 
 const mapStateToProps = ({city, offers, sort}: State) => ({
   city,
@@ -19,9 +21,20 @@ const connector = connect(mapStateToProps);
 
 function MainScreen(props: ConnectedProps<typeof connector>): JSX.Element {
   const {city, offers, sort} = props;
-  const currentOffers = getOffersByCity(offers, city);
+  const currentOffers = getOffersByCity(offers.data, city);
   const sortedOffers = getSortedOffers(currentOffers, sort);
   const [activeCardId, setActiveCardId] = useState<null | number>(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (offers.fetchStatus === FetchStatus.Unknown) {
+      dispatch(fetchOffersAction());
+    }
+  }, [dispatch, offers.fetchStatus]);
+
+  if (offers.fetchStatus === FetchStatus.Loading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="page page--gray page--main">
