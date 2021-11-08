@@ -1,8 +1,6 @@
 import React from 'react';
-import {connect, ConnectedProps} from 'react-redux';
-import {Dispatch} from '@reduxjs/toolkit';
+import {useDispatch} from 'react-redux';
 import {setSorting} from '../../store/actions';
-import {Actions} from '../../types/actions';
 import {SortingType} from '../../common/const';
 
 type MainScreenSortItemProps = {
@@ -11,22 +9,12 @@ type MainScreenSortItemProps = {
   onOpenedItemClick: (isSortingOpen: boolean) => void;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  onSortingItemClick(sort: SortingType) {
-    dispatch(setSorting(sort));
-  },
-});
-
-const connector = connect(null, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & MainScreenSortItemProps;
-
-function MainScreenSortItem(props: ConnectedComponentProps): JSX.Element {
-  const {sort, className, onOpenedItemClick, onSortingItemClick} = props;
+function MainScreenSortItem(props: MainScreenSortItemProps): JSX.Element {
+  const {sort, className, onOpenedItemClick} = props;
+  const dispatch = useDispatch();
 
   const handleItemClick = () => {
-    onSortingItemClick(sort);
+    dispatch(setSorting(sort));
     onOpenedItemClick(false);
   };
 
@@ -41,5 +29,4 @@ function MainScreenSortItem(props: ConnectedComponentProps): JSX.Element {
   );
 }
 
-export {MainScreenSortItem};
-export default connector(MainScreenSortItem);
+export default MainScreenSortItem;

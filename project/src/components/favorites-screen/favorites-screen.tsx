@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {connect, ConnectedProps, useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {State} from '../../types/state';
 import Header from '../header/header';
 import FavoritesList from '../favorites-list/favorites-list';
@@ -9,43 +9,37 @@ import {fetchFavoriteOffersAction} from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loadingScreen';
 import {addClassModifier} from '../../common/utils';
 
-const mapStateToProps = ({favoriteOffers}: State) => ({
-  favoriteOffers,
-});
-
-const connector = connect(mapStateToProps);
-
-function FavoritesScreen(props: ConnectedProps<typeof connector>): JSX.Element {
-  const {favoriteOffers} = props;
+function FavoritesScreen(): JSX.Element {
+  const {data: favoriteOffers, fetchStatus} = useSelector((state: State) => state.favoriteOffers);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (favoriteOffers.fetchStatus === FetchStatus.Unknown) {
+    if (fetchStatus === FetchStatus.Unknown) {
       dispatch(fetchFavoriteOffersAction());
     }
-  }, [dispatch, favoriteOffers.fetchStatus]);
+  }, [dispatch, fetchStatus]);
 
-  if (favoriteOffers.fetchStatus === FetchStatus.Loading) {
+  if (fetchStatus === FetchStatus.Loading) {
     return <LoadingScreen />;
   }
 
   return (
-    <div className={addClassModifier(!favoriteOffers.data.length, 'page', 'favorites-empty')}>
+    <div className={addClassModifier(!favoriteOffers.length, 'page', 'favorites-empty')}>
       <Header />
 
-      {Boolean(favoriteOffers.data.length) && (
+      {Boolean(favoriteOffers.length) && (
         <main className="page__main page__main--favorites">
           <div className="page__favorites-container container">
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
               <FavoritesList
-                offers={favoriteOffers.data}
+                offers={favoriteOffers}
               />
             </section>
           </div>
         </main>
       )}
-      {!favoriteOffers.data.length && (
+      {!favoriteOffers.length && (
         <main className="page__main page__main--favorites page__main--favorites-empty">
           <div className="page__favorites-container container">
             <section className="favorites favorites--empty">
@@ -69,5 +63,4 @@ function FavoritesScreen(props: ConnectedProps<typeof connector>): JSX.Element {
   );
 }
 
-export {FavoritesScreen};
-export default connector(FavoritesScreen);
+export default FavoritesScreen;

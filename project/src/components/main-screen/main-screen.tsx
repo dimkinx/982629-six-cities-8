@@ -1,5 +1,5 @@
 import {State} from '../../types/state';
-import {connect, ConnectedProps, useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import React, {useEffect, useState} from 'react';
 import Header from '../header/header';
 import MainScreenTabs from '../main-screen-tabs/main-screen-tabs';
@@ -11,16 +11,8 @@ import {FetchStatus, OfferType} from '../../common/const';
 import {fetchOffersAction} from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loadingScreen';
 
-const mapStateToProps = ({city, offers, sort}: State) => ({
-  city,
-  offers,
-  sort,
-});
-
-const connector = connect(mapStateToProps);
-
-function MainScreen(props: ConnectedProps<typeof connector>): JSX.Element {
-  const {city, offers, sort} = props;
+function MainScreen(): JSX.Element {
+  const {city, offers, sort} = useSelector((state: State) => state);
   const currentOffers = getOffersByCity(offers.data, city);
   const sortedOffers = getSortedOffers(currentOffers, sort);
   const [activeCardId, setActiveCardId] = useState<null | number>(null);
@@ -84,5 +76,4 @@ function MainScreen(props: ConnectedProps<typeof connector>): JSX.Element {
   );
 }
 
-export {MainScreen};
-export default connector(MainScreen);
+export default MainScreen;
