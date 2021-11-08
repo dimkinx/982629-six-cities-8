@@ -4,14 +4,16 @@ import {AppRoute, AuthStatus} from '../../common/const';
 import {useSelector} from 'react-redux';
 import {State} from '../../types/state';
 
-function PrivateRoute({...props}: RouteProps): JSX.Element {
+function PublicRoute({...props}: RouteProps): JSX.Element {
   const authStatus = useSelector((state: State) => state.auth.status);
 
   return (
     <Route {...props}>
-      {authStatus === AuthStatus.Auth ? props.children : <Redirect to={AppRoute.LoginScreen} />}
+      {authStatus === AuthStatus.NoAuth || authStatus === AuthStatus.Unknown
+        ? props.children
+        : <Redirect to={AppRoute.MainScreen} />}
     </Route>
   );
 }
 
-export default PrivateRoute;
+export default PublicRoute;

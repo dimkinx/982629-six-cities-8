@@ -1,13 +1,14 @@
-import {ActionType, AuthorizationStatus, CityType, FetchStatus, SortingType} from '../common/const';
+import {ActionType, AuthStatus, CityType, FetchStatus, SortingType} from '../common/const';
 import {
   SetCity,
   SetSorting,
   LoadOffers,
   LoadFavoriteOffers,
   SetOffersFetchStatus,
-  SetFavoriteOffersFetchStatus
+  SetFavoriteOffersFetchStatus, SetAuthData, SetAuthError
 } from '../types/actions';
 import {Offer} from '../types/offer';
+import {AuthData} from '../types/auth-data';
 
 const setCity = (city: CityType): SetCity => ({
   type: ActionType.SetCity,
@@ -47,13 +48,27 @@ const setFavoriteOffersFetchStatus = (fetchStatus: FetchStatus): SetFavoriteOffe
   },
 } as const);
 
-const requireAuthorization = (authStatus: AuthorizationStatus) => ({
+const requireAuthorization = (authStatus: AuthStatus) => ({
   type: ActionType.RequireAuthorization,
   payload: authStatus,
 } as const);
 
 const requireLogout = () => ({
   type: ActionType.RequireLogout,
+} as const);
+
+const setAuthData = (data: AuthData): SetAuthData => ({
+  type: ActionType.SetAuthData,
+  payload: {
+    data: data,
+  },
+} as const);
+
+const setAuthError = (error: string): SetAuthError => ({
+  type: ActionType.SetAuthError,
+  payload: {
+    error: error,
+  },
 } as const);
 
 export {
@@ -64,4 +79,7 @@ export {
   loadFavoriteOffers,
   setFavoriteOffersFetchStatus,
   requireAuthorization,
-  requireLogout};
+  requireLogout,
+  setAuthData,
+  setAuthError
+};

@@ -1,4 +1,4 @@
-import {ActionType, AuthorizationStatus, CityType, FetchStatus, SortingType} from '../common/const';
+import {ActionType, AuthStatus, CityType, FetchStatus, SortingType} from '../common/const';
 import {State} from '../types/state';
 import {Actions} from '../types/actions';
 
@@ -13,7 +13,11 @@ const initialState = {
     data: [],
     fetchStatus: FetchStatus.Unknown,
   },
-  authorizationStatus: AuthorizationStatus.Unknown,
+  auth: {
+    data: null,
+    error: '',
+    status: AuthStatus.Unknown,
+  },
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
@@ -37,10 +41,16 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {...state, favoriteOffers: {...state.favoriteOffers, fetchStatus: action.payload.fetchStatus}};
     }
     case ActionType.RequireAuthorization: {
-      return {...state, authorizationStatus: action.payload};
+      return {...state, auth: {...state.auth, status: action.payload}};
     }
     case ActionType.RequireLogout: {
-      return {...state, authorizationStatus: AuthorizationStatus.NoAuth};
+      return {...state, auth: {...state.auth, status: AuthStatus.NoAuth}};
+    }
+    case ActionType.SetAuthData: {
+      return {...state, auth: {...state.auth, data: action.payload.data}};
+    }
+    case ActionType.SetAuthError: {
+      return {...state, auth: {...state.auth, error: action.payload.error}};
     }
     default: {
       return state;

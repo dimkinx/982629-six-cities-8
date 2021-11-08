@@ -32,7 +32,7 @@ const ErrorMessage = {
   FailLoadFavoriteOffers: 'Failed to load saved places',
 } as const;
 
-const enum AuthorizationStatus {
+const enum AuthStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
@@ -54,12 +54,14 @@ const enum OfferType {
 const enum ActionType {
   SetCity = 'main/setCity',
   SetSorting = 'main/setSorting',
-  RequireAuthorization = 'user/requireAuthorization',
-  RequireLogout = 'user/requireLogout',
   LoadOffers = 'data/loadOffers',
   SetOffersFetchStatus = 'data/setOffersFetchStatus',
   LoadFavoriteOffers = 'data/loadFavoriteOffers',
   SetFavoriteOffersFetchStatus = 'data/setFavoriteOffersFetchStatus',
+  RequireAuthorization = 'user/requireAuthorization',
+  RequireLogout = 'user/requireLogout',
+  SetAuthData = 'user/setAuthData',
+  SetAuthError = 'user/setAuthError',
 }
 
 enum CityType {
@@ -84,7 +86,7 @@ export {
   AppRoute,
   APIRoute,
   ErrorMessage,
-  AuthorizationStatus,
+  AuthStatus,
   FetchStatus,
   OfferType,
   ActionType,

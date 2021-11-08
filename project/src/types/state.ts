@@ -1,5 +1,6 @@
-import {AuthorizationStatus, CityType, FetchStatus, SortingType} from '../common/const';
+import {AuthStatus, CityType, FetchStatus, SortingType} from '../common/const';
 import {Offer} from './offer';
+import {AuthData} from './auth-data';
 
 type State = {
   city: CityType,
@@ -12,7 +13,11 @@ type State = {
     data: Offer[],
     fetchStatus: FetchStatus,
   },
-  authorizationStatus: AuthorizationStatus,
+  auth: {
+    data: AuthData | null,
+    error: string,
+    status: AuthStatus,
+  },
 };
 
 export type {State};
