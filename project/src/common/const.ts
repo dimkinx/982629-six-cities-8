@@ -17,20 +17,26 @@ const AppRoute = {
   FavoritesScreen: '/favorites',
   OfferScreen: '/offer/:id',
   Offer: '/offer/',
-  NotFoundScreen: '/404',
 } as const;
 
 const APIRoute = {
-  Offers: '/hotels',
-  FavoriteOffers: '/favorite',
-  Login: '/login',
-  Logout: '/logout',
+  Offer: (id: string) => `/hotels/${id}`,
+  Offers: () => '/hotels',
+  NearbyOffers: (id: string) => `/hotels/${id}/nearby`,
+  FavoriteOffers: () => '/favorite',
+  Reviews: (id: string) => `/comments/${id}`,
+  Login: () => '/login',
+  Logout: () => '/logout',
 } as const;
 
-const ErrorMessage = {
-  FailLoadOffers: 'Failed to load rental places',
-  FailLoadFavoriteOffers: 'Failed to load saved places',
-} as const;
+const enum ErrorMessage {
+  NoFailure = '',
+  FailToLoadOffer = 'Failed to load rental place',
+  FailToLoadOffers = 'Failed to load rental places',
+  FailToLoadNearbyOffers = 'Failed to load nearby places',
+  FailToLoadFavoriteOffers = 'Failed to load saved places',
+  FailToLoadReviews = 'Failed to load reviews',
+}
 
 const enum AuthStatus {
   Auth = 'AUTH',
@@ -39,10 +45,11 @@ const enum AuthStatus {
 }
 
 const enum FetchStatus {
-  Success = 'SUCCESS',
-  Fail = 'FAIL',
-  Loading = 'LOADING',
   Unknown = 'UNKNOWN',
+  Loading = 'LOADING',
+  Success = 'SUCCESS',
+  NotFound = 'NOT_FOUND',
+  Fail = 'FAIL',
 }
 
 const enum OfferType {
@@ -54,10 +61,16 @@ const enum OfferType {
 const enum ActionType {
   SetCity = 'main/setCity',
   SetSorting = 'main/setSorting',
+  LoadOffer = 'data/loadOffer',
+  SetOfferFetchStatus = 'data/setOfferFetchStatus',
   LoadOffers = 'data/loadOffers',
   SetOffersFetchStatus = 'data/setOffersFetchStatus',
+  LoadNearbyOffers = 'data/loadNearOffers',
+  SetNearbyOffersFetchStatus = 'data/setNearOffersFetchStatus',
   LoadFavoriteOffers = 'data/loadFavoriteOffers',
   SetFavoriteOffersFetchStatus = 'data/setFavoriteOffersFetchStatus',
+  LoadReviews = 'data/loadReviews',
+  SetReviewsFetchStatus = 'data/setReviewsFetchStatus',
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
   SetAuthData = 'user/setAuthData',

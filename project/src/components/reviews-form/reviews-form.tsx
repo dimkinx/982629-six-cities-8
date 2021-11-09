@@ -1,4 +1,4 @@
-import {Fragment, useState, useEffect} from 'react';
+import {Fragment, useState} from 'react';
 import {getStatefulItems} from '../../common/utils';
 
 const ratings = [
@@ -18,11 +18,6 @@ function ReviewsForm(): JSX.Element {
     const {name, value} = evt.target;
     setState({...state, [name]: name === 'rating' ? +value : value});
   };
-
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(state);
-  });
 
   return (
     <form className="reviews__form form" action="#" method="post">

@@ -1,4 +1,5 @@
 import {Offer, RawOffer} from '../types/offer';
+import {Review, RawReview} from '../types/review';
 import {AuthData, RawAuthData} from '../types/auth-data';
 
 const adaptOfferToClient = (rawOffer: RawOffer): Offer => ({
@@ -25,6 +26,19 @@ const adaptOfferToClient = (rawOffer: RawOffer): Offer => ({
   type: rawOffer.type,
 });
 
+const adaptReviewToClient = (rawReview: RawReview): Review => ({
+  comment: rawReview.comment,
+  date: rawReview.date,
+  id: rawReview.id,
+  rating: rawReview.rating,
+  user: {
+    avatarUrl: rawReview.user.avatar_url,
+    id: rawReview.user.id,
+    isPro: rawReview.user.is_pro,
+    name: rawReview.user.name,
+  },
+});
+
 const adaptAuthDataToClient = (rawAuthData: RawAuthData): AuthData => ({
   avatarUrl: rawAuthData.avatar_url,
   email: rawAuthData.email,
@@ -34,4 +48,4 @@ const adaptAuthDataToClient = (rawAuthData: RawAuthData): AuthData => ({
   token: rawAuthData.token,
 });
 
-export {adaptOfferToClient, adaptAuthDataToClient};
+export {adaptOfferToClient, adaptReviewToClient, adaptAuthDataToClient};

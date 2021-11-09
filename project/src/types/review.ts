@@ -11,4 +11,17 @@ type Review = {
   }
 }
 
-export type {Review};
+type RawReview = {
+  'comment': string;
+  'date': string;
+  'id': number;
+  'rating': number;
+  'user': {
+    'avatar_url': string;
+    'id': number;
+    'is_pro': boolean;
+    'name': string;
+  }
+}
+
+export type {Review, RawReview};

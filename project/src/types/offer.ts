@@ -19,7 +19,7 @@ type Offer = {
     name: string;
   }
   id: number;
-  images: string[];
+  images?: string[];
   isFavorite: boolean;
   isPremium: boolean;
   location: Location;
