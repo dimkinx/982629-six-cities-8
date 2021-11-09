@@ -1,14 +1,11 @@
-import {connect, ConnectedProps} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {State} from '../../types/state';
 import {addClassModifier} from '../../common/utils';
 import {CityType} from '../../common/const';
 import MainScreenTabsItem from '../main-screen-tabs-item/main-screen-tabs-item';
 
-const mapStateToProps = ({city}: State) => ({city});
-const connector = connect(mapStateToProps);
-
-function MainScreenTabs(props: ConnectedProps<typeof connector>): JSX.Element {
-  const {city: currentCity} = props;
+function MainScreenTabs(): JSX.Element {
+  const {city: currentCity} = useSelector((state: State) => state);
 
   return (
     <div className="tabs">
@@ -27,5 +24,4 @@ function MainScreenTabs(props: ConnectedProps<typeof connector>): JSX.Element {
   );
 }
 
-export {MainScreenTabs};
-export default connector(MainScreenTabs);
+export default MainScreenTabs;

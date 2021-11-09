@@ -1,28 +1,58 @@
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {State} from '../../types/state';
 import Header from '../header/header';
 import FavoritesList from '../favorites-list/favorites-list';
 import Logo from '../logo/logo';
-import {LogoSize} from '../../common/const';
-import {Offer} from '../../types/offer';
+import {FetchStatus, LogoSize} from '../../common/const';
+import {fetchFavoriteOffersAction} from '../../store/api-actions';
+import LoadingScreen from '../loading-screen/loadingScreen';
+import {addClassModifier} from '../../common/utils';
 
-type FavoritesScreenProps = {
-  offers: Offer[];
-}
+function FavoritesScreen(): JSX.Element {
+  const {data: favoriteOffers, fetchStatus} = useSelector((state: State) => state.favoriteOffers);
+  const dispatch = useDispatch();
 
-function FavoritesScreen({offers}: FavoritesScreenProps): JSX.Element {
+  useEffect(() => {
+    if (fetchStatus === FetchStatus.Unknown) {
+      dispatch(fetchFavoriteOffersAction());
+    }
+  }, [dispatch, fetchStatus]);
+
+  if (fetchStatus === FetchStatus.Loading) {
+    return <LoadingScreen />;
+  }
+
   return (
-    <div className="page">
+    <div className={addClassModifier(!favoriteOffers.length, 'page', 'favorites-empty')}>
       <Header />
 
-      <main className="page__main page__main--favorites">
-        <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <FavoritesList
-              offers={offers}
-            />
-          </section>
-        </div>
-      </main>
+      {Boolean(favoriteOffers.length) && (
+        <main className="page__main page__main--favorites">
+          <div className="page__favorites-container container">
+            <section className="favorites">
+              <h1 className="favorites__title">Saved listing</h1>
+              <FavoritesList
+                offers={favoriteOffers}
+              />
+            </section>
+          </div>
+        </main>
+      )}
+      {!favoriteOffers.length && (
+        <main className="page__main page__main--favorites page__main--favorites-empty">
+          <div className="page__favorites-container container">
+            <section className="favorites favorites--empty">
+              <h1 className="visually-hidden">Favorites (empty)</h1>
+              <div className="favorites__status-wrapper">
+                <b className="favorites__status">Nothing yet saved.</b>
+                <p className="favorites__status-description">Save properties to narrow down search or plan your future trips.</p>
+              </div>
+            </section>
+          </div>
+        </main>
+      )}
+
       <footer className="footer container">
         <Logo
           width={LogoSize.Footer.Width}

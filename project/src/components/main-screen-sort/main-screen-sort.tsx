@@ -1,15 +1,12 @@
 import React, {useState} from 'react';
-import {connect, ConnectedProps} from 'react-redux';
-import {State} from '../../types/state';
 import {addClassModifier} from '../../common/utils';
 import {SortingType} from '../../common/const';
 import MainScreenSortItem from '../main-screen-sort-item/main-screen-sort-item';
+import {useSelector} from 'react-redux';
+import {State} from '../../types/state';
 
-const mapStateToProps = ({sort}: State) => ({sort});
-const connector = connect(mapStateToProps);
-
-function MainScreenSort(props: ConnectedProps<typeof connector>): JSX.Element {
-  const {sort: currentSort} = props;
+function MainScreenSort(): JSX.Element {
+  const {sort: currentSort} = useSelector((state: State) => state);
   const [isSortingOpen, setIsSortingOpen] = useState(false);
 
   const handleSortingTypeClick = () => {
@@ -46,5 +43,4 @@ function MainScreenSort(props: ConnectedProps<typeof connector>): JSX.Element {
   );
 }
 
-export {MainScreenSort};
-export default connector(MainScreenSort);
+export default MainScreenSort;
