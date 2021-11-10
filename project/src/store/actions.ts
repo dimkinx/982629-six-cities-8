@@ -1,23 +1,23 @@
-import {ActionType, AuthStatus, CityType, ErrorMessage, FetchStatus, SortingType} from '../common/const';
+import {ActionType, AuthStatus, CityType, ErrorMessage, RequestStatus, SortingType} from '../common/const';
 import {
   SetCity,
   SetSorting,
   LoadOffers,
   LoadFavoriteOffers,
-  SetOffersFetchStatus,
-  SetFavoriteOffersFetchStatus,
+  SetOffersRequestStatus,
+  SetFavoriteOffersRequestStatus,
   SetAuthData,
   SetAuthError,
   LoadReviews,
-  SetReviewsFetchStatus,
-  SetOfferFetchStatus,
+  SetReviewsRequestStatus,
+  SetOfferRequestStatus,
   LoadOffer,
   LoadNearbyOffers,
-  SetNearbyOffersFetchStatus
+  SetNearbyOffersRequestStatus, SendReview, SetReviewRequestStatus
 } from '../types/actions';
 import {Offer} from '../types/offer';
 import {AuthData} from '../types/auth-data';
-import {Review} from '../types/review';
+import {Review, UserReview} from '../types/review';
 
 const setCity = (city: CityType): SetCity => ({
   type: ActionType.SetCity,
@@ -36,10 +36,10 @@ const loadOffer = (offer: Offer): LoadOffer => ({
   },
 } as const);
 
-const setOfferFetchStatus = (fetchStatus: FetchStatus): SetOfferFetchStatus => ({
-  type: ActionType.SetOfferFetchStatus,
+const setOfferRequestStatus = (requestStatus: RequestStatus): SetOfferRequestStatus => ({
+  type: ActionType.SetOfferRequestStatus,
   payload: {
-    fetchStatus: fetchStatus,
+    requestStatus: requestStatus,
   },
 } as const);
 
@@ -50,10 +50,10 @@ const loadOffers = (offers: Offer[]): LoadOffers => ({
   },
 } as const);
 
-const setOffersFetchStatus = (fetchStatus: FetchStatus): SetOffersFetchStatus => ({
-  type: ActionType.SetOffersFetchStatus,
+const setOffersRequestStatus = (requestStatus: RequestStatus): SetOffersRequestStatus => ({
+  type: ActionType.SetOffersRequestStatus,
   payload: {
-    fetchStatus: fetchStatus,
+    requestStatus: requestStatus,
   },
 } as const);
 
@@ -64,10 +64,10 @@ const loadNearbyOffers = (nearOffers: Offer[]): LoadNearbyOffers => ({
   },
 } as const);
 
-const setNearbyOffersFetchStatus = (fetchStatus: FetchStatus): SetNearbyOffersFetchStatus => ({
-  type: ActionType.SetNearbyOffersFetchStatus,
+const setNearbyOffersRequestStatus = (requestStatus: RequestStatus): SetNearbyOffersRequestStatus => ({
+  type: ActionType.SetNearbyOffersRequestStatus,
   payload: {
-    fetchStatus: fetchStatus,
+    requestStatus: requestStatus,
   },
 } as const);
 
@@ -78,10 +78,10 @@ const loadFavoriteOffers = (favoriteOffers: Offer[]): LoadFavoriteOffers => ({
   },
 } as const);
 
-const setFavoriteOffersFetchStatus = (fetchStatus: FetchStatus): SetFavoriteOffersFetchStatus => ({
-  type: ActionType.SetFavoriteOffersFetchStatus,
+const setFavoriteOffersRequestStatus = (requestStatus: RequestStatus): SetFavoriteOffersRequestStatus => ({
+  type: ActionType.SetFavoriteOffersRequestStatus,
   payload: {
-    fetchStatus: fetchStatus,
+    requestStatus: requestStatus,
   },
 } as const);
 
@@ -92,10 +92,24 @@ const loadReviews = (reviews: Review[]): LoadReviews => ({
   },
 } as const);
 
-const setReviewsFetchStatus = (fetchStatus: FetchStatus): SetReviewsFetchStatus => ({
-  type: ActionType.SetReviewsFetchStatus,
+const setReviewsRequestStatus = (requestStatus: RequestStatus): SetReviewsRequestStatus => ({
+  type: ActionType.SetReviewsRequestStatus,
   payload: {
-    fetchStatus: fetchStatus,
+    requestStatus: requestStatus,
+  },
+} as const);
+
+const sendReview = (review: UserReview): SendReview => ({
+  type: ActionType.SendReview,
+  payload: {
+    data: review,
+  },
+} as const);
+
+const setReviewRequestStatus = (requestStatus: RequestStatus): SetReviewRequestStatus => ({
+  type: ActionType.SetReviewRequestStatus,
+  payload: {
+    requestStatus: requestStatus,
   },
 } as const);
 
@@ -126,15 +140,17 @@ export {
   setCity,
   setSorting,
   loadOffer,
-  setOfferFetchStatus,
+  setOfferRequestStatus,
   loadOffers,
-  setOffersFetchStatus,
+  setOffersRequestStatus,
   loadNearbyOffers,
-  setNearbyOffersFetchStatus,
+  setNearbyOffersRequestStatus,
   loadFavoriteOffers,
-  setFavoriteOffersFetchStatus,
+  setFavoriteOffersRequestStatus,
   loadReviews,
-  setReviewsFetchStatus,
+  setReviewsRequestStatus,
+  sendReview,
+  setReviewRequestStatus,
   requireAuthorization,
   requireLogout,
   setAuthData,

@@ -1,4 +1,4 @@
-import {AuthStatus, CityType, ErrorMessage, FetchStatus, SortingType} from '../common/const';
+import {AuthStatus, CityType, ErrorMessage, RequestStatus, SortingType} from '../common/const';
 import {Offer} from './offer';
 import {AuthData} from './auth-data';
 import {Review} from './review';
@@ -8,23 +8,26 @@ type State = {
   sort: SortingType,
   offer: {
     data: Offer | null,
-    fetchStatus: FetchStatus,
+    requestStatus: RequestStatus,
   },
   offers: {
     data: Offer[],
-    fetchStatus: FetchStatus,
+    requestStatus: RequestStatus,
   },
   nearbyOffers: {
     data: Offer[],
-    fetchStatus: FetchStatus,
+    requestStatus: RequestStatus,
   },
   favoriteOffers: {
     data: Offer[],
-    fetchStatus: FetchStatus,
+    requestStatus: RequestStatus,
   },
   reviews: {
     data: Review[],
-    fetchStatus: FetchStatus,
+    requestStatus: RequestStatus,
+  },
+  review: {
+    requestStatus: RequestStatus,
   },
   auth: {
     data: AuthData | null,

@@ -1,10 +1,10 @@
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {AxiosInstance} from 'axios';
-import {ActionType, AuthStatus, CityType, ErrorMessage, FetchStatus, SortingType} from '../common/const';
+import {ActionType, AuthStatus, CityType, ErrorMessage, RequestStatus, SortingType} from '../common/const';
 import {State} from './state';
 import {Offer} from './offer';
 import {AuthData} from './auth-data';
-import {Review} from './review';
+import {Review, UserReview} from './review';
 
 type SetCity = {
   type: ActionType.SetCity,
@@ -23,10 +23,10 @@ type LoadOffer = {
   },
 };
 
-type SetOfferFetchStatus = {
-  type: ActionType.SetOfferFetchStatus,
+type SetOfferRequestStatus = {
+  type: ActionType.SetOfferRequestStatus,
   payload: {
-    fetchStatus: FetchStatus,
+    requestStatus: RequestStatus,
   },
 };
 
@@ -37,10 +37,10 @@ type LoadOffers = {
   },
 };
 
-type SetOffersFetchStatus = {
-  type: ActionType.SetOffersFetchStatus,
+type SetOffersRequestStatus = {
+  type: ActionType.SetOffersRequestStatus,
   payload: {
-    fetchStatus: FetchStatus,
+    requestStatus: RequestStatus,
   },
 };
 
@@ -51,10 +51,10 @@ type LoadNearbyOffers = {
   },
 };
 
-type SetNearbyOffersFetchStatus = {
-  type: ActionType.SetNearbyOffersFetchStatus,
+type SetNearbyOffersRequestStatus = {
+  type: ActionType.SetNearbyOffersRequestStatus,
   payload: {
-    fetchStatus: FetchStatus,
+    requestStatus: RequestStatus,
   },
 };
 
@@ -65,10 +65,10 @@ type LoadFavoriteOffers = {
   },
 };
 
-type SetFavoriteOffersFetchStatus = {
-  type: ActionType.SetFavoriteOffersFetchStatus,
+type SetFavoriteOffersRequestStatus = {
+  type: ActionType.SetFavoriteOffersRequestStatus,
   payload: {
-    fetchStatus: FetchStatus,
+    requestStatus: RequestStatus,
   },
 };
 
@@ -79,10 +79,24 @@ type LoadReviews = {
   },
 };
 
-type SetReviewsFetchStatus = {
-  type: ActionType.SetReviewsFetchStatus,
+type SetReviewsRequestStatus = {
+  type: ActionType.SetReviewsRequestStatus,
   payload: {
-    fetchStatus: FetchStatus,
+    requestStatus: RequestStatus,
+  },
+};
+
+type SendReview = {
+  type: ActionType.SendReview,
+  payload: {
+    data: UserReview,
+  },
+};
+
+type SetReviewRequestStatus = {
+  type: ActionType.SetReviewRequestStatus,
+  payload: {
+    requestStatus: RequestStatus,
   },
 };
 
@@ -113,15 +127,17 @@ type Actions =
   | SetCity
   | SetSorting
   | LoadOffer
-  | SetOfferFetchStatus
+  | SetOfferRequestStatus
   | LoadOffers
-  | SetOffersFetchStatus
+  | SetOffersRequestStatus
   | LoadNearbyOffers
-  | SetNearbyOffersFetchStatus
+  | SetNearbyOffersRequestStatus
   | LoadFavoriteOffers
-  | SetFavoriteOffersFetchStatus
+  | SetFavoriteOffersRequestStatus
   | LoadReviews
-  | SetReviewsFetchStatus
+  | SetReviewsRequestStatus
+  | SendReview
+  | SetReviewRequestStatus
   | RequireAuthorization
   | RequireLogout
   | SetAuthData
@@ -135,15 +151,17 @@ export type {
   SetCity,
   SetSorting,
   LoadOffer,
-  SetOfferFetchStatus,
+  SetOfferRequestStatus,
   LoadOffers,
-  SetOffersFetchStatus,
+  SetOffersRequestStatus,
   LoadNearbyOffers,
-  SetNearbyOffersFetchStatus,
+  SetNearbyOffersRequestStatus,
   LoadFavoriteOffers,
-  SetFavoriteOffersFetchStatus,
+  SetFavoriteOffersRequestStatus,
   LoadReviews,
-  SetReviewsFetchStatus,
+  SetReviewsRequestStatus,
+  SendReview,
+  SetReviewRequestStatus,
   SetAuthData,
   SetAuthError,
   Actions,

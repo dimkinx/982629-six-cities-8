@@ -7,90 +7,107 @@ import {
   requireLogout,
   setAuthData,
   setAuthError,
-  setFavoriteOffersFetchStatus,
-  setNearbyOffersFetchStatus,
-  setOfferFetchStatus,
-  setOffersFetchStatus, setReviewsFetchStatus
+  setFavoriteOffersRequestStatus,
+  setNearbyOffersRequestStatus,
+  setOfferRequestStatus,
+  setOffersRequestStatus,
+  setReviewRequestStatus,
+  setReviewsRequestStatus
 } from './actions';
 import {saveToken, dropToken} from '../services/token';
-import {APIRoute, AuthStatus, ErrorMessage, FetchStatus} from '../common/const';
+import {APIRoute, AuthStatus, ErrorMessage, RequestStatus} from '../common/const';
 import {RawAuthData, UserAuthData} from '../types/auth-data';
 import {RawOffer} from '../types/offer';
 import {adaptAuthDataToClient, adaptOfferToClient, adaptReviewToClient} from '../services/adapters';
 import {toast} from 'react-toastify';
-import {RawReview} from '../types/review';
+import {RawReview, UserReview} from '../types/review';
 
-const fetchOfferAction = (id: string): ThunkActionResult => (
+const getOfferAction = (id: string): ThunkActionResult => (
   async (dispatch, _getState, api): Promise<void> => {
-    dispatch(setOfferFetchStatus(FetchStatus.Loading));
-    await api.get<RawOffer>(APIRoute.Offer(id))
+    dispatch(setOfferRequestStatus(RequestStatus.Loading));
+    await api.get<RawOffer>(APIRoute.GetOffer(id))
       .then(({data}) => {
         dispatch(loadOffer(adaptOfferToClient(data)));
-        dispatch(setOfferFetchStatus(FetchStatus.Success));
+        dispatch(setOfferRequestStatus(RequestStatus.Success));
       })
       .catch(({response}) => {
-        dispatch(setOfferFetchStatus(response && response.status === 404 ? FetchStatus.NotFound : FetchStatus.Fail));
+        dispatch(setOfferRequestStatus(response && response.status === 404 ? RequestStatus.NotFound : RequestStatus.Fail));
         !response && toast.error(ErrorMessage.FailToLoadOffer);
       });
   }
 );
 
-const fetchOffersAction = (): ThunkActionResult => (
+const getOffersAction = (): ThunkActionResult => (
   async (dispatch, _getState, api): Promise<void> => {
-    dispatch(setOffersFetchStatus(FetchStatus.Loading));
-    await api.get<RawOffer[]>(APIRoute.Offers())
+    dispatch(setOffersRequestStatus(RequestStatus.Loading));
+    await api.get<RawOffer[]>(APIRoute.GetOffers())
       .then(({data}) => {
         dispatch(loadOffers(data.map(adaptOfferToClient)));
-        dispatch(setOffersFetchStatus(FetchStatus.Success));
+        dispatch(setOffersRequestStatus(RequestStatus.Success));
       })
       .catch(() => {
-        dispatch(setOffersFetchStatus(FetchStatus.Fail));
+        dispatch(setOffersRequestStatus(RequestStatus.Fail));
         toast.error(ErrorMessage.FailToLoadOffers);
       });
   }
 );
 
-const fetchNearbyOffersAction = (id: string): ThunkActionResult => (
+const getNearbyOffersAction = (id: string): ThunkActionResult => (
   async (dispatch, _getState, api): Promise<void> => {
-    dispatch(setNearbyOffersFetchStatus(FetchStatus.Loading));
-    await api.get<RawOffer[]>(APIRoute.NearbyOffers(id))
+    dispatch(setNearbyOffersRequestStatus(RequestStatus.Loading));
+    await api.get<RawOffer[]>(APIRoute.GetNearbyOffers(id))
       .then(({data}) => {
         dispatch(loadNearbyOffers(data.map(adaptOfferToClient)));
-        dispatch(setNearbyOffersFetchStatus(FetchStatus.Success));
+        dispatch(setNearbyOffersRequestStatus(RequestStatus.Success));
       })
       .catch(({response}) => {
-        dispatch(setNearbyOffersFetchStatus(FetchStatus.Fail));
+        dispatch(setNearbyOffersRequestStatus(RequestStatus.Fail));
         !response && toast.error(ErrorMessage.FailToLoadNearbyOffers);
       });
   }
 );
 
-const fetchFavoriteOffersAction = (): ThunkActionResult => (
+const getFavoriteOffersAction = (): ThunkActionResult => (
   async (dispatch, _getState, api): Promise<void> => {
-    dispatch(setFavoriteOffersFetchStatus(FetchStatus.Loading));
-    await api.get<RawOffer[]>(APIRoute.FavoriteOffers())
+    dispatch(setFavoriteOffersRequestStatus(RequestStatus.Loading));
+    await api.get<RawOffer[]>(APIRoute.GetFavoriteOffers())
       .then(({data}) => {
         dispatch(loadFavoriteOffers(data.map(adaptOfferToClient)));
-        dispatch(setFavoriteOffersFetchStatus(FetchStatus.Success));
+        dispatch(setFavoriteOffersRequestStatus(RequestStatus.Success));
       })
       .catch(() => {
-        dispatch(setFavoriteOffersFetchStatus(FetchStatus.Fail));
+        dispatch(setFavoriteOffersRequestStatus(RequestStatus.Fail));
         toast.error(ErrorMessage.FailToLoadFavoriteOffers);
       });
   }
 );
 
-const fetchReviewsAction = (id: string): ThunkActionResult => (
+const getReviewsAction = (id: string): ThunkActionResult => (
   async (dispatch, _getState, api): Promise<void> => {
-    dispatch(setReviewsFetchStatus(FetchStatus.Loading));
-    await api.get<RawReview[]>(APIRoute.Reviews(id))
+    dispatch(setReviewsRequestStatus(RequestStatus.Loading));
+    await api.get<RawReview[]>(APIRoute.GetReviews(id))
       .then(({data}) => {
         dispatch(loadReviews(data.map(adaptReviewToClient)));
-        dispatch(setReviewsFetchStatus(FetchStatus.Success));
+        dispatch(setReviewsRequestStatus(RequestStatus.Success));
       })
       .catch(({response}) => {
-        dispatch(setReviewsFetchStatus(FetchStatus.Fail));
+        dispatch(setReviewsRequestStatus(RequestStatus.Fail));
         !response && toast.error(ErrorMessage.FailToLoadReviews);
+      });
+  }
+);
+
+const postReviewAction = (id: string, review: UserReview): ThunkActionResult => (
+  async (dispatch, _getState, api): Promise<void> => {
+    dispatch(setReviewRequestStatus(RequestStatus.Loading));
+    await api.post<RawReview[]>(APIRoute.PostReview(id), review)
+      .then(({data}) => {
+        dispatch(loadReviews(data.map(adaptReviewToClient)));
+        dispatch(setReviewRequestStatus(RequestStatus.Success));
+      })
+      .catch(({response}) => {
+        dispatch(setReviewRequestStatus(RequestStatus.Fail));
+        !response && toast.error(ErrorMessage.FailToSendReview);
       });
   }
 );
@@ -145,11 +162,12 @@ const logoutAction = (): ThunkActionResult => (
 );
 
 export {
-  fetchOfferAction,
-  fetchOffersAction,
-  fetchNearbyOffersAction,
-  fetchFavoriteOffersAction,
-  fetchReviewsAction,
+  getOfferAction,
+  getOffersAction,
+  getNearbyOffersAction,
+  getFavoriteOffersAction,
+  getReviewsAction,
+  postReviewAction,
   checkAuthAction,
   loginAction,
   logoutAction

@@ -1,3 +1,8 @@
+type UserReview = {
+  rating: number;
+  comment: string;
+}
+
 type Review = {
   comment: string;
   date: string;
@@ -24,4 +29,4 @@ type RawReview = {
   }
 }
 
-export type {Review, RawReview};
+export type {UserReview, Review, RawReview};

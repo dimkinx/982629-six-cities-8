@@ -1,3 +1,8 @@
+type UserAuthData = {
+  login: string;
+  password: string;
+};
+
 type AuthData = {
   avatarUrl: string;
   email: string;
@@ -16,9 +21,4 @@ type RawAuthData = {
   'token': string;
 };
 
-type UserAuthData = {
-  login: string;
-  password: string;
-};
-
-export type {AuthData, RawAuthData, UserAuthData};
+export type {UserAuthData, AuthData, RawAuthData};

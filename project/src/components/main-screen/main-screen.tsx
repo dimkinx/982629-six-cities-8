@@ -7,8 +7,8 @@ import MainScreenSort from '../main-screen-sort/main-screen-sort';
 import OfferList from '../offer-list/offer-list';
 import Map from '../map/map';
 import {addClassModifier, getOffersByCity, getSortedOffers} from '../../common/utils';
-import {FetchStatus, OfferType} from '../../common/const';
-import {fetchOffersAction} from '../../store/api-actions';
+import {RequestStatus, OfferType} from '../../common/const';
+import {getOffersAction} from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loadingScreen';
 
 function MainScreen(): JSX.Element {
@@ -19,12 +19,12 @@ function MainScreen(): JSX.Element {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (offers.fetchStatus === FetchStatus.Unknown) {
-      dispatch(fetchOffersAction());
+    if (offers.requestStatus === RequestStatus.Unknown) {
+      dispatch(getOffersAction());
     }
-  }, [dispatch, offers.fetchStatus]);
+  }, [dispatch, offers.requestStatus]);
 
-  if (offers.fetchStatus === FetchStatus.Loading) {
+  if (offers.requestStatus === RequestStatus.Loading) {
     return <LoadingScreen />;
   }
 

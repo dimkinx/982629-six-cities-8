@@ -1,5 +1,10 @@
-import {Fragment, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {getStatefulItems} from '../../common/utils';
+import {postReviewAction} from '../../store/api-actions';
+import {useDispatch, useSelector} from 'react-redux';
+import {State} from '../../types/state';
+import {RequestStatus} from '../../common/const';
+import {useParams} from 'react-router-dom';
 
 const ratings = [
   'terribly',
@@ -10,17 +15,36 @@ const ratings = [
 ];
 
 function ReviewsForm(): JSX.Element {
-  const [state, setState] = useState({rating: 0, review: ''});
+  const {id} = useParams() as {id: string};
+  const [review, setReview] = useState({rating: 0, comment: ''});
+  const [isDisabled, setIsDisabled] = useState(true);
+  const isLoading = useSelector((state: State) => state.review.requestStatus === RequestStatus.Loading);
+  const dispatch = useDispatch();
 
   const statefulRatings = getStatefulItems(ratings, 'title').reverse();
 
   const handleFieldChange = (evt: {target: HTMLInputElement | HTMLTextAreaElement}) => {
     const {name, value} = evt.target;
-    setState({...state, [name]: name === 'rating' ? +value : value});
+    setReview({...review, [name]: name === 'rating' ? +value : value});
   };
 
+  const handleFormSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    dispatch(postReviewAction(id, review));
+    setReview({rating: 0, comment: ''});
+  };
+
+  useEffect(() => {
+    setIsDisabled(Boolean(!review.rating) || review.comment.length < 50 || review.comment.length > 300);
+  }, [review]);
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      onSubmit={handleFormSubmit}
+      className="reviews__form form"
+      action="#"
+      method="post"
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {statefulRatings.map((rating) => (
@@ -32,6 +56,8 @@ function ReviewsForm(): JSX.Element {
               value={+rating.id + 1}
               id={`${+rating.id + 1}-stars`}
               type="radio"
+              checked={+rating.id + 1 === review.rating}
+              disabled={isLoading}
             />
             <label
               htmlFor={`${+rating.id + 1}-stars`}
@@ -48,17 +74,26 @@ function ReviewsForm(): JSX.Element {
       <textarea
         onChange={handleFieldChange}
         className="reviews__textarea form__textarea"
-        id="review"
-        name="review"
-        value={state.review}
+        id="comment"
+        name="comment"
+        value={review.comment}
         placeholder="Tell how was your stay, what you like and what can be improved"
+        minLength={50}
+        maxLength={300}
+        disabled={isLoading}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and
           describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={isDisabled || isLoading}
+        >
+          Submit
+        </button>
       </div>
     </form>
   );

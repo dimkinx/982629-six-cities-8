@@ -5,40 +5,45 @@ import ReviewsList from '../reviews-list/reviews-list';
 import ReviewsForm from '../reviews-form/reviews-form';
 import Map from '../map/map';
 import {addClassModifier, getRatingPercentage, getStatefulItems} from '../../common/utils';
-import {AppRoute, FetchStatus, OfferType} from '../../common/const';
+import {AppRoute, AuthStatus, OfferType, RequestStatus} from '../../common/const';
 import {useDispatch, useSelector} from 'react-redux';
 import {State} from '../../types/state';
 import LoadingScreen from '../loading-screen/loadingScreen';
 import React, {useEffect} from 'react';
-import {fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction} from '../../store/api-actions';
+import {getNearbyOffersAction, getOfferAction, getReviewsAction} from '../../store/api-actions';
 import {Offer} from '../../types/offer';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import {setOfferRequestStatus} from '../../store/actions';
 
 function OfferScreen(): JSX.Element {
-  const {data: offer, fetchStatus: offerFetchStatus} = useSelector((state: State) => state.offer);
-  const {data: reviews, fetchStatus: reviewsFetchStatus} = useSelector((state: State) => state.reviews);
-  const {data: nearbyOffers, fetchStatus: nearbyOffersFetchStatus} = useSelector((state: State) => state.nearbyOffers);
+  const authStatus = useSelector((state: State) => state.auth.status);
+  const {data: offer, requestStatus: offerRequestStatus} = useSelector((state: State) => state.offer);
+  const {data: reviews} = useSelector((state: State) => state.reviews);
+  const {data: nearbyOffers, requestStatus: nearbyOffersRequestStatus} = useSelector((state: State) => state.nearbyOffers);
   const {id} = useParams() as {id: string};
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchOfferAction(id));
-    dispatch(fetchNearbyOffersAction(id));
-    dispatch(fetchReviewsAction(id));
+    dispatch(getOfferAction(id));
+    dispatch(getNearbyOffersAction(id));
+    dispatch(getReviewsAction(id));
+
+    return () => {
+      setOfferRequestStatus(RequestStatus.Unknown);
+    };
   }, [dispatch, id]);
 
-  if (offerFetchStatus === FetchStatus.Fail) {
+  if (offerRequestStatus === RequestStatus.Fail) {
     return <Redirect to={AppRoute.MainScreen} />;
   }
 
-  if (offerFetchStatus === FetchStatus.NotFound) {
+  if (offerRequestStatus === RequestStatus.NotFound) {
     return <NotFoundScreen />;
   }
 
   if (offer?.id !== +id
-    || offerFetchStatus === FetchStatus.Loading
-    || reviewsFetchStatus === FetchStatus.Loading
-    || nearbyOffersFetchStatus === FetchStatus.Loading) {
+    || offerRequestStatus === RequestStatus.Loading
+    || nearbyOffersRequestStatus === RequestStatus.Loading) {
     return <LoadingScreen />;
   }
 
@@ -158,7 +163,7 @@ function OfferScreen(): JSX.Element {
                 <ReviewsList
                   reviews={reviews}
                 />
-                <ReviewsForm />
+                {authStatus === AuthStatus.Auth && <ReviewsForm />}
               </section>
             </div>
           </div>

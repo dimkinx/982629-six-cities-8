@@ -20,11 +20,12 @@ const AppRoute = {
 } as const;
 
 const APIRoute = {
-  Offer: (id: string) => `/hotels/${id}`,
-  Offers: () => '/hotels',
-  NearbyOffers: (id: string) => `/hotels/${id}/nearby`,
-  FavoriteOffers: () => '/favorite',
-  Reviews: (id: string) => `/comments/${id}`,
+  GetOffer: (id: string) => `/hotels/${id}`,
+  GetOffers: () => '/hotels',
+  GetNearbyOffers: (id: string) => `/hotels/${id}/nearby`,
+  GetFavoriteOffers: () => '/favorite',
+  GetReviews: (id: string) => `/comments/${id}`,
+  PostReview: (id: string) => `/comments/${id}`,
   Login: () => '/login',
   Logout: () => '/logout',
 } as const;
@@ -36,6 +37,7 @@ const enum ErrorMessage {
   FailToLoadNearbyOffers = 'Failed to load nearby places',
   FailToLoadFavoriteOffers = 'Failed to load saved places',
   FailToLoadReviews = 'Failed to load reviews',
+  FailToSendReview = 'Failed to send review',
 }
 
 const enum AuthStatus {
@@ -44,7 +46,7 @@ const enum AuthStatus {
   Unknown = 'UNKNOWN',
 }
 
-const enum FetchStatus {
+const enum RequestStatus {
   Unknown = 'UNKNOWN',
   Loading = 'LOADING',
   Success = 'SUCCESS',
@@ -62,15 +64,17 @@ const enum ActionType {
   SetCity = 'main/setCity',
   SetSorting = 'main/setSorting',
   LoadOffer = 'data/loadOffer',
-  SetOfferFetchStatus = 'data/setOfferFetchStatus',
+  SetOfferRequestStatus = 'data/setOfferRequestStatus',
   LoadOffers = 'data/loadOffers',
-  SetOffersFetchStatus = 'data/setOffersFetchStatus',
+  SetOffersRequestStatus = 'data/setOffersRequestStatus',
   LoadNearbyOffers = 'data/loadNearOffers',
-  SetNearbyOffersFetchStatus = 'data/setNearOffersFetchStatus',
+  SetNearbyOffersRequestStatus = 'data/setNearOffersRequestStatus',
   LoadFavoriteOffers = 'data/loadFavoriteOffers',
-  SetFavoriteOffersFetchStatus = 'data/setFavoriteOffersFetchStatus',
+  SetFavoriteOffersRequestStatus = 'data/setFavoriteOffersRequestStatus',
   LoadReviews = 'data/loadReviews',
-  SetReviewsFetchStatus = 'data/setReviewsFetchStatus',
+  SetReviewsRequestStatus = 'data/setReviewsRequestStatus',
+  SendReview = 'data/sendReview',
+  SetReviewRequestStatus = 'data/setReviewRequestStatus',
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
   SetAuthData = 'user/setAuthData',
@@ -100,7 +104,7 @@ export {
   APIRoute,
   ErrorMessage,
   AuthStatus,
-  FetchStatus,
+  RequestStatus,
   OfferType,
   ActionType,
   CityType,
