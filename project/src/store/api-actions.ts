@@ -107,7 +107,7 @@ const postReviewAction = (id: string, review: UserReview): ThunkActionResult => 
       })
       .catch(({response}) => {
         dispatch(setReviewRequestStatus(RequestStatus.Fail));
-        !response && toast.error(ErrorMessage.FailToSendReview);
+        toast.error(response && response.status === 400 ? response.data.error : ErrorMessage.FailToSendReview);
       });
   }
 );

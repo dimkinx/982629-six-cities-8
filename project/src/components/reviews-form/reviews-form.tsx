@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {State} from '../../types/state';
 import {RequestStatus} from '../../common/const';
 import {useParams} from 'react-router-dom';
+import {OfferId} from '../../types/offer';
 
 const ratings = [
   'terribly',
@@ -15,12 +16,16 @@ const ratings = [
 ];
 
 function ReviewsForm(): JSX.Element {
-  const {id} = useParams() as {id: string};
+  const {id} = useParams<OfferId>();
+
+  const isLoading = useSelector((state: State) => state.review.requestStatus === RequestStatus.Loading);
+
   const [review, setReview] = useState({rating: 0, comment: ''});
   const [isDisabled, setIsDisabled] = useState(true);
-  const isLoading = useSelector((state: State) => state.review.requestStatus === RequestStatus.Loading);
+
   const dispatch = useDispatch();
 
+  const isValid = Boolean(review.rating) && (review.comment.length >= 50 && review.comment.length <= 300);
   const statefulRatings = getStatefulItems(ratings, 'title').reverse();
 
   const handleFieldChange = (evt: {target: HTMLInputElement | HTMLTextAreaElement}) => {
@@ -35,8 +40,8 @@ function ReviewsForm(): JSX.Element {
   };
 
   useEffect(() => {
-    setIsDisabled(Boolean(!review.rating) || review.comment.length < 50 || review.comment.length > 300);
-  }, [review]);
+    setIsDisabled(!isValid);
+  }, [isValid]);
 
   return (
     <form

@@ -11,16 +11,18 @@ import {State} from '../../types/state';
 import LoadingScreen from '../loading-screen/loadingScreen';
 import React, {useEffect} from 'react';
 import {getNearbyOffersAction, getOfferAction, getReviewsAction} from '../../store/api-actions';
-import {Offer} from '../../types/offer';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {setOfferRequestStatus} from '../../store/actions';
+import {OfferId} from '../../types/offer';
 
 function OfferScreen(): JSX.Element {
+  const {id} = useParams<OfferId>();
+
   const authStatus = useSelector((state: State) => state.auth.status);
   const {data: offer, requestStatus: offerRequestStatus} = useSelector((state: State) => state.offer);
-  const {data: reviews} = useSelector((state: State) => state.reviews);
+  const {data: reviews, requestStatus: reviewsRequestStatus} = useSelector((state: State) => state.reviews);
   const {data: nearbyOffers, requestStatus: nearbyOffersRequestStatus} = useSelector((state: State) => state.nearbyOffers);
-  const {id} = useParams() as {id: string};
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,7 +31,7 @@ function OfferScreen(): JSX.Element {
     dispatch(getReviewsAction(id));
 
     return () => {
-      setOfferRequestStatus(RequestStatus.Unknown);
+      dispatch(setOfferRequestStatus(RequestStatus.Unknown));
     };
   }, [dispatch, id]);
 
@@ -43,16 +45,17 @@ function OfferScreen(): JSX.Element {
 
   if (offer?.id !== +id
     || offerRequestStatus === RequestStatus.Loading
-    || nearbyOffersRequestStatus === RequestStatus.Loading) {
+    || nearbyOffersRequestStatus === RequestStatus.Loading
+    || reviewsRequestStatus === RequestStatus.Loading) {
     return <LoadingScreen />;
   }
 
-  const {images, isPremium, title, isFavorite, rating, type, bedrooms, maxAdults, price, goods, description, host} = offer as Offer;
+  const {images, isPremium, title, isFavorite, rating, type, bedrooms, maxAdults, price, goods, description, host} = offer;
   const {avatarUrl, isPro, name} = host;
 
-  const statefulImages = getStatefulItems(images as string[], 'src');
-  const statefulGoods = getStatefulItems(goods as string[], 'name');
-  const statefulDescriptions = getStatefulItems((description as string).split('\n'), 'text');
+  const statefulImages = getStatefulItems(images, 'src');
+  const statefulGoods = getStatefulItems(goods, 'name');
+  const statefulDescriptions = getStatefulItems((description).split('\n'), 'text');
 
   return (
     <div className="page">
@@ -88,7 +91,7 @@ function OfferScreen(): JSX.Element {
                   {title}
                 </h1>
                 <button
-                  className={`${addClassModifier(isFavorite as boolean, 'property__bookmark-button')} button`}
+                  className={`${addClassModifier(isFavorite, 'property__bookmark-button')} button`}
                   type="button"
                 >
                   <svg className="property__bookmark-icon" width="31" height="33">
@@ -99,14 +102,14 @@ function OfferScreen(): JSX.Element {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: getRatingPercentage(rating as number)}} />
+                  <span style={{width: getRatingPercentage(rating)}} />
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {(type as string)[0].toUpperCase().concat((type as string).slice(1))}
+                  {(type)[0].toUpperCase().concat((type).slice(1))}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
                   {bedrooms} Bedrooms
@@ -135,7 +138,7 @@ function OfferScreen(): JSX.Element {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className={`${addClassModifier(isPro as boolean, 'property__avatar-wrapper', 'pro')} user__avatar-wrapper`}>
+                  <div className={`${addClassModifier(isPro, 'property__avatar-wrapper', 'pro')} user__avatar-wrapper`}>
                     <img className="property__avatar user__avatar" src={avatarUrl} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
