@@ -17,20 +17,28 @@ const AppRoute = {
   FavoritesScreen: '/favorites',
   OfferScreen: '/offer/:id',
   Offer: '/offer/',
-  NotFoundScreen: '/404',
 } as const;
 
 const APIRoute = {
-  Offers: '/hotels',
-  FavoriteOffers: '/favorite',
-  Login: '/login',
-  Logout: '/logout',
+  GetOffer: (id: string) => `/hotels/${id}`,
+  GetOffers: () => '/hotels',
+  GetNearbyOffers: (id: string) => `/hotels/${id}/nearby`,
+  GetFavoriteOffers: () => '/favorite',
+  GetReviews: (id: string) => `/comments/${id}`,
+  PostReview: (id: string) => `/comments/${id}`,
+  Login: () => '/login',
+  Logout: () => '/logout',
 } as const;
 
-const ErrorMessage = {
-  FailLoadOffers: 'Failed to load rental places',
-  FailLoadFavoriteOffers: 'Failed to load saved places',
-} as const;
+const enum ErrorMessage {
+  NoFailure = '',
+  FailToLoadOffer = 'Failed to load rental place',
+  FailToLoadOffers = 'Failed to load rental places',
+  FailToLoadNearbyOffers = 'Failed to load nearby places',
+  FailToLoadFavoriteOffers = 'Failed to load saved places',
+  FailToLoadReviews = 'Failed to load reviews',
+  FailToSendReview = 'Failed to send review',
+}
 
 const enum AuthStatus {
   Auth = 'AUTH',
@@ -38,11 +46,12 @@ const enum AuthStatus {
   Unknown = 'UNKNOWN',
 }
 
-const enum FetchStatus {
-  Success = 'SUCCESS',
-  Fail = 'FAIL',
-  Loading = 'LOADING',
+const enum RequestStatus {
   Unknown = 'UNKNOWN',
+  Loading = 'LOADING',
+  Success = 'SUCCESS',
+  NotFound = 'NOT_FOUND',
+  Fail = 'FAIL',
 }
 
 const enum OfferType {
@@ -54,10 +63,18 @@ const enum OfferType {
 const enum ActionType {
   SetCity = 'main/setCity',
   SetSorting = 'main/setSorting',
+  LoadOffer = 'data/loadOffer',
+  SetOfferRequestStatus = 'data/setOfferRequestStatus',
   LoadOffers = 'data/loadOffers',
-  SetOffersFetchStatus = 'data/setOffersFetchStatus',
+  SetOffersRequestStatus = 'data/setOffersRequestStatus',
+  LoadNearbyOffers = 'data/loadNearOffers',
+  SetNearbyOffersRequestStatus = 'data/setNearOffersRequestStatus',
   LoadFavoriteOffers = 'data/loadFavoriteOffers',
-  SetFavoriteOffersFetchStatus = 'data/setFavoriteOffersFetchStatus',
+  SetFavoriteOffersRequestStatus = 'data/setFavoriteOffersRequestStatus',
+  LoadReviews = 'data/loadReviews',
+  SetReviewsRequestStatus = 'data/setReviewsRequestStatus',
+  SendReview = 'data/sendReview',
+  SetReviewRequestStatus = 'data/setReviewRequestStatus',
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
   SetAuthData = 'user/setAuthData',
@@ -87,7 +104,7 @@ export {
   APIRoute,
   ErrorMessage,
   AuthStatus,
-  FetchStatus,
+  RequestStatus,
   OfferType,
   ActionType,
   CityType,

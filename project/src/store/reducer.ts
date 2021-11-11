@@ -1,21 +1,36 @@
-import {ActionType, AuthStatus, CityType, FetchStatus, SortingType} from '../common/const';
+import {ActionType, AuthStatus, CityType, ErrorMessage, RequestStatus, SortingType} from '../common/const';
 import {State} from '../types/state';
 import {Actions} from '../types/actions';
 
 const initialState = {
   city: CityType.Paris,
   sort: SortingType.Popular,
+  offer: {
+    data: null,
+    requestStatus: RequestStatus.Unknown,
+  },
   offers: {
     data: [],
-    fetchStatus: FetchStatus.Unknown,
+    requestStatus: RequestStatus.Unknown,
+  },
+  nearbyOffers: {
+    data: [],
+    requestStatus: RequestStatus.Unknown,
   },
   favoriteOffers: {
     data: [],
-    fetchStatus: FetchStatus.Unknown,
+    requestStatus: RequestStatus.Unknown,
+  },
+  reviews: {
+    data: [],
+    requestStatus: RequestStatus.Unknown,
+  },
+  review: {
+    requestStatus: RequestStatus.Unknown,
   },
   auth: {
     data: null,
-    error: '',
+    error: ErrorMessage.NoFailure,
     status: AuthStatus.Unknown,
   },
 };
@@ -28,17 +43,38 @@ const reducer = (state: State = initialState, action: Actions): State => {
     case ActionType.SetSorting: {
       return {...state, sort: action.payload};
     }
+    case ActionType.LoadOffer: {
+      return {...state, offer: {...state.offer, data: action.payload.data}};
+    }
+    case ActionType.SetOfferRequestStatus: {
+      return {...state, offer: {...state.offer, requestStatus: action.payload.requestStatus}};
+    }
     case ActionType.LoadOffers: {
       return {...state, offers: {...state.offers, data: action.payload.data}};
     }
-    case ActionType.SetOffersFetchStatus: {
-      return {...state, offers: {...state.offers, fetchStatus: action.payload.fetchStatus}};
+    case ActionType.SetOffersRequestStatus: {
+      return {...state, offers: {...state.offers, requestStatus: action.payload.requestStatus}};
+    }
+    case ActionType.LoadNearbyOffers: {
+      return {...state, nearbyOffers: {...state.nearbyOffers, data: action.payload.data}};
+    }
+    case ActionType.SetNearbyOffersRequestStatus: {
+      return {...state, nearbyOffers: {...state.nearbyOffers, requestStatus: action.payload.requestStatus}};
     }
     case ActionType.LoadFavoriteOffers: {
       return {...state, favoriteOffers: {...state.favoriteOffers, data: action.payload.data}};
     }
-    case ActionType.SetFavoriteOffersFetchStatus: {
-      return {...state, favoriteOffers: {...state.favoriteOffers, fetchStatus: action.payload.fetchStatus}};
+    case ActionType.SetFavoriteOffersRequestStatus: {
+      return {...state, favoriteOffers: {...state.favoriteOffers, requestStatus: action.payload.requestStatus}};
+    }
+    case ActionType.LoadReviews: {
+      return {...state, reviews: {...state.reviews, data: action.payload.data}};
+    }
+    case ActionType.SetReviewsRequestStatus: {
+      return {...state, reviews: {...state.reviews, requestStatus: action.payload.requestStatus}};
+    }
+    case ActionType.SetReviewRequestStatus: {
+      return {...state, review: {...state.review, requestStatus: action.payload.requestStatus}};
     }
     case ActionType.RequireAuthorization: {
       return {...state, auth: {...state.auth, status: action.payload}};

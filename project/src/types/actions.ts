@@ -1,9 +1,10 @@
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {AxiosInstance} from 'axios';
-import {ActionType, AuthStatus, CityType, FetchStatus, SortingType} from '../common/const';
+import {ActionType, AuthStatus, CityType, ErrorMessage, RequestStatus, SortingType} from '../common/const';
 import {State} from './state';
 import {Offer} from './offer';
 import {AuthData} from './auth-data';
+import {Review, UserReview} from './review';
 
 type SetCity = {
   type: ActionType.SetCity,
@@ -15,6 +16,20 @@ type SetSorting = {
   payload: SortingType,
 };
 
+type LoadOffer = {
+  type: ActionType.LoadOffer,
+  payload: {
+    data: Offer,
+  },
+};
+
+type SetOfferRequestStatus = {
+  type: ActionType.SetOfferRequestStatus,
+  payload: {
+    requestStatus: RequestStatus,
+  },
+};
+
 type LoadOffers = {
   type: ActionType.LoadOffers,
   payload: {
@@ -22,10 +37,24 @@ type LoadOffers = {
   },
 };
 
-type SetOffersFetchStatus = {
-  type: ActionType.SetOffersFetchStatus,
+type SetOffersRequestStatus = {
+  type: ActionType.SetOffersRequestStatus,
   payload: {
-    fetchStatus: FetchStatus,
+    requestStatus: RequestStatus,
+  },
+};
+
+type LoadNearbyOffers = {
+  type: ActionType.LoadNearbyOffers,
+  payload: {
+    data: Offer[],
+  },
+};
+
+type SetNearbyOffersRequestStatus = {
+  type: ActionType.SetNearbyOffersRequestStatus,
+  payload: {
+    requestStatus: RequestStatus,
   },
 };
 
@@ -36,10 +65,38 @@ type LoadFavoriteOffers = {
   },
 };
 
-type SetFavoriteOffersFetchStatus = {
-  type: ActionType.SetFavoriteOffersFetchStatus,
+type SetFavoriteOffersRequestStatus = {
+  type: ActionType.SetFavoriteOffersRequestStatus,
   payload: {
-    fetchStatus: FetchStatus,
+    requestStatus: RequestStatus,
+  },
+};
+
+type LoadReviews = {
+  type: ActionType.LoadReviews,
+  payload: {
+    data: Review[],
+  },
+};
+
+type SetReviewsRequestStatus = {
+  type: ActionType.SetReviewsRequestStatus,
+  payload: {
+    requestStatus: RequestStatus,
+  },
+};
+
+type SendReview = {
+  type: ActionType.SendReview,
+  payload: {
+    data: UserReview,
+  },
+};
+
+type SetReviewRequestStatus = {
+  type: ActionType.SetReviewRequestStatus,
+  payload: {
+    requestStatus: RequestStatus,
   },
 };
 
@@ -62,17 +119,25 @@ type SetAuthData = {
 type SetAuthError = {
   type: ActionType.SetAuthError,
   payload: {
-    error: string,
+    error: ErrorMessage,
   },
 };
 
 type Actions =
   | SetCity
   | SetSorting
+  | LoadOffer
+  | SetOfferRequestStatus
   | LoadOffers
-  | SetOffersFetchStatus
+  | SetOffersRequestStatus
+  | LoadNearbyOffers
+  | SetNearbyOffersRequestStatus
   | LoadFavoriteOffers
-  | SetFavoriteOffersFetchStatus
+  | SetFavoriteOffersRequestStatus
+  | LoadReviews
+  | SetReviewsRequestStatus
+  | SendReview
+  | SetReviewRequestStatus
   | RequireAuthorization
   | RequireLogout
   | SetAuthData
@@ -85,10 +150,18 @@ type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
 export type {
   SetCity,
   SetSorting,
+  LoadOffer,
+  SetOfferRequestStatus,
   LoadOffers,
-  SetOffersFetchStatus,
+  SetOffersRequestStatus,
+  LoadNearbyOffers,
+  SetNearbyOffersRequestStatus,
   LoadFavoriteOffers,
-  SetFavoriteOffersFetchStatus,
+  SetFavoriteOffersRequestStatus,
+  LoadReviews,
+  SetReviewsRequestStatus,
+  SendReview,
+  SetReviewRequestStatus,
   SetAuthData,
   SetAuthError,
   Actions,

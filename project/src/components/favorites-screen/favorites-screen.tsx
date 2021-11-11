@@ -4,22 +4,22 @@ import {State} from '../../types/state';
 import Header from '../header/header';
 import FavoritesList from '../favorites-list/favorites-list';
 import Logo from '../logo/logo';
-import {FetchStatus, LogoSize} from '../../common/const';
-import {fetchFavoriteOffersAction} from '../../store/api-actions';
+import {RequestStatus, LogoSize} from '../../common/const';
+import {getFavoriteOffersAction} from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loadingScreen';
 import {addClassModifier} from '../../common/utils';
 
 function FavoritesScreen(): JSX.Element {
-  const {data: favoriteOffers, fetchStatus} = useSelector((state: State) => state.favoriteOffers);
+  const {data: favoriteOffers, requestStatus} = useSelector((state: State) => state.favoriteOffers);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (fetchStatus === FetchStatus.Unknown) {
-      dispatch(fetchFavoriteOffersAction());
+    if (requestStatus === RequestStatus.Unknown) {
+      dispatch(getFavoriteOffersAction());
     }
-  }, [dispatch, fetchStatus]);
+  }, [dispatch, requestStatus]);
 
-  if (fetchStatus === FetchStatus.Loading) {
+  if (requestStatus === RequestStatus.Loading) {
     return <LoadingScreen />;
   }
 
