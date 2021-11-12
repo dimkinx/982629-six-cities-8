@@ -1,11 +1,10 @@
 import {Redirect, useParams} from 'react-router-dom';
 import Header from '../header/header';
 import OfferList from '../offer-list/offer-list';
-import ReviewsList from '../reviews-list/reviews-list';
-import ReviewsForm from '../reviews-form/reviews-form';
+import Reviews from '../reviews/reviews';
 import Map from '../map/map';
 import {addClassModifier, getRatingPercentage, getStatefulItems} from '../../common/utils';
-import {AppRoute, AuthStatus, OfferType, PropertyParams, RequestStatus} from '../../common/const';
+import {AppRoute, OfferType, PropertyParams, RequestStatus} from '../../common/const';
 import {useDispatch, useSelector} from 'react-redux';
 import {State} from '../../types/state';
 import LoadingScreen from '../loading-screen/loadingScreen';
@@ -18,9 +17,8 @@ import {OfferId} from '../../types/offer';
 function OfferScreen(): JSX.Element {
   const {id} = useParams<OfferId>();
 
-  const authStatus = useSelector((state: State) => state.auth.status);
   const {data: offer, requestStatus: offerRequestStatus} = useSelector((state: State) => state.offer);
-  const {data: reviews, requestStatus: reviewsRequestStatus} = useSelector((state: State) => state.reviews);
+  const {requestStatus: reviewsRequestStatus} = useSelector((state: State) => state.reviews);
   const {data: nearbyOffers, requestStatus: nearbyOffersRequestStatus} = useSelector((state: State) => state.nearbyOffers);
 
   const dispatch = useDispatch();
@@ -161,13 +159,7 @@ function OfferScreen(): JSX.Element {
                   ))}
                 </div>
               </div>
-              <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ReviewsList
-                  reviews={reviews}
-                />
-                {authStatus === AuthStatus.Auth && <ReviewsForm />}
-              </section>
+              <Reviews />
             </div>
           </div>
           <Map
