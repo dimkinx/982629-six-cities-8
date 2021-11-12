@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {AppRoute, OfferType} from '../../common/const';
+import {AppRoute, OfferCardImgSize, OfferType} from '../../common/const';
 import {addClassModifier, getRatingPercentage} from '../../common/utils';
 import {Offer} from '../../types/offer';
 
@@ -17,7 +17,7 @@ function OfferCard({offer, offerType, onActiveCardIdSelect}: OfferCardProps): JS
 
   return (
     <article
-      className={`${offerType === 'cities' ? `${offerType}__place-card` : `${offerType}__card`} place-card`}
+      className={`${offerType === OfferType.Main ? `${offerType}__place-card` : `${offerType}__card`} place-card`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -31,13 +31,13 @@ function OfferCard({offer, offerType, onActiveCardIdSelect}: OfferCardProps): JS
           <img
             className="place-card__image"
             src={previewImage}
-            width={offerType === 'favorites' ? '150' : '260'}
-            height={offerType === 'favorites' ? '110' : '200'}
+            width={offerType === OfferType.Favorites ? OfferCardImgSize.Favorites.Width : OfferCardImgSize.Nearby.Width}
+            height={offerType === OfferType.Favorites ? OfferCardImgSize.Favorites.Height : OfferCardImgSize.Nearby.Height}
             alt="Some place"
           />
         </Link>
       </div>
-      <div className={`${offerType === 'favorites' && 'favorites__card-info'} place-card__info`}>
+      <div className={`${offerType === OfferType.Favorites && 'favorites__card-info'} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>

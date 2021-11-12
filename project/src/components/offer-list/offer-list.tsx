@@ -10,7 +10,7 @@ type OfferListProps = {
 
 function OfferList({offers, offerType, onActiveCardIdSelect}: OfferListProps): JSX.Element {
   return (
-    <div className={`${offerType === 'cities' ? `${offerType}__places-list tabs__content` : `${offerType}__list`} places__list`}>
+    <div className={`${offerType === OfferType.Main ? `${offerType}__places-list tabs__content` : `${offerType}__list`} places__list`}>
       {offers.map((offer) => (
         <OfferCard
           key={offer.id}

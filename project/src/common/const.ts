@@ -1,5 +1,3 @@
-const MAX_NUMBER_STARS = 5;
-
 const LogoSize = {
   Header: {
     Width: 81,
@@ -9,6 +7,55 @@ const LogoSize = {
     Width: 64,
     Height: 33,
   },
+} as const;
+
+const LoaderParams = {
+  Type: 'Watch',
+  Color: '#4481c3',
+  Size: {
+    Width: 100,
+    Height: 100,
+  },
+} as const;
+
+const ToastParams = {
+  Theme: 'colored',
+  Position: 'top-center',
+} as const;
+
+const PropertyParams = {
+  GalleryImgCount: 6,
+  ReviewsMaxCount: 10,
+  MapZoom: 12,
+} as const;
+
+const MapIconParams = {
+  DefaultImgUrl: 'img/pin.svg',
+  ActiveImgUrl: 'img/pin-active.svg',
+  Size: {
+    Width: 27,
+    Height: 39,
+  },
+  AnchorCoordinate: {
+    X: 27 / 2,
+    Y: 39,
+  },
+} as const;
+
+const OfferCardImgSize = {
+  Favorites: {
+    Width: 150,
+    Height: 110,
+  },
+  Nearby: {
+    Width: 260,
+    Height: 200,
+  },
+} as const;
+
+const CommentLengthLimit = {
+  Min: 50,
+  Max: 300,
 } as const;
 
 const AppRoute = {
@@ -97,9 +144,22 @@ enum SortingType {
   Rating = 'Top rated first',
 }
 
+enum RatingType {
+  Terribly = 'terribly',
+  Badly = 'badly',
+  NotBad = 'not bad',
+  Good = 'good',
+  Perfect = 'perfect',
+}
+
 export {
-  MAX_NUMBER_STARS,
   LogoSize,
+  LoaderParams,
+  ToastParams,
+  PropertyParams,
+  MapIconParams,
+  OfferCardImgSize,
+  CommentLengthLimit,
   AppRoute,
   APIRoute,
   ErrorMessage,
@@ -108,5 +168,6 @@ export {
   OfferType,
   ActionType,
   CityType,
-  SortingType
+  SortingType,
+  RatingType
 };

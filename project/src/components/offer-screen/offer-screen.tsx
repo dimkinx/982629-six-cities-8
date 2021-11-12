@@ -5,7 +5,7 @@ import ReviewsList from '../reviews-list/reviews-list';
 import ReviewsForm from '../reviews-form/reviews-form';
 import Map from '../map/map';
 import {addClassModifier, getRatingPercentage, getStatefulItems} from '../../common/utils';
-import {AppRoute, AuthStatus, OfferType, RequestStatus} from '../../common/const';
+import {AppRoute, AuthStatus, OfferType, PropertyParams, RequestStatus} from '../../common/const';
 import {useDispatch, useSelector} from 'react-redux';
 import {State} from '../../types/state';
 import LoadingScreen from '../loading-screen/loadingScreen';
@@ -43,7 +43,7 @@ function OfferScreen(): JSX.Element {
     return <NotFoundScreen />;
   }
 
-  if (offer?.id !== +id
+  if (offer?.id !== Number(id)
     || offerRequestStatus === RequestStatus.Loading
     || nearbyOffersRequestStatus === RequestStatus.Loading
     || reviewsRequestStatus === RequestStatus.Loading) {
@@ -65,7 +65,7 @@ function OfferScreen(): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {statefulImages.slice(0, 6).map((image) => (
+              {statefulImages.slice(0, PropertyParams.GalleryImgCount).map((image) => (
                 <div
                   key={image.id}
                   className="property__image-wrapper"
@@ -172,16 +172,16 @@ function OfferScreen(): JSX.Element {
           </div>
           <Map
             className="property__map"
-            cityLocation={{...offer.location, zoom: 13}}
+            cityLocation={{...offer.location, zoom: PropertyParams.MapZoom}}
             offers={[...nearbyOffers, offer]}
-            activeCardId={+id}
+            activeCardId={Number(id)}
           />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <OfferList
-              offers={nearbyOffers.slice(0, 3)}
+              offers={nearbyOffers}
               offerType={OfferType.Near}
             />
           </section>

@@ -7,9 +7,9 @@ import React from 'react';
 import {logoutAction} from '../../store/api-actions';
 
 function Header(): JSX.Element {
-  const authStatus = useSelector((state: State) => state.auth.status);
+  const isAuthorized = useSelector((state: State) => state.auth.status === AuthStatus.Auth);
   const authEmail = useSelector((state: State) => state.auth.data?.email);
-  const isAuthorized = authStatus === AuthStatus.Auth;
+
   const dispatch = useDispatch();
 
   const handleSignOutClick = (evt: React.MouseEvent<HTMLAnchorElement>) => {

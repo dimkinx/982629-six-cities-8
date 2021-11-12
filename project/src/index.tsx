@@ -7,7 +7,7 @@ import {reducer} from './store/reducer';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
-import {AuthStatus} from './common/const';
+import {AuthStatus, ToastParams} from './common/const';
 import {requireAuthorization} from './store/actions';
 import {ThunkAppDispatch} from './types/actions';
 import {checkAuthAction} from './store/api-actions';
@@ -31,8 +31,8 @@ ReactDOM.render(
       <App />
     </Provider>
     <ToastContainer
-      theme="colored"
-      position="top-center"
+      theme={ToastParams.Theme}
+      position={ToastParams.Position}
     />
   </React.StrictMode>,
   document.getElementById('root'),

@@ -3,6 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import {useEffect, useRef} from 'react';
 import useMap from '../../hooks/use-map';
 import {Location, Offer} from '../../types/offer';
+import {MapIconParams} from '../../common/const';
 
 type MapProps = {
   className: string;
@@ -12,15 +13,27 @@ type MapProps = {
 }
 
 const defaultCustomIcon = new Icon({
-  iconUrl: 'img/pin.svg',
-  iconSize: [27, 39],
-  iconAnchor: [13, 39],
+  iconUrl: MapIconParams.DefaultImgUrl,
+  iconSize: [
+    MapIconParams.Size.Width,
+    MapIconParams.Size.Height,
+  ],
+  iconAnchor: [
+    MapIconParams.AnchorCoordinate.X,
+    MapIconParams.AnchorCoordinate.Y,
+  ],
 });
 
 const currentCustomIcon = new Icon({
-  iconUrl: 'img/pin-active.svg',
-  iconSize: [27, 39],
-  iconAnchor: [13, 39],
+  iconUrl: MapIconParams.ActiveImgUrl,
+  iconSize: [
+    MapIconParams.Size.Width,
+    MapIconParams.Size.Height,
+  ],
+  iconAnchor: [
+    MapIconParams.AnchorCoordinate.X,
+    MapIconParams.AnchorCoordinate.Y,
+  ],
 });
 
 function Map({className, cityLocation, offers, activeCardId}: MapProps): JSX.Element {
