@@ -26,7 +26,7 @@ const ToastParams = {
 const PropertyParams = {
   GalleryImgCount: 6,
   ReviewsMaxCount: 10,
-  MapZoom: 12,
+  MapZoom: 13,
 } as const;
 
 const MapIconParams = {

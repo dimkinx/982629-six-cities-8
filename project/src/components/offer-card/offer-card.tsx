@@ -1,3 +1,4 @@
+import {memo} from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute, OfferCardImgSize, OfferType} from '../../common/const';
 import {addClassModifier, getRatingPercentage} from '../../common/utils';
@@ -68,4 +69,4 @@ function OfferCard({offer, offerType, onActiveCardIdSelect}: OfferCardProps): JS
   );
 }
 
-export default OfferCard;
+export default memo(OfferCard);

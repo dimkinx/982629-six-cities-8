@@ -1,4 +1,5 @@
-import {Link} from 'react-router-dom';
+import {MouseEvent} from 'react';
+import {Link, useLocation} from 'react-router-dom';
 import {LogoSize, AppRoute} from '../../common/const';
 
 type LogoProps = {
@@ -6,10 +7,30 @@ type LogoProps = {
   height?: number;
 }
 
-function Logo({width = LogoSize.Header.Width, height = LogoSize.Header.Height}: LogoProps): JSX.Element {
+function Logo(props: LogoProps): JSX.Element {
+  const {width = LogoSize.Header.Width, height = LogoSize.Header.Height} = props;
+
+  const location = useLocation();
+
+  const handleLinkClick = (evt: MouseEvent<HTMLAnchorElement>) => {
+    if (location.pathname === AppRoute.MainScreen) {
+      evt.preventDefault();
+    }
+  };
+
   return (
-    <Link to={AppRoute.MainScreen} className="header__logo-link">
-      <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={width} height={height} />
+    <Link
+      onClick={handleLinkClick}
+      className="header__logo-link"
+      to={AppRoute.MainScreen}
+    >
+      <img
+        className="header__logo"
+        src="img/logo.svg"
+        alt="6 cities logo"
+        width={width}
+        height={height}
+      />
     </Link>
   );
 }

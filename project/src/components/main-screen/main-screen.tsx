@@ -10,19 +10,25 @@ import {addClassModifier, getOffersByCity, getSortedOffers} from '../../common/u
 import {RequestStatus, OfferType} from '../../common/const';
 import {getOffersAction} from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loadingScreen';
+import {setOffersRequestStatus} from '../../store/actions';
 
 function MainScreen(): JSX.Element {
-  const {city, offers, sort} = useSelector((state: State) => state);
-  const currentOffers = getOffersByCity(offers.data, city);
-  const sortedOffers = getSortedOffers(currentOffers, sort);
+  const {city: currentCity, sort: currentSort, offers} = useSelector((state: State) => state);
+
+  const currentOffers = getOffersByCity(offers.data, currentCity);
+  const sortedOffers = getSortedOffers(currentOffers, currentSort);
+
   const [activeCardId, setActiveCardId] = useState<null | number>(null);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (offers.requestStatus === RequestStatus.Unknown) {
-      dispatch(getOffersAction());
-    }
-  }, [dispatch, offers.requestStatus]);
+    dispatch(getOffersAction());
+
+    return () => {
+      dispatch(setOffersRequestStatus(RequestStatus.Unknown));
+    };
+  }, [dispatch]);
 
   if (offers.requestStatus === RequestStatus.Loading) {
     return <LoadingScreen />;
@@ -33,14 +39,18 @@ function MainScreen(): JSX.Element {
       <Header />
       <main className={`${addClassModifier(!sortedOffers.length, 'page__main', 'index-empty')} page__main--index`}>
         <h1 className="visually-hidden">Cities</h1>
-        <MainScreenTabs />
+        <MainScreenTabs
+          currentCity={currentCity}
+        />
         {Boolean(sortedOffers.length) && (
           <div className="cities">
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{sortedOffers.length} places to stay in {city}</b>
-                <MainScreenSort />
+                <b className="places__found">{sortedOffers.length} places to stay in {currentCity}</b>
+                <MainScreenSort
+                  currentSort={currentSort}
+                />
                 <OfferList
                   offers={sortedOffers}
                   offerType={OfferType.Main}
@@ -64,7 +74,7 @@ function MainScreen(): JSX.Element {
               <section className="cities__no-places">
                 <div className="cities__status-wrapper tabs__content">
                   <b className="cities__status">No places to stay available</b>
-                  <p className="cities__status-description">We could not find any property available at the moment in {city}</p>
+                  <p className="cities__status-description">We could not find any property available at the moment in {currentCity}</p>
                 </div>
               </section>
               <div className="cities__right-section" />

@@ -1,10 +1,10 @@
-import Logo from '../logo/logo';
+import {MouseEvent, memo} from 'react';
 import {Link} from 'react-router-dom';
-import {AppRoute, AuthStatus} from '../../common/const';
 import {useDispatch, useSelector} from 'react-redux';
-import {State} from '../../types/state';
-import React from 'react';
+import Logo from '../logo/logo';
 import {logoutAction} from '../../store/api-actions';
+import {AppRoute, AuthStatus} from '../../common/const';
+import {State} from '../../types/state';
 
 function Header(): JSX.Element {
   const isAuthorized = useSelector((state: State) => state.auth.status === AuthStatus.Auth);
@@ -12,7 +12,7 @@ function Header(): JSX.Element {
 
   const dispatch = useDispatch();
 
-  const handleSignOutClick = (evt: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleSignOutClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
     dispatch(logoutAction());
   };
@@ -56,4 +56,4 @@ function Header(): JSX.Element {
   );
 }
 
-export default Header;
+export default memo(Header);

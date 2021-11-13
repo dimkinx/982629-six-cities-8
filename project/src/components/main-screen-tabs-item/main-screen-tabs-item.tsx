@@ -1,31 +1,39 @@
-import React from 'react';
+import {MouseEvent} from 'react';
+import {NavLink} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {setCity} from '../../store/actions';
 import {CityType} from '../../common/const';
 
 type MainScreenTabsItemProps = {
   city: CityType;
-  className: string;
+  currentCity: CityType;
 }
 
 function MainScreenTabsItem(props: MainScreenTabsItemProps): JSX.Element {
-  const {city, className} = props;
+  const {city, currentCity} = props;
+
   const dispatch = useDispatch();
 
-  const handleLinkClick = (evt: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleLinkClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
-    dispatch(setCity(city));
+    if (city !== currentCity) {
+      dispatch(setCity(city));
+    }
   };
+
+  const compareCities = () => city === currentCity;
 
   return (
     <li className="locations__item">
-      <a
+      <NavLink
         onClick={handleLinkClick}
-        className={className}
-        href="/"
+        isActive={compareCities}
+        activeClassName='tabs__item--active'
+        className='tabs__item locations__item-link'
+        to="/"
       >
         <span>{city}</span>
-      </a>
+      </NavLink>
     </li>
   );
 }

@@ -4,7 +4,7 @@ import {ActionType, AuthStatus, CityType, ErrorMessage, RequestStatus, SortingTy
 import {State} from './state';
 import {Offer} from './offer';
 import {AuthData} from './auth-data';
-import {Review, UserReview} from './review';
+import {Review} from './review';
 
 type SetCity = {
   type: ActionType.SetCity,
@@ -86,13 +86,6 @@ type SetReviewsRequestStatus = {
   },
 };
 
-type SendReview = {
-  type: ActionType.SendReview,
-  payload: {
-    data: UserReview,
-  },
-};
-
 type SetReviewRequestStatus = {
   type: ActionType.SetReviewRequestStatus,
   payload: {
@@ -136,7 +129,6 @@ type Actions =
   | SetFavoriteOffersRequestStatus
   | LoadReviews
   | SetReviewsRequestStatus
-  | SendReview
   | SetReviewRequestStatus
   | RequireAuthorization
   | RequireLogout
@@ -160,7 +152,6 @@ export type {
   SetFavoriteOffersRequestStatus,
   LoadReviews,
   SetReviewsRequestStatus,
-  SendReview,
   SetReviewRequestStatus,
   SetAuthData,
   SetAuthError,

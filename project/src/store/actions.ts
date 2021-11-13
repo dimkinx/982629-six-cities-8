@@ -13,11 +13,12 @@ import {
   SetOfferRequestStatus,
   LoadOffer,
   LoadNearbyOffers,
-  SetNearbyOffersRequestStatus, SendReview, SetReviewRequestStatus
+  SetNearbyOffersRequestStatus,
+  SetReviewRequestStatus
 } from '../types/actions';
 import {Offer} from '../types/offer';
 import {AuthData} from '../types/auth-data';
-import {Review, UserReview} from '../types/review';
+import {Review} from '../types/review';
 
 const setCity = (city: CityType): SetCity => ({
   type: ActionType.SetCity,
@@ -99,13 +100,6 @@ const setReviewsRequestStatus = (requestStatus: RequestStatus): SetReviewsReques
   },
 } as const);
 
-const sendReview = (review: UserReview): SendReview => ({
-  type: ActionType.SendReview,
-  payload: {
-    data: review,
-  },
-} as const);
-
 const setReviewRequestStatus = (requestStatus: RequestStatus): SetReviewRequestStatus => ({
   type: ActionType.SetReviewRequestStatus,
   payload: {
@@ -149,7 +143,6 @@ export {
   setFavoriteOffersRequestStatus,
   loadReviews,
   setReviewsRequestStatus,
-  sendReview,
   setReviewRequestStatus,
   requireAuthorization,
   requireLogout,
