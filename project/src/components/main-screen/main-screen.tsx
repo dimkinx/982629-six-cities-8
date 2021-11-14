@@ -1,4 +1,3 @@
-import {State} from '../../types/state';
 import {useDispatch, useSelector} from 'react-redux';
 import React, {useEffect, useState} from 'react';
 import Header from '../header/header';
@@ -6,18 +5,20 @@ import MainScreenTabs from '../main-screen-tabs/main-screen-tabs';
 import MainScreenSort from '../main-screen-sort/main-screen-sort';
 import OfferList from '../offer-list/offer-list';
 import Map from '../map/map';
-import {addClassModifier, getOffersByCity, getSortedOffers} from '../../common/utils';
+import {addClassModifier} from '../../common/utils';
 import {RequestStatus, OfferType} from '../../common/const';
 import {getOffersAction} from '../../store/data/data-api-actions';
 import LoadingScreen from '../loading-screen/loadingScreen';
 import {setOffersRequestStatus} from '../../store/data/data-actions';
+import {getFilteredOffers, getOffersRequestStatus, getSortedOffers} from '../../store/data/data-selectors';
+import {getCity, getSorting} from '../../store/user/user-selectors';
 
 function MainScreen(): JSX.Element {
-  const {offers} = useSelector((state: State) => state.data);
-  const {city: currentCity, sort: currentSort} = useSelector((state: State) => state.user);
-
-  const currentOffers = getOffersByCity(offers.data, currentCity);
-  const sortedOffers = getSortedOffers(currentOffers, currentSort);
+  const offersRequestStatus = useSelector(getOffersRequestStatus);
+  const filteredOffers = useSelector(getFilteredOffers);
+  const sortedOffers = useSelector(getSortedOffers);
+  const currentCity = useSelector(getCity);
+  const currentSort = useSelector(getSorting);
 
   const [activeCardId, setActiveCardId] = useState<null | number>(null);
 
@@ -31,7 +32,7 @@ function MainScreen(): JSX.Element {
     };
   }, [dispatch]);
 
-  if (offers.requestStatus === RequestStatus.Loading) {
+  if (offersRequestStatus === RequestStatus.Loading) {
     return <LoadingScreen />;
   }
 
@@ -61,7 +62,7 @@ function MainScreen(): JSX.Element {
               <div className="cities__right-section">
                 <Map
                   className="cities__map"
-                  cityLocation={(currentOffers.length !== 0) ? currentOffers[0].city.location : undefined}
+                  cityLocation={(filteredOffers.length !== 0) ? filteredOffers[0].city.location : undefined}
                   offers={sortedOffers}
                   activeCardId={activeCardId}
                 />

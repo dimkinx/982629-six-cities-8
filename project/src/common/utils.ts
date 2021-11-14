@@ -15,11 +15,11 @@ const getStatefulItems = (items: string[], itemValueName: string): {id: string, 
   items.map((item, index) => ({id: index.toString(), [itemValueName]: item}))
 );
 
-const getOffersByCity = (offers: Offer[], city: CityType): Offer[] => (
+const getFilteredOffersByCity = (offers: Offer[], city: CityType): Offer[] => (
   offers.filter((offer: Offer) => offer.city.name === city)
 );
 
-const getSortedOffers = (offers: Offer[], sortingType: SortingType): Offer[] => {
+const getSortedOffersByType = (offers: Offer[], sortingType: SortingType): Offer[] => {
   switch (sortingType) {
     case SortingType.LowToHigh: {
       return [...offers].sort((firstOffer, secondOffer) => (firstOffer.price - secondOffer.price));
@@ -36,4 +36,4 @@ const getSortedOffers = (offers: Offer[], sortingType: SortingType): Offer[] => 
   }
 };
 
-export {addClassModifier, getRatingPercentage, getOfferCities, getStatefulItems, getOffersByCity, getSortedOffers};
+export {addClassModifier, getRatingPercentage, getOfferCities, getStatefulItems, getFilteredOffersByCity, getSortedOffersByType};

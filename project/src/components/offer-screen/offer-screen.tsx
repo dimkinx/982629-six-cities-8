@@ -6,20 +6,22 @@ import Map from '../map/map';
 import {addClassModifier, getRatingPercentage, getStatefulItems} from '../../common/utils';
 import {AppRoute, OfferType, PropertyParams, RequestStatus} from '../../common/const';
 import {useDispatch, useSelector} from 'react-redux';
-import {State} from '../../types/state';
 import LoadingScreen from '../loading-screen/loadingScreen';
 import React, {useEffect} from 'react';
 import {getNearbyOffersAction, getOfferAction, getReviewsAction} from '../../store/data/data-api-actions';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {setOfferRequestStatus} from '../../store/data/data-actions';
+import {getOffer, getOfferRequestStatus, getNearbyOffers, getNearbyOffersRequestStatus, getReviewsRequestStatus} from '../../store/data/data-selectors';
 import {OfferId} from '../../types/offer';
 
 function OfferScreen(): JSX.Element {
   const {id} = useParams<OfferId>();
 
-  const {data: offer, requestStatus: offerRequestStatus} = useSelector((state: State) => state.data.offer);
-  const {requestStatus: reviewsRequestStatus} = useSelector((state: State) => state.data.reviews);
-  const {data: nearbyOffers, requestStatus: nearbyOffersRequestStatus} = useSelector((state: State) => state.data.nearbyOffers);
+  const offer = useSelector(getOffer);
+  const offerRequestStatus = useSelector(getOfferRequestStatus);
+  const nearbyOffers = useSelector(getNearbyOffers);
+  const nearbyOffersRequestStatus = useSelector(getNearbyOffersRequestStatus);
+  const reviewsRequestStatus = useSelector(getReviewsRequestStatus);
 
   const dispatch = useDispatch();
 

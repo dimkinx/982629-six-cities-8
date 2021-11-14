@@ -1,14 +1,12 @@
-import React from 'react';
+import {useSelector} from 'react-redux';
+import {getIsAuthorized} from '../../store/user/user-selectors';
+import {getSortedReviews} from '../../store/data/data-selectors';
 import ReviewsItem from '../reviews-item/reviews-item';
 import ReviewsForm from '../reviews-form/reviews-form';
-import {useSelector} from 'react-redux';
-import {AuthStatus, PropertyParams} from '../../common/const';
-import {State} from '../../types/state';
-import {compareReviewsByDate} from '../../common/date-time-utils';
 
 function Reviews(): JSX.Element {
-  const isAuthorized = useSelector((state: State) => state.user.auth.status === AuthStatus.Auth);
-  const reviews = useSelector((state: State) => state.data.reviews.data.slice(0, PropertyParams.ReviewsMaxCount).sort(compareReviewsByDate));
+  const isAuthorized = useSelector(getIsAuthorized);
+  const reviews = useSelector(getSortedReviews);
 
   return (
     <section className="property__reviews reviews">

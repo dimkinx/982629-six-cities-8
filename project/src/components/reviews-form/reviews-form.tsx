@@ -1,10 +1,10 @@
 import {FormEvent, Fragment, useEffect, useState} from 'react';
-import {getStatefulItems} from '../../common/utils';
-import {postReviewAction} from '../../store/data/data-api-actions';
-import {useDispatch, useSelector} from 'react-redux';
-import {State} from '../../types/state';
-import {CommentLengthLimit, RatingType, RequestStatus} from '../../common/const';
 import {useParams} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {postReviewAction} from '../../store/data/data-api-actions';
+import {getIsReviewLoading} from '../../store/data/data-selectors';
+import {getStatefulItems} from '../../common/utils';
+import {CommentLengthLimit, RatingType} from '../../common/const';
 import {OfferId} from '../../types/offer';
 
 const initialReviewState = {
@@ -15,7 +15,7 @@ const initialReviewState = {
 function ReviewsForm(): JSX.Element {
   const {id} = useParams<OfferId>();
 
-  const isLoading = useSelector((state: State) => state.data.review.requestStatus === RequestStatus.Loading);
+  const isReviewLoading = useSelector(getIsReviewLoading);
 
   const [review, setReview] = useState(initialReviewState);
   const [isDisabled, setIsDisabled] = useState(true);
@@ -60,7 +60,7 @@ function ReviewsForm(): JSX.Element {
               id={`${Number(rating.id) + 1}-stars`}
               type="radio"
               checked={Number(rating.id) + 1 === review.rating}
-              disabled={isLoading}
+              disabled={isReviewLoading}
             />
             <label
               htmlFor={`${Number(rating.id) + 1}-stars`}
@@ -83,7 +83,7 @@ function ReviewsForm(): JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         minLength={CommentLengthLimit.Min}
         maxLength={CommentLengthLimit.Max}
-        disabled={isLoading}
+        disabled={isReviewLoading}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -93,7 +93,7 @@ function ReviewsForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isDisabled || isLoading}
+          disabled={isDisabled || isReviewLoading}
         >
           Submit
         </button>
