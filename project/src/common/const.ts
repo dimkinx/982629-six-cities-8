@@ -108,8 +108,6 @@ const enum OfferType {
 }
 
 const enum ActionType {
-  SetCity = 'main/setCity',
-  SetSorting = 'main/setSorting',
   LoadOffer = 'data/loadOffer',
   SetOfferRequestStatus = 'data/setOfferRequestStatus',
   LoadOffers = 'data/loadOffers',
@@ -120,8 +118,9 @@ const enum ActionType {
   SetFavoriteOffersRequestStatus = 'data/setFavoriteOffersRequestStatus',
   LoadReviews = 'data/loadReviews',
   SetReviewsRequestStatus = 'data/setReviewsRequestStatus',
-  SendReview = 'data/sendReview',
   SetReviewRequestStatus = 'data/setReviewRequestStatus',
+  SetCity = 'user/setCity',
+  SetSorting = 'user/setSorting',
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
   SetAuthData = 'user/setAuthData',

@@ -1,7 +1,7 @@
 import {MouseEvent} from 'react';
 import {NavLink} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
-import {setCity} from '../../store/actions';
+import {setCity} from '../../store/user/user-actions';
 import {CityType} from '../../common/const';
 
 type MainScreenTabsItemProps = {

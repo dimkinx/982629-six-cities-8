@@ -1,10 +1,8 @@
-import {ActionType, AuthStatus, CityType, ErrorMessage, RequestStatus, SortingType} from '../common/const';
-import {State} from '../types/state';
-import {Actions} from '../types/actions';
+import {ActionType, RequestStatus} from '../../common/const';
+import {DataState} from '../../types/state';
+import {Actions} from '../../types/actions';
 
 const initialState = {
-  city: CityType.Paris,
-  sort: SortingType.Popular,
   offer: {
     data: null,
     requestStatus: RequestStatus.Unknown,
@@ -28,21 +26,10 @@ const initialState = {
   review: {
     requestStatus: RequestStatus.Unknown,
   },
-  auth: {
-    data: null,
-    error: ErrorMessage.NoFailure,
-    status: AuthStatus.Unknown,
-  },
 };
 
-const reducer = (state: State = initialState, action: Actions): State => {
+const dataReducer = (state: DataState = initialState, action: Actions): DataState => {
   switch (action.type) {
-    case ActionType.SetCity: {
-      return {...state, city: action.payload};
-    }
-    case ActionType.SetSorting: {
-      return {...state, sort: action.payload};
-    }
     case ActionType.LoadOffer: {
       return {...state, offer: {...state.offer, data: action.payload.data}};
     }
@@ -76,22 +63,10 @@ const reducer = (state: State = initialState, action: Actions): State => {
     case ActionType.SetReviewRequestStatus: {
       return {...state, review: {...state.review, requestStatus: action.payload.requestStatus}};
     }
-    case ActionType.RequireAuthorization: {
-      return {...state, auth: {...state.auth, status: action.payload}};
-    }
-    case ActionType.RequireLogout: {
-      return {...state, auth: {...state.auth, status: AuthStatus.NoAuth}};
-    }
-    case ActionType.SetAuthData: {
-      return {...state, auth: {...state.auth, data: action.payload.data}};
-    }
-    case ActionType.SetAuthError: {
-      return {...state, auth: {...state.auth, error: action.payload.error}};
-    }
     default: {
       return state;
     }
   }
 };
 
-export {reducer};
+export {dataReducer};

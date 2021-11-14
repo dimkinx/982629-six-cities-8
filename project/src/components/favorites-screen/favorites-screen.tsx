@@ -5,12 +5,12 @@ import Header from '../header/header';
 import FavoritesList from '../favorites-list/favorites-list';
 import Logo from '../logo/logo';
 import {RequestStatus, LogoSize} from '../../common/const';
-import {getFavoriteOffersAction} from '../../store/api-actions';
+import {getFavoriteOffersAction} from '../../store/data/data-api-actions';
 import LoadingScreen from '../loading-screen/loadingScreen';
 import {addClassModifier} from '../../common/utils';
 
 function FavoritesScreen(): JSX.Element {
-  const {data: favoriteOffers, requestStatus} = useSelector((state: State) => state.favoriteOffers);
+  const {data: favoriteOffers, requestStatus} = useSelector((state: State) => state.data.favoriteOffers);
   const dispatch = useDispatch();
 
   useEffect(() => {

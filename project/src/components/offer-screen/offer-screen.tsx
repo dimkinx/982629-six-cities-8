@@ -9,17 +9,17 @@ import {useDispatch, useSelector} from 'react-redux';
 import {State} from '../../types/state';
 import LoadingScreen from '../loading-screen/loadingScreen';
 import React, {useEffect} from 'react';
-import {getNearbyOffersAction, getOfferAction, getReviewsAction} from '../../store/api-actions';
+import {getNearbyOffersAction, getOfferAction, getReviewsAction} from '../../store/data/data-api-actions';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import {setOfferRequestStatus} from '../../store/actions';
+import {setOfferRequestStatus} from '../../store/data/data-actions';
 import {OfferId} from '../../types/offer';
 
 function OfferScreen(): JSX.Element {
   const {id} = useParams<OfferId>();
 
-  const {data: offer, requestStatus: offerRequestStatus} = useSelector((state: State) => state.offer);
-  const {requestStatus: reviewsRequestStatus} = useSelector((state: State) => state.reviews);
-  const {data: nearbyOffers, requestStatus: nearbyOffersRequestStatus} = useSelector((state: State) => state.nearbyOffers);
+  const {data: offer, requestStatus: offerRequestStatus} = useSelector((state: State) => state.data.offer);
+  const {requestStatus: reviewsRequestStatus} = useSelector((state: State) => state.data.reviews);
+  const {data: nearbyOffers, requestStatus: nearbyOffersRequestStatus} = useSelector((state: State) => state.data.nearbyOffers);
 
   const dispatch = useDispatch();
 

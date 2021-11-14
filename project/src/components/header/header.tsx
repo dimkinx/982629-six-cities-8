@@ -2,13 +2,13 @@ import {MouseEvent, memo} from 'react';
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import Logo from '../logo/logo';
-import {logoutAction} from '../../store/api-actions';
+import {logoutAction} from '../../store/user/user-api-actions';
 import {AppRoute, AuthStatus} from '../../common/const';
 import {State} from '../../types/state';
 
 function Header(): JSX.Element {
-  const isAuthorized = useSelector((state: State) => state.auth.status === AuthStatus.Auth);
-  const authEmail = useSelector((state: State) => state.auth.data?.email);
+  const isAuthorized = useSelector((state: State) => state.user.auth.status === AuthStatus.Auth);
+  const authEmail = useSelector((state: State) => state.user.auth.data?.email);
 
   const dispatch = useDispatch();
 

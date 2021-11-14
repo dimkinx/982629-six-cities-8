@@ -1,6 +1,6 @@
 import {FormEvent, Fragment, useEffect, useState} from 'react';
 import {getStatefulItems} from '../../common/utils';
-import {postReviewAction} from '../../store/api-actions';
+import {postReviewAction} from '../../store/data/data-api-actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {State} from '../../types/state';
 import {CommentLengthLimit, RatingType, RequestStatus} from '../../common/const';
@@ -15,7 +15,7 @@ const initialReviewState = {
 function ReviewsForm(): JSX.Element {
   const {id} = useParams<OfferId>();
 
-  const isLoading = useSelector((state: State) => state.review.requestStatus === RequestStatus.Loading);
+  const isLoading = useSelector((state: State) => state.data.review.requestStatus === RequestStatus.Loading);
 
   const [review, setReview] = useState(initialReviewState);
   const [isDisabled, setIsDisabled] = useState(true);

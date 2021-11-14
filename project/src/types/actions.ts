@@ -1,7 +1,7 @@
-import {ThunkAction, ThunkDispatch} from 'redux-thunk';
+import {ThunkAction} from 'redux-thunk';
 import {AxiosInstance} from 'axios';
 import {ActionType, AuthStatus, CityType, ErrorMessage, RequestStatus, SortingType} from '../common/const';
-import {State} from './state';
+import {DataState, UserState} from './state';
 import {Offer} from './offer';
 import {AuthData} from './auth-data';
 import {Review} from './review';
@@ -135,9 +135,7 @@ type Actions =
   | SetAuthData
   | SetAuthError;
 
-type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
-
-type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
+type ThunkActionResult<R = Promise<void>> = ThunkAction<R, {data: DataState; user: UserState}, AxiosInstance, Actions>;
 
 export type {
   SetCity,
@@ -156,6 +154,5 @@ export type {
   SetAuthData,
   SetAuthError,
   Actions,
-  ThunkActionResult,
-  ThunkAppDispatch
+  ThunkActionResult
 };

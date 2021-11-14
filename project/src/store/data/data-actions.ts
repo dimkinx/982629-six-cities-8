@@ -1,34 +1,19 @@
-import {ActionType, AuthStatus, CityType, ErrorMessage, RequestStatus, SortingType} from '../common/const';
+import {ActionType, RequestStatus} from '../../common/const';
 import {
-  SetCity,
-  SetSorting,
-  LoadOffers,
-  LoadFavoriteOffers,
-  SetOffersRequestStatus,
-  SetFavoriteOffersRequestStatus,
-  SetAuthData,
-  SetAuthError,
-  LoadReviews,
-  SetReviewsRequestStatus,
-  SetOfferRequestStatus,
   LoadOffer,
+  SetOfferRequestStatus,
+  LoadOffers,
+  SetOffersRequestStatus,
+  LoadFavoriteOffers,
+  SetFavoriteOffersRequestStatus,
   LoadNearbyOffers,
   SetNearbyOffersRequestStatus,
+  LoadReviews,
+  SetReviewsRequestStatus,
   SetReviewRequestStatus
-} from '../types/actions';
-import {Offer} from '../types/offer';
-import {AuthData} from '../types/auth-data';
-import {Review} from '../types/review';
-
-const setCity = (city: CityType): SetCity => ({
-  type: ActionType.SetCity,
-  payload: city,
-} as const);
-
-const setSorting = (sorting: SortingType): SetSorting => ({
-  type: ActionType.SetSorting,
-  payload: sorting,
-} as const);
+} from '../../types/actions';
+import {Offer} from '../../types/offer';
+import {Review} from '../../types/review';
 
 const loadOffer = (offer: Offer): LoadOffer => ({
   type: ActionType.LoadOffer,
@@ -107,32 +92,7 @@ const setReviewRequestStatus = (requestStatus: RequestStatus): SetReviewRequestS
   },
 } as const);
 
-const requireAuthorization = (authStatus: AuthStatus) => ({
-  type: ActionType.RequireAuthorization,
-  payload: authStatus,
-} as const);
-
-const requireLogout = () => ({
-  type: ActionType.RequireLogout,
-} as const);
-
-const setAuthData = (data: AuthData | null): SetAuthData => ({
-  type: ActionType.SetAuthData,
-  payload: {
-    data: data,
-  },
-} as const);
-
-const setAuthError = (error: ErrorMessage): SetAuthError => ({
-  type: ActionType.SetAuthError,
-  payload: {
-    error: error,
-  },
-} as const);
-
 export {
-  setCity,
-  setSorting,
   loadOffer,
   setOfferRequestStatus,
   loadOffers,
@@ -143,9 +103,5 @@ export {
   setFavoriteOffersRequestStatus,
   loadReviews,
   setReviewsRequestStatus,
-  setReviewRequestStatus,
-  requireAuthorization,
-  requireLogout,
-  setAuthData,
-  setAuthError
+  setReviewRequestStatus
 };

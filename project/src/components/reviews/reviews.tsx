@@ -7,8 +7,8 @@ import {State} from '../../types/state';
 import {compareReviewsByDate} from '../../common/date-time-utils';
 
 function Reviews(): JSX.Element {
-  const isAuthorized = useSelector((state: State) => state.auth.status === AuthStatus.Auth);
-  const reviews = useSelector((state: State) => state.reviews.data.slice(0, PropertyParams.ReviewsMaxCount).sort(compareReviewsByDate));
+  const isAuthorized = useSelector((state: State) => state.user.auth.status === AuthStatus.Auth);
+  const reviews = useSelector((state: State) => state.data.reviews.data.slice(0, PropertyParams.ReviewsMaxCount).sort(compareReviewsByDate));
 
   return (
     <section className="property__reviews reviews">

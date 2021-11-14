@@ -1,6 +1,6 @@
 import {FormEvent, useRef} from 'react';
 import {useDispatch} from 'react-redux';
-import {loginAction} from '../../store/api-actions';
+import {loginAction} from '../../store/user/user-api-actions';
 import Logo from '../logo/logo';
 
 function LoginScreen(): JSX.Element {

@@ -1,26 +1,22 @@
-import {ThunkActionResult} from '../types/actions';
+import {toast} from 'react-toastify';
 import {
-  loadFavoriteOffers, loadNearbyOffers,
+  loadFavoriteOffers,
+  loadNearbyOffers,
   loadOffer,
-  loadOffers, loadReviews,
-  requireAuthorization,
-  requireLogout,
-  setAuthData,
-  setAuthError,
+  loadOffers,
+  loadReviews,
   setFavoriteOffersRequestStatus,
   setNearbyOffersRequestStatus,
   setOfferRequestStatus,
   setOffersRequestStatus,
   setReviewRequestStatus,
   setReviewsRequestStatus
-} from './actions';
-import {saveToken, dropToken} from '../services/token';
-import {APIRoute, AuthStatus, ErrorMessage, RequestStatus} from '../common/const';
-import {RawAuthData, UserAuthData} from '../types/auth-data';
-import {RawOffer} from '../types/offer';
-import {adaptAuthDataToClient, adaptOfferToClient, adaptReviewToClient} from '../services/adapters';
-import {toast} from 'react-toastify';
-import {RawReview, UserReview} from '../types/review';
+} from './data-actions';
+import {adaptOfferToClient, adaptReviewToClient} from '../../services/adapters';
+import {APIRoute, ErrorMessage, RequestStatus} from '../../common/const';
+import {RawOffer} from '../../types/offer';
+import {RawReview, UserReview} from '../../types/review';
+import {ThunkActionResult} from '../../types/actions';
 
 const getOfferAction = (id: string): ThunkActionResult => (
   async (dispatch, _getState, api): Promise<void> => {
@@ -112,63 +108,4 @@ const postReviewAction = (id: string, review: UserReview): ThunkActionResult => 
   }
 );
 
-const checkAuthAction = (): ThunkActionResult => (
-  async (dispatch, _getState, api) => {
-    await api.get(APIRoute.Login())
-      .then(({data: rawAuthData}) => {
-        dispatch(requireAuthorization(AuthStatus.Auth));
-        dispatch(setAuthData(adaptAuthDataToClient(rawAuthData)));
-        dispatch(setAuthError(ErrorMessage.NoFailure));
-      })
-      .catch((error) => {
-        dispatch(setAuthError(error.message));
-      });
-  }
-);
-
-const loginAction = ({login: email, password}: UserAuthData): ThunkActionResult => (
-  async (dispatch, _getState, api) => {
-    await api.post<RawAuthData>(APIRoute.Login(), {email, password})
-      .then(({data: rawAuthData}) => {
-        const authData = adaptAuthDataToClient(rawAuthData);
-        authData && saveToken(authData.token);
-        dispatch(requireAuthorization(AuthStatus.Auth));
-        dispatch(setAuthData(authData));
-        dispatch(setAuthError(ErrorMessage.NoFailure));
-      })
-      .catch((error) => {
-        const errorMessage = error.response ? error.response.data.error : error.message;
-        dispatch(setAuthError(errorMessage));
-        toast.error(errorMessage);
-      });
-  }
-);
-
-const logoutAction = (): ThunkActionResult => (
-  async (dispatch, _getState, api) => {
-    await api.delete(APIRoute.Logout())
-      .then(() => {
-        dropToken();
-        dispatch(requireLogout());
-        dispatch(setAuthData(null));
-        dispatch(requireAuthorization(AuthStatus.NoAuth));
-      })
-      .catch((error) => {
-        const errorMessage = error.response ? error.response.data.error : error.message;
-        dispatch(setAuthError(errorMessage));
-        toast.error(errorMessage);
-      });
-  }
-);
-
-export {
-  getOfferAction,
-  getOffersAction,
-  getNearbyOffersAction,
-  getFavoriteOffersAction,
-  getReviewsAction,
-  postReviewAction,
-  checkAuthAction,
-  loginAction,
-  logoutAction
-};
+export {getOfferAction, getOffersAction, getNearbyOffersAction, getFavoriteOffersAction, getReviewsAction, postReviewAction};

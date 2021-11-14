@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {setSorting} from '../../store/actions';
+import {setSorting} from '../../store/user/user-actions';
 import {SortingType} from '../../common/const';
 import {addClassModifier} from '../../common/utils';
 

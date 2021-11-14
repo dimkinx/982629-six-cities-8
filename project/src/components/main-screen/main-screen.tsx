@@ -8,12 +8,13 @@ import OfferList from '../offer-list/offer-list';
 import Map from '../map/map';
 import {addClassModifier, getOffersByCity, getSortedOffers} from '../../common/utils';
 import {RequestStatus, OfferType} from '../../common/const';
-import {getOffersAction} from '../../store/api-actions';
+import {getOffersAction} from '../../store/data/data-api-actions';
 import LoadingScreen from '../loading-screen/loadingScreen';
-import {setOffersRequestStatus} from '../../store/actions';
+import {setOffersRequestStatus} from '../../store/data/data-actions';
 
 function MainScreen(): JSX.Element {
-  const {city: currentCity, sort: currentSort, offers} = useSelector((state: State) => state);
+  const {offers} = useSelector((state: State) => state.data);
+  const {city: currentCity, sort: currentSort} = useSelector((state: State) => state.user);
 
   const currentOffers = getOffersByCity(offers.data, currentCity);
   const sortedOffers = getSortedOffers(currentOffers, currentSort);
