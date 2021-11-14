@@ -1,8 +1,9 @@
-import {CityType, SortingType, ActionType, AuthStatus, ErrorMessage} from '../../common/const';
+import {createReducer} from '@reduxjs/toolkit';
+import {CityType, SortingType, AuthStatus, ErrorMessage} from '../../common/const';
 import {UserState} from '../../types/state';
-import {Actions} from '../../types/actions';
+import {setCity, setSort, setAuthData, requireAuthorization, requireLogout, setAuthError} from './user-actions';
 
-const initialState = {
+const initialState: UserState = {
   city: CityType.Paris,
   sort: SortingType.Popular,
   auth: {
@@ -12,30 +13,26 @@ const initialState = {
   },
 };
 
-const userReducer = (state: UserState = initialState, action: Actions): UserState => {
-  switch (action.type) {
-    case ActionType.SetCity: {
-      return {...state, city: action.payload};
-    }
-    case ActionType.SetSorting: {
-      return {...state, sort: action.payload};
-    }
-    case ActionType.RequireAuthorization: {
-      return {...state, auth: {...state.auth, status: action.payload}};
-    }
-    case ActionType.RequireLogout: {
-      return {...state, auth: {...state.auth, status: AuthStatus.NoAuth}};
-    }
-    case ActionType.SetAuthData: {
-      return {...state, auth: {...state.auth, data: action.payload.data}};
-    }
-    case ActionType.SetAuthError: {
-      return {...state, auth: {...state.auth, error: action.payload.error}};
-    }
-    default: {
-      return state;
-    }
-  }
-};
+const userReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(setCity, (state, action) => {
+      state.city = action.payload.city;
+    })
+    .addCase(setSort, (state, action) => {
+      state.sort = action.payload.sorting;
+    })
+    .addCase(setAuthData, (state, action) => {
+      state.auth.data = action.payload.data;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.auth.status = action.payload.authStatus;
+    })
+    .addCase(requireLogout, (state) => {
+      state.auth.status = AuthStatus.NoAuth;
+    })
+    .addCase(setAuthError, (state, action) => {
+      state.auth.error = action.payload.error;
+    });
+});
 
 export {userReducer};

@@ -1,43 +1,57 @@
+import {createAction} from '@reduxjs/toolkit';
 import {CityType, SortingType, ActionType, AuthStatus, ErrorMessage} from '../../common/const';
-import {SetCity, SetSorting, SetAuthData, SetAuthError} from '../../types/actions';
 import {AuthData} from '../../types/auth-data';
 
-const setCity = (city: CityType): SetCity => ({
-  type: ActionType.SetCity,
-  payload: city,
-} as const);
+const setCity = createAction(
+  ActionType.SetCity,
+  (city: CityType) => ({
+    payload: {
+      city,
+    },
+  }),
+);
 
-const setSorting = (sorting: SortingType): SetSorting => ({
-  type: ActionType.SetSorting,
-  payload: sorting,
-} as const);
+const setSort = createAction(
+  ActionType.SetSorting,
+  (sorting: SortingType) => ({
+    payload: {
+      sorting,
+    },
+  }),
+);
 
-const requireAuthorization = (authStatus: AuthStatus) => ({
-  type: ActionType.RequireAuthorization,
-  payload: authStatus,
-} as const);
+const setAuthData = createAction(
+  ActionType.SetAuthData,
+  (data: AuthData | null) => ({
+    payload: {
+      data,
+    },
+  }),
+);
 
-const requireLogout = () => ({
-  type: ActionType.RequireLogout,
-} as const);
+const requireAuthorization = createAction(
+  ActionType.RequireAuthorization,
+  (authStatus: AuthStatus) => ({
+    payload: {
+      authStatus,
+    },
+  }),
+);
 
-const setAuthData = (data: AuthData | null): SetAuthData => ({
-  type: ActionType.SetAuthData,
-  payload: {
-    data: data,
-  },
-} as const);
+const requireLogout = createAction(ActionType.RequireLogout);
 
-const setAuthError = (error: ErrorMessage): SetAuthError => ({
-  type: ActionType.SetAuthError,
-  payload: {
-    error: error,
-  },
-} as const);
+const setAuthError = createAction(
+  ActionType.SetAuthError,
+  (error: ErrorMessage) => ({
+    payload: {
+      error,
+    },
+  }),
+);
 
 export {
   setCity,
-  setSorting,
+  setSort,
   requireAuthorization,
   requireLogout,
   setAuthData,

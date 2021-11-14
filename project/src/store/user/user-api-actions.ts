@@ -4,7 +4,7 @@ import {saveToken, dropToken} from '../../services/token';
 import {adaptAuthDataToClient} from '../../services/adapters';
 import {APIRoute, AuthStatus, ErrorMessage} from '../../common/const';
 import {RawAuthData, UserAuthData} from '../../types/auth-data';
-import {ThunkActionResult} from '../../types/actions';
+import {ThunkActionResult} from '../../types/thunk-action';
 
 const checkAuthAction = (): ThunkActionResult => (
   async (dispatch, _getState, api) => {

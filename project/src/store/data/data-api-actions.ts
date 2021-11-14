@@ -16,7 +16,7 @@ import {adaptOfferToClient, adaptReviewToClient} from '../../services/adapters';
 import {APIRoute, ErrorMessage, RequestStatus} from '../../common/const';
 import {RawOffer} from '../../types/offer';
 import {RawReview, UserReview} from '../../types/review';
-import {ThunkActionResult} from '../../types/actions';
+import {ThunkActionResult} from '../../types/thunk-action';
 
 const getOfferAction = (id: string): ThunkActionResult => (
   async (dispatch, _getState, api): Promise<void> => {

@@ -1,8 +1,21 @@
-import {ActionType, RequestStatus} from '../../common/const';
+import {createReducer} from '@reduxjs/toolkit';
+import {RequestStatus} from '../../common/const';
 import {DataState} from '../../types/state';
-import {Actions} from '../../types/actions';
+import {
+  loadOffer,
+  setOfferRequestStatus,
+  loadOffers,
+  setOffersRequestStatus,
+  loadFavoriteOffers,
+  setFavoriteOffersRequestStatus,
+  loadNearbyOffers,
+  setNearbyOffersRequestStatus,
+  loadReviews,
+  setReviewsRequestStatus,
+  setReviewRequestStatus
+} from './data-actions';
 
-const initialState = {
+const initialState: DataState = {
   offer: {
     data: null,
     requestStatus: RequestStatus.Unknown,
@@ -28,45 +41,41 @@ const initialState = {
   },
 };
 
-const dataReducer = (state: DataState = initialState, action: Actions): DataState => {
-  switch (action.type) {
-    case ActionType.LoadOffer: {
-      return {...state, offer: {...state.offer, data: action.payload.data}};
-    }
-    case ActionType.SetOfferRequestStatus: {
-      return {...state, offer: {...state.offer, requestStatus: action.payload.requestStatus}};
-    }
-    case ActionType.LoadOffers: {
-      return {...state, offers: {...state.offers, data: action.payload.data}};
-    }
-    case ActionType.SetOffersRequestStatus: {
-      return {...state, offers: {...state.offers, requestStatus: action.payload.requestStatus}};
-    }
-    case ActionType.LoadNearbyOffers: {
-      return {...state, nearbyOffers: {...state.nearbyOffers, data: action.payload.data}};
-    }
-    case ActionType.SetNearbyOffersRequestStatus: {
-      return {...state, nearbyOffers: {...state.nearbyOffers, requestStatus: action.payload.requestStatus}};
-    }
-    case ActionType.LoadFavoriteOffers: {
-      return {...state, favoriteOffers: {...state.favoriteOffers, data: action.payload.data}};
-    }
-    case ActionType.SetFavoriteOffersRequestStatus: {
-      return {...state, favoriteOffers: {...state.favoriteOffers, requestStatus: action.payload.requestStatus}};
-    }
-    case ActionType.LoadReviews: {
-      return {...state, reviews: {...state.reviews, data: action.payload.data}};
-    }
-    case ActionType.SetReviewsRequestStatus: {
-      return {...state, reviews: {...state.reviews, requestStatus: action.payload.requestStatus}};
-    }
-    case ActionType.SetReviewRequestStatus: {
-      return {...state, review: {...state.review, requestStatus: action.payload.requestStatus}};
-    }
-    default: {
-      return state;
-    }
-  }
-};
+const dataReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(loadOffer, (state, action) => {
+      state.offer.data = action.payload.offer;
+    })
+    .addCase(setOfferRequestStatus, (state, action) => {
+      state.offer.requestStatus = action.payload.requestStatus;
+    })
+    .addCase(loadOffers, (state, action) => {
+      state.offers.data = action.payload.offers;
+    })
+    .addCase(setOffersRequestStatus, (state, action) => {
+      state.offers.requestStatus = action.payload.requestStatus;
+    })
+    .addCase(loadNearbyOffers, (state, action) => {
+      state.nearbyOffers.data = action.payload.nearbyOffers;
+    })
+    .addCase(setNearbyOffersRequestStatus, (state, action) => {
+      state.nearbyOffers.requestStatus = action.payload.requestStatus;
+    })
+    .addCase(loadFavoriteOffers, (state, action) => {
+      state.favoriteOffers.data = action.payload.favoriteOffers;
+    })
+    .addCase(setFavoriteOffersRequestStatus, (state, action) => {
+      state.favoriteOffers.requestStatus = action.payload.requestStatus;
+    })
+    .addCase(loadReviews, (state, action) => {
+      state.reviews.data = action.payload.reviews;
+    })
+    .addCase(setReviewsRequestStatus, (state, action) => {
+      state.reviews.requestStatus = action.payload.requestStatus;
+    })
+    .addCase(setReviewRequestStatus, (state, action) => {
+      state.review.requestStatus = action.payload.requestStatus;
+    });
+});
 
 export {dataReducer};

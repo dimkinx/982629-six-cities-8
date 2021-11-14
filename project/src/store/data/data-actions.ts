@@ -1,96 +1,106 @@
+import {createAction} from '@reduxjs/toolkit';
 import {ActionType, RequestStatus} from '../../common/const';
-import {
-  LoadOffer,
-  SetOfferRequestStatus,
-  LoadOffers,
-  SetOffersRequestStatus,
-  LoadFavoriteOffers,
-  SetFavoriteOffersRequestStatus,
-  LoadNearbyOffers,
-  SetNearbyOffersRequestStatus,
-  LoadReviews,
-  SetReviewsRequestStatus,
-  SetReviewRequestStatus
-} from '../../types/actions';
 import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
 
-const loadOffer = (offer: Offer): LoadOffer => ({
-  type: ActionType.LoadOffer,
-  payload: {
-    data: offer,
-  },
-} as const);
+const loadOffer = createAction(
+  ActionType.LoadOffer,
+  (offer: Offer | null) => ({
+    payload: {
+      offer,
+    },
+  }),
+);
 
-const setOfferRequestStatus = (requestStatus: RequestStatus): SetOfferRequestStatus => ({
-  type: ActionType.SetOfferRequestStatus,
-  payload: {
-    requestStatus: requestStatus,
-  },
-} as const);
+const setOfferRequestStatus = createAction(
+  ActionType.SetOfferRequestStatus,
+  (requestStatus: RequestStatus) => ({
+    payload: {
+      requestStatus,
+    },
+  }),
+);
 
-const loadOffers = (offers: Offer[]): LoadOffers => ({
-  type: ActionType.LoadOffers,
-  payload: {
-    data: offers,
-  },
-} as const);
+const loadOffers = createAction(
+  ActionType.LoadOffers,
+  (offers: Offer[]) => ({
+    payload: {
+      offers,
+    },
+  }),
+);
 
-const setOffersRequestStatus = (requestStatus: RequestStatus): SetOffersRequestStatus => ({
-  type: ActionType.SetOffersRequestStatus,
-  payload: {
-    requestStatus: requestStatus,
-  },
-} as const);
+const setOffersRequestStatus = createAction(
+  ActionType.SetOffersRequestStatus,
+  (requestStatus: RequestStatus) => ({
+    payload: {
+      requestStatus,
+    },
+  }),
+);
 
-const loadNearbyOffers = (nearOffers: Offer[]): LoadNearbyOffers => ({
-  type: ActionType.LoadNearbyOffers,
-  payload: {
-    data: nearOffers,
-  },
-} as const);
+const loadNearbyOffers = createAction(
+  ActionType.LoadNearbyOffers,
+  (nearbyOffers: Offer[]) => ({
+    payload: {
+      nearbyOffers,
+    },
+  }),
+);
 
-const setNearbyOffersRequestStatus = (requestStatus: RequestStatus): SetNearbyOffersRequestStatus => ({
-  type: ActionType.SetNearbyOffersRequestStatus,
-  payload: {
-    requestStatus: requestStatus,
-  },
-} as const);
+const setNearbyOffersRequestStatus = createAction(
+  ActionType.SetNearbyOffersRequestStatus,
+  (requestStatus: RequestStatus) => ({
+    payload: {
+      requestStatus,
+    },
+  }),
+);
 
-const loadFavoriteOffers = (favoriteOffers: Offer[]): LoadFavoriteOffers => ({
-  type: ActionType.LoadFavoriteOffers,
-  payload: {
-    data: favoriteOffers,
-  },
-} as const);
+const loadFavoriteOffers = createAction(
+  ActionType.LoadFavoriteOffers,
+  (favoriteOffers: Offer[]) => ({
+    payload: {
+      favoriteOffers,
+    },
+  }),
+);
 
-const setFavoriteOffersRequestStatus = (requestStatus: RequestStatus): SetFavoriteOffersRequestStatus => ({
-  type: ActionType.SetFavoriteOffersRequestStatus,
-  payload: {
-    requestStatus: requestStatus,
-  },
-} as const);
+const setFavoriteOffersRequestStatus = createAction(
+  ActionType.SetFavoriteOffersRequestStatus,
+  (requestStatus: RequestStatus) => ({
+    payload: {
+      requestStatus,
+    },
+  }),
+);
 
-const loadReviews = (reviews: Review[]): LoadReviews => ({
-  type: ActionType.LoadReviews,
-  payload: {
-    data: reviews,
-  },
-} as const);
+const loadReviews = createAction(
+  ActionType.LoadReviews,
+  (reviews: Review[]) => ({
+    payload: {
+      reviews,
+    },
+  }),
+);
 
-const setReviewsRequestStatus = (requestStatus: RequestStatus): SetReviewsRequestStatus => ({
-  type: ActionType.SetReviewsRequestStatus,
-  payload: {
-    requestStatus: requestStatus,
-  },
-} as const);
+const setReviewsRequestStatus = createAction(
+  ActionType.SetReviewsRequestStatus,
+  (requestStatus: RequestStatus) => ({
+    payload: {
+      requestStatus,
+    },
+  }),
+);
 
-const setReviewRequestStatus = (requestStatus: RequestStatus): SetReviewRequestStatus => ({
-  type: ActionType.SetReviewRequestStatus,
-  payload: {
-    requestStatus: requestStatus,
-  },
-} as const);
+const setReviewRequestStatus = createAction(
+  ActionType.SetReviewRequestStatus,
+  (requestStatus: RequestStatus) => ({
+    payload: {
+      requestStatus,
+    },
+  }),
+);
 
 export {
   loadOffer,

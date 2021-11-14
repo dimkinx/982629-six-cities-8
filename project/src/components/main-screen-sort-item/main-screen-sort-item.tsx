@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {setSorting} from '../../store/user/user-actions';
+import {setSort} from '../../store/user/user-actions';
 import {SortingType} from '../../common/const';
 import {addClassModifier} from '../../common/utils';
 
@@ -19,7 +19,7 @@ function MainScreenSortItem(props: MainScreenSortItemProps): JSX.Element {
     onOpenedItemClick(false);
 
     if (sort !== currentSort) {
-      dispatch(setSorting(sort));
+      dispatch(setSort(sort));
     }
   };
 
