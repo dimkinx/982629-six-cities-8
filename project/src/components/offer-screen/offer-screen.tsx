@@ -1,34 +1,36 @@
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {Redirect, useParams} from 'react-router-dom';
 import Header from '../header/header';
 import OfferList from '../offer-list/offer-list';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+import LoadingScreen from '../loading-screen/loadingScreen';
 import Reviews from '../reviews/reviews';
 import Map from '../map/map';
 import {addClassModifier, getRatingPercentage, getStatefulItems} from '../../common/utils';
-import {AppRoute, OfferType, PropertyParams, RequestStatus} from '../../common/const';
-import {useDispatch, useSelector} from 'react-redux';
-import LoadingScreen from '../loading-screen/loadingScreen';
-import React, {useEffect} from 'react';
+import {AppRoute, OfferType, PropertyParam, RequestStatus} from '../../common/const';
 import {getNearbyOffersAction, getOfferAction, getReviewsAction} from '../../store/data/data-api-actions';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {setOfferRequestStatus} from '../../store/data/data-actions';
 import {getOffer, getOfferRequestStatus, getNearbyOffers, getNearbyOffersRequestStatus, getReviewsRequestStatus} from '../../store/data/data-selectors';
-import {OfferId} from '../../types/offer';
+import {OfferScreenIdParamValue} from '../../types/offer';
 
 function OfferScreen(): JSX.Element {
-  const {id} = useParams<OfferId>();
+  const {id} = useParams<OfferScreenIdParamValue>();
 
   const offer = useSelector(getOffer);
-  const offerRequestStatus = useSelector(getOfferRequestStatus);
   const nearbyOffers = useSelector(getNearbyOffers);
+  const offerRequestStatus = useSelector(getOfferRequestStatus);
   const nearbyOffersRequestStatus = useSelector(getNearbyOffersRequestStatus);
   const reviewsRequestStatus = useSelector(getReviewsRequestStatus);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOfferAction(id));
-    dispatch(getNearbyOffersAction(id));
-    dispatch(getReviewsAction(id));
+    if (offer?.id !== Number(id)) {
+      dispatch(getOfferAction(id));
+      dispatch(getNearbyOffersAction(id));
+      dispatch(getReviewsAction(id));
+    }
 
     return () => {
       dispatch(setOfferRequestStatus(RequestStatus.Unknown));
@@ -65,7 +67,7 @@ function OfferScreen(): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {statefulImages.slice(0, PropertyParams.GalleryImgCount).map((image) => (
+              {statefulImages.slice(0, PropertyParam.GalleryImgCount).map((image) => (
                 <div
                   key={image.id}
                   className="property__image-wrapper"
@@ -166,7 +168,7 @@ function OfferScreen(): JSX.Element {
           </div>
           <Map
             className="property__map"
-            cityLocation={{...offer.location, zoom: PropertyParams.MapZoom}}
+            cityLocation={{...offer.location, zoom: PropertyParam.MapZoom}}
             offers={[...nearbyOffers, offer]}
             activeCardId={Number(id)}
           />

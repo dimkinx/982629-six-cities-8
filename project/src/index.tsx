@@ -7,7 +7,7 @@ import {rootReducer} from './store/root-reducer';
 import {requireAuthorization} from './store/user/user-actions';
 import {checkAuthAction} from './store/user/user-api-actions';
 import App from './components/app/app';
-import {AuthStatus, ToastParams} from './common/const';
+import {AuthStatus, ToastParam} from './common/const';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -33,8 +33,8 @@ ReactDOM.render(
       <App />
     </Provider>
     <ToastContainer
-      theme={ToastParams.Theme}
-      position={ToastParams.Position}
+      theme={ToastParam.Theme}
+      position={ToastParam.Position}
     />
   </React.StrictMode>,
   document.getElementById('root'),

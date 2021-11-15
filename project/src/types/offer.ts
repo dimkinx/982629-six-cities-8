@@ -4,7 +4,7 @@ type Location = {
   zoom: number;
 }
 
-type OfferId = {
+type OfferScreenIdParamValue = {
   id: string;
 }
 
@@ -62,4 +62,4 @@ type RawOffer = {
   'type': string;
 }
 
-export type {Location, OfferId, Offer, RawOffer};
+export type {Location, OfferScreenIdParamValue, Offer, RawOffer};

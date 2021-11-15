@@ -9,7 +9,7 @@ const LogoSize = {
   },
 } as const;
 
-const LoaderParams = {
+const LoaderParam = {
   Type: 'Watch',
   Color: '#4481c3',
   Size: {
@@ -18,18 +18,18 @@ const LoaderParams = {
   },
 } as const;
 
-const ToastParams = {
+const ToastParam = {
   Theme: 'colored',
   Position: 'top-center',
 } as const;
 
-const PropertyParams = {
+const PropertyParam = {
   GalleryImgCount: 6,
   ReviewsMaxCount: 10,
   MapZoom: 13,
 } as const;
 
-const MapIconParams = {
+const MapIconParam = {
   DefaultImgUrl: 'img/pin.svg',
   ActiveImgUrl: 'img/pin-active.svg',
   Size: {
@@ -153,10 +153,10 @@ enum RatingType {
 
 export {
   LogoSize,
-  LoaderParams,
-  ToastParams,
-  PropertyParams,
-  MapIconParams,
+  LoaderParam,
+  ToastParam,
+  PropertyParam,
+  MapIconParam,
   OfferCardImgSize,
   CommentLengthLimit,
   AppRoute,
