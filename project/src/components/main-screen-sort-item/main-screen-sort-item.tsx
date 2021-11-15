@@ -1,27 +1,32 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {setSorting} from '../../store/actions';
+import {setSort} from '../../store/user/user-actions';
 import {SortingType} from '../../common/const';
+import {addClassModifier} from '../../common/utils';
 
 type MainScreenSortItemProps = {
   sort: SortingType;
-  className: string;
+  currentSort: SortingType;
   onOpenedItemClick: (isSortingOpen: boolean) => void;
 }
 
 function MainScreenSortItem(props: MainScreenSortItemProps): JSX.Element {
-  const {sort, className, onOpenedItemClick} = props;
+  const {sort, currentSort, onOpenedItemClick} = props;
+
   const dispatch = useDispatch();
 
   const handleItemClick = () => {
-    dispatch(setSorting(sort));
     onOpenedItemClick(false);
+
+    if (sort !== currentSort) {
+      dispatch(setSort(sort));
+    }
   };
 
   return (
     <li
       onClick={handleItemClick}
-      className={className}
+      className={addClassModifier(sort === currentSort, 'places__option')}
       tabIndex={0}
     >
       {sort}

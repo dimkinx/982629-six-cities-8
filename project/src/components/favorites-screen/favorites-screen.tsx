@@ -1,16 +1,18 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {State} from '../../types/state';
 import Header from '../header/header';
 import FavoritesList from '../favorites-list/favorites-list';
 import Logo from '../logo/logo';
 import {RequestStatus, LogoSize} from '../../common/const';
-import {getFavoriteOffersAction} from '../../store/api-actions';
+import {getFavoriteOffersAction} from '../../store/data/data-api-actions';
 import LoadingScreen from '../loading-screen/loadingScreen';
 import {addClassModifier} from '../../common/utils';
+import {getFavoriteOffers, getFavoriteOffersRequestStatus} from '../../store/data/data-selectors';
 
 function FavoritesScreen(): JSX.Element {
-  const {data: favoriteOffers, requestStatus} = useSelector((state: State) => state.favoriteOffers);
+  const favoriteOffers = useSelector(getFavoriteOffers);
+  const requestStatus = useSelector(getFavoriteOffersRequestStatus);
+
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -1,18 +1,18 @@
-import Logo from '../logo/logo';
+import {MouseEvent, memo} from 'react';
 import {Link} from 'react-router-dom';
-import {AppRoute, AuthStatus} from '../../common/const';
 import {useDispatch, useSelector} from 'react-redux';
-import {State} from '../../types/state';
-import React from 'react';
-import {logoutAction} from '../../store/api-actions';
+import Logo from '../logo/logo';
+import {logoutAction} from '../../store/user/user-api-actions';
+import {AppRoute} from '../../common/const';
+import {getIsAuthorized, getUserEmail} from '../../store/user/user-selectors';
 
 function Header(): JSX.Element {
-  const authStatus = useSelector((state: State) => state.auth.status);
-  const authEmail = useSelector((state: State) => state.auth.data?.email);
-  const isAuthorized = authStatus === AuthStatus.Auth;
+  const isAuthorized = useSelector(getIsAuthorized);
+  const userEmail = useSelector(getUserEmail);
+
   const dispatch = useDispatch();
 
-  const handleSignOutClick = (evt: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleSignOutClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
     dispatch(logoutAction());
   };
@@ -33,7 +33,7 @@ function Header(): JSX.Element {
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper" />
                   <span className="header__user-name user__name">
-                    {`${isAuthorized ? authEmail : 'Sign in'}`}
+                    {`${isAuthorized ? userEmail : 'Sign in'}`}
                   </span>
                 </Link>
               </li>
@@ -56,4 +56,4 @@ function Header(): JSX.Element {
   );
 }
 
-export default Header;
+export default memo(Header);

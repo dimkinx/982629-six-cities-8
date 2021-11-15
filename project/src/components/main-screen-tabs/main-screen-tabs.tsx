@@ -1,11 +1,13 @@
-import {useSelector} from 'react-redux';
-import {State} from '../../types/state';
-import {addClassModifier} from '../../common/utils';
-import {CityType} from '../../common/const';
 import MainScreenTabsItem from '../main-screen-tabs-item/main-screen-tabs-item';
+import {CityType} from '../../common/const';
+import {memo} from 'react';
 
-function MainScreenTabs(): JSX.Element {
-  const {city: currentCity} = useSelector((state: State) => state);
+type MainScreenTabsProps = {
+  currentCity: CityType;
+}
+
+function MainScreenTabs(props: MainScreenTabsProps): JSX.Element {
+  const {currentCity} = props;
 
   return (
     <div className="tabs">
@@ -15,7 +17,7 @@ function MainScreenTabs(): JSX.Element {
             <MainScreenTabsItem
               key={city}
               city={city}
-              className={`${addClassModifier(city === currentCity, 'tabs__item')} locations__item-link`}
+              currentCity={currentCity}
             />
           ))}
         </ul>
@@ -24,4 +26,4 @@ function MainScreenTabs(): JSX.Element {
   );
 }
 
-export default MainScreenTabs;
+export default memo(MainScreenTabs, (prev, next) => prev.currentCity === next.currentCity);

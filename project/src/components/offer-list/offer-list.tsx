@@ -1,6 +1,7 @@
 import OfferCard from '../offer-card/offer-card';
 import {Offer} from '../../types/offer';
 import {OfferType} from '../../common/const';
+import {memo} from 'react';
 
 type OfferListProps = {
   offers: Offer[];
@@ -8,9 +9,11 @@ type OfferListProps = {
   onActiveCardIdSelect?: (id: null | number) => void;
 }
 
-function OfferList({offers, offerType, onActiveCardIdSelect}: OfferListProps): JSX.Element {
+function OfferList(props: OfferListProps): JSX.Element {
+  const {offers, offerType, onActiveCardIdSelect} = props;
+
   return (
-    <div className={`${offerType === 'cities' ? `${offerType}__places-list tabs__content` : `${offerType}__list`} places__list`}>
+    <div className={`${offerType === OfferType.Main ? `${offerType}__places-list tabs__content` : `${offerType}__list`} places__list`}>
       {offers.map((offer) => (
         <OfferCard
           key={offer.id}
@@ -23,4 +26,4 @@ function OfferList({offers, offerType, onActiveCardIdSelect}: OfferListProps): J
   );
 }
 
-export default OfferList;
+export default memo(OfferList);

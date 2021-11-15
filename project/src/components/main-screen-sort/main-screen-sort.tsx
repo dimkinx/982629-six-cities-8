@@ -1,12 +1,15 @@
-import React, {useState} from 'react';
+import {memo, useState} from 'react';
 import {addClassModifier} from '../../common/utils';
 import {SortingType} from '../../common/const';
 import MainScreenSortItem from '../main-screen-sort-item/main-screen-sort-item';
-import {useSelector} from 'react-redux';
-import {State} from '../../types/state';
 
-function MainScreenSort(): JSX.Element {
-  const {sort: currentSort} = useSelector((state: State) => state);
+type MainScreenSortProps = {
+  currentSort: SortingType;
+}
+
+function MainScreenSort(props: MainScreenSortProps): JSX.Element {
+  const {currentSort} = props;
+
   const [isSortingOpen, setIsSortingOpen] = useState(false);
 
   const handleSortingTypeClick = () => {
@@ -34,7 +37,7 @@ function MainScreenSort(): JSX.Element {
           <MainScreenSortItem
             key={sort}
             sort={sort}
-            className={addClassModifier(sort === currentSort, 'places__option')}
+            currentSort={currentSort}
             onOpenedItemClick={setIsSortingOpen}
           />
         ))}
@@ -43,4 +46,4 @@ function MainScreenSort(): JSX.Element {
   );
 }
 
-export default MainScreenSort;
+export default memo(MainScreenSort, (prev, next) => prev.currentSort === next.currentSort);

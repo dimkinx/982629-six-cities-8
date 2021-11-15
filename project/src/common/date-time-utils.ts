@@ -1,3 +1,5 @@
+import {Review} from '../types/review';
+
 const months = [
   'January',
   'February',
@@ -19,4 +21,6 @@ const addLeadingZero = (number: number): string => (number < 10) ? `0${number}` 
 
 const getDateForRobot = (date: string): string => `${new Date(date).getFullYear()}-${addLeadingZero(new Date(date).getMonth() + 1)}-${addLeadingZero(new Date(date).getDate())}`;
 
-export {getDateForHuman, getDateForRobot};
+const compareReviewsByDate = (first: Review, second: Review): number => Number(new Date(second.date)) - Number(new Date(first.date));
+
+export {getDateForHuman, getDateForRobot, compareReviewsByDate};

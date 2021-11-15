@@ -4,6 +4,10 @@ type Location = {
   zoom: number;
 }
 
+type OfferId = {
+  id: string;
+}
+
 type Offer = {
   bedrooms: number;
   city: {
@@ -19,7 +23,7 @@ type Offer = {
     name: string;
   }
   id: number;
-  images?: string[];
+  images: string[];
   isFavorite: boolean;
   isPremium: boolean;
   location: Location;
@@ -58,4 +62,4 @@ type RawOffer = {
   'type': string;
 }
 
-export type {Location, Offer, RawOffer};
+export type {Location, OfferId, Offer, RawOffer};

@@ -1,42 +1,45 @@
-import React, {Fragment, useEffect, useState} from 'react';
-import {getStatefulItems} from '../../common/utils';
-import {postReviewAction} from '../../store/api-actions';
-import {useDispatch, useSelector} from 'react-redux';
-import {State} from '../../types/state';
-import {RequestStatus} from '../../common/const';
+import {FormEvent, Fragment, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {postReviewAction} from '../../store/data/data-api-actions';
+import {getIsReviewLoading} from '../../store/data/data-selectors';
+import {getStatefulItems} from '../../common/utils';
+import {CommentLengthLimit, RatingType} from '../../common/const';
+import {OfferId} from '../../types/offer';
 
-const ratings = [
-  'terribly',
-  'badly',
-  'not bad',
-  'good',
-  'perfect',
-];
+const initialReviewState = {
+  rating: 0,
+  comment: '',
+};
 
 function ReviewsForm(): JSX.Element {
-  const {id} = useParams() as {id: string};
-  const [review, setReview] = useState({rating: 0, comment: ''});
+  const {id} = useParams<OfferId>();
+
+  const isReviewLoading = useSelector(getIsReviewLoading);
+
+  const [review, setReview] = useState(initialReviewState);
   const [isDisabled, setIsDisabled] = useState(true);
-  const isLoading = useSelector((state: State) => state.review.requestStatus === RequestStatus.Loading);
+
   const dispatch = useDispatch();
 
-  const statefulRatings = getStatefulItems(ratings, 'title').reverse();
+  const isRatingValid = Boolean(review.rating);
+  const isCommentValid = review.comment.length >= CommentLengthLimit.Min && review.comment.length <= CommentLengthLimit.Max;
+  const statefulRatings = getStatefulItems(Object.values(RatingType), 'title').reverse();
 
   const handleFieldChange = (evt: {target: HTMLInputElement | HTMLTextAreaElement}) => {
     const {name, value} = evt.target;
     setReview({...review, [name]: name === 'rating' ? +value : value});
   };
 
-  const handleFormSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     dispatch(postReviewAction(id, review));
-    setReview({rating: 0, comment: ''});
+    setReview(initialReviewState);
   };
 
   useEffect(() => {
-    setIsDisabled(Boolean(!review.rating) || review.comment.length < 50 || review.comment.length > 300);
-  }, [review]);
+    setIsDisabled(!(isRatingValid && isCommentValid));
+  }, [isRatingValid, isCommentValid]);
 
   return (
     <form
@@ -53,14 +56,14 @@ function ReviewsForm(): JSX.Element {
               onChange={handleFieldChange}
               className="form__rating-input visually-hidden"
               name="rating"
-              value={+rating.id + 1}
-              id={`${+rating.id + 1}-stars`}
+              value={Number(rating.id) + 1}
+              id={`${Number(rating.id) + 1}-stars`}
               type="radio"
-              checked={+rating.id + 1 === review.rating}
-              disabled={isLoading}
+              checked={Number(rating.id) + 1 === review.rating}
+              disabled={isReviewLoading}
             />
             <label
-              htmlFor={`${+rating.id + 1}-stars`}
+              htmlFor={`${Number(rating.id) + 1}-stars`}
               className="reviews__rating-label form__rating-label"
               title={rating.title}
             >
@@ -78,9 +81,9 @@ function ReviewsForm(): JSX.Element {
         name="comment"
         value={review.comment}
         placeholder="Tell how was your stay, what you like and what can be improved"
-        minLength={50}
-        maxLength={300}
-        disabled={isLoading}
+        minLength={CommentLengthLimit.Min}
+        maxLength={CommentLengthLimit.Max}
+        disabled={isReviewLoading}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -90,7 +93,7 @@ function ReviewsForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isDisabled || isLoading}
+          disabled={isDisabled || isReviewLoading}
         >
           Submit
         </button>

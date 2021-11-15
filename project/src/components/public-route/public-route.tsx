@@ -1,17 +1,14 @@
-import {RouteProps} from 'react-router';
-import {Route, Redirect} from 'react-router-dom';
-import {AppRoute, AuthStatus} from '../../common/const';
+import {RouteProps, Route, Redirect} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import {State} from '../../types/state';
+import {getIsAuthorized} from '../../store/user/user-selectors';
+import {AppRoute} from '../../common/const';
 
 function PublicRoute({...props}: RouteProps): JSX.Element {
-  const authStatus = useSelector((state: State) => state.auth.status);
+  const isAuthorized = useSelector(getIsAuthorized);
 
   return (
     <Route {...props}>
-      {authStatus === AuthStatus.NoAuth || authStatus === AuthStatus.Unknown
-        ? props.children
-        : <Redirect to={AppRoute.MainScreen} />}
+      {isAuthorized ? <Redirect to={AppRoute.MainScreen} /> : props.children}
     </Route>
   );
 }

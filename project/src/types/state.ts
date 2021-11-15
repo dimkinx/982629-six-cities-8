@@ -3,9 +3,7 @@ import {Offer} from './offer';
 import {AuthData} from './auth-data';
 import {Review} from './review';
 
-type State = {
-  city: CityType,
-  sort: SortingType,
+type DataState = {
   offer: {
     data: Offer | null,
     requestStatus: RequestStatus,
@@ -29,6 +27,11 @@ type State = {
   review: {
     requestStatus: RequestStatus,
   },
+};
+
+type UserState = {
+  city: CityType,
+  sort: SortingType,
   auth: {
     data: AuthData | null,
     error: ErrorMessage,
@@ -36,4 +39,9 @@ type State = {
   },
 };
 
-export type {State};
+type State = {
+  data: DataState,
+  user: UserState,
+};
+
+export type {DataState, UserState, State};
