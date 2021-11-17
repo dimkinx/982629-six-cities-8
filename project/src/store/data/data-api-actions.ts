@@ -10,18 +10,19 @@ import {
   setOfferRequestStatus,
   setOffersRequestStatus,
   setReviewRequestStatus,
-  setReviewsRequestStatus
+  setReviewsRequestStatus,
+  updateAllOffers
 } from './data-actions';
 import {adaptOfferToClient, adaptReviewToClient} from '../../services/adapters';
-import {APIRoute, ErrorMessage, RequestStatus} from '../../common/const';
-import {RawOffer} from '../../types/offer';
+import {APIRoute, ErrorMessage, FavoritesStatusType, RequestStatus} from '../../common/const';
+import {OfferIdParamValue, RawOffer} from '../../types/offer';
 import {RawReview, UserReview} from '../../types/review';
 import {ThunkActionResult} from '../../types/thunk-action';
 
-const getOfferAction = (id: string): ThunkActionResult => (
+const getOfferAction = ({id}: OfferIdParamValue): ThunkActionResult => (
   async (dispatch, _getState, api): Promise<void> => {
     dispatch(setOfferRequestStatus(RequestStatus.Loading));
-    await api.get<RawOffer>(APIRoute.GetOffer(id))
+    await api.get<RawOffer>(APIRoute.GetOffer({id}))
       .then(({data}) => {
         dispatch(loadOffer(adaptOfferToClient(data)));
         dispatch(setOfferRequestStatus(RequestStatus.Success));
@@ -48,10 +49,10 @@ const getOffersAction = (): ThunkActionResult => (
   }
 );
 
-const getNearbyOffersAction = (id: string): ThunkActionResult => (
+const getNearbyOffersAction = ({id}: OfferIdParamValue): ThunkActionResult => (
   async (dispatch, _getState, api): Promise<void> => {
     dispatch(setNearbyOffersRequestStatus(RequestStatus.Loading));
-    await api.get<RawOffer[]>(APIRoute.GetNearbyOffers(id))
+    await api.get<RawOffer[]>(APIRoute.GetNearbyOffers({id}))
       .then(({data}) => {
         dispatch(loadNearbyOffers(data.map(adaptOfferToClient)));
         dispatch(setNearbyOffersRequestStatus(RequestStatus.Success));
@@ -78,10 +79,10 @@ const getFavoriteOffersAction = (): ThunkActionResult => (
   }
 );
 
-const getReviewsAction = (id: string): ThunkActionResult => (
+const getReviewsAction = ({id}: OfferIdParamValue): ThunkActionResult => (
   async (dispatch, _getState, api): Promise<void> => {
     dispatch(setReviewsRequestStatus(RequestStatus.Loading));
-    await api.get<RawReview[]>(APIRoute.GetReviews(id))
+    await api.get<RawReview[]>(APIRoute.GetReviews({id}))
       .then(({data}) => {
         dispatch(loadReviews(data.map(adaptReviewToClient)));
         dispatch(setReviewsRequestStatus(RequestStatus.Success));
@@ -93,10 +94,10 @@ const getReviewsAction = (id: string): ThunkActionResult => (
   }
 );
 
-const postReviewAction = (id: string, review: UserReview): ThunkActionResult => (
+const postReviewAction = ({id}: OfferIdParamValue, review: UserReview): ThunkActionResult => (
   async (dispatch, _getState, api): Promise<void> => {
     dispatch(setReviewRequestStatus(RequestStatus.Loading));
-    await api.post<RawReview[]>(APIRoute.PostReview(id), review)
+    await api.post<RawReview[]>(APIRoute.PostReview({id}), review)
       .then(({data}) => {
         dispatch(loadReviews(data.map(adaptReviewToClient)));
         dispatch(setReviewRequestStatus(RequestStatus.Success));
@@ -108,4 +109,25 @@ const postReviewAction = (id: string, review: UserReview): ThunkActionResult => 
   }
 );
 
-export {getOfferAction, getOffersAction, getNearbyOffersAction, getFavoriteOffersAction, getReviewsAction, postReviewAction};
+const postFavoritesStatusAction = ({id}: OfferIdParamValue, status: FavoritesStatusType): ThunkActionResult => (
+  async (dispatch, _getState, api): Promise<void> => {
+    await api.post<RawOffer>(APIRoute.PostFavoritesStatus({id}, status))
+      .then(({data}) => {
+        dispatch(updateAllOffers(adaptOfferToClient(data)));
+        dispatch(setOfferRequestStatus(RequestStatus.Updated));
+        dispatch(setNearbyOffersRequestStatus(RequestStatus.Updated));
+        dispatch(setOffersRequestStatus(RequestStatus.Updated));
+        dispatch(setFavoriteOffersRequestStatus(RequestStatus.Updated));
+      });
+  }
+);
+
+export {
+  getOfferAction,
+  getOffersAction,
+  getNearbyOffersAction,
+  getFavoriteOffersAction,
+  getReviewsAction,
+  postReviewAction,
+  postFavoritesStatusAction
+};

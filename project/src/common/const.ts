@@ -1,3 +1,5 @@
+import {OfferIdParamValue} from '../types/offer';
+
 const LogoSize = {
   Header: {
     Width: 81,
@@ -53,6 +55,17 @@ const OfferCardImgSize = {
   },
 } as const;
 
+const BookmarkIconSize = {
+  PlaceCard: {
+    Width: 18,
+    Height: 19,
+  },
+  Property: {
+    Width: 31,
+    Height: 33,
+  },
+} as const;
+
 const CommentLengthLimit = {
   Min: 50,
   Max: 300,
@@ -67,12 +80,13 @@ const AppRoute = {
 } as const;
 
 const APIRoute = {
-  GetOffer: (id: string) => `/hotels/${id}`,
+  GetOffer: ({id}: OfferIdParamValue) => `/hotels/${id}`,
   GetOffers: () => '/hotels',
-  GetNearbyOffers: (id: string) => `/hotels/${id}/nearby`,
+  GetNearbyOffers: ({id}: OfferIdParamValue) => `/hotels/${id}/nearby`,
   GetFavoriteOffers: () => '/favorite',
-  GetReviews: (id: string) => `/comments/${id}`,
-  PostReview: (id: string) => `/comments/${id}`,
+  PostFavoritesStatus: ({id}: OfferIdParamValue, status: FavoritesStatusType) => `/favorite/${id}/${status}`,
+  GetReviews: ({id}: OfferIdParamValue) => `/comments/${id}`,
+  PostReview: ({id}: OfferIdParamValue) => `/comments/${id}`,
   Login: () => '/login',
   Logout: () => '/logout',
 } as const;
@@ -97,6 +111,7 @@ const enum RequestStatus {
   Unknown = 'UNKNOWN',
   Loading = 'LOADING',
   Success = 'SUCCESS',
+  Updated = 'UPDATED',
   NotFound = 'NOT_FOUND',
   Fail = 'FAIL',
 }
@@ -119,6 +134,7 @@ const enum ActionType {
   LoadReviews = 'data/loadReviews',
   SetReviewsRequestStatus = 'data/setReviewsRequestStatus',
   SetReviewRequestStatus = 'data/setReviewRequestStatus',
+  UpdateAllOffers = 'data/updateAllOffers',
   SetCity = 'user/setCity',
   SetSorting = 'user/setSorting',
   RequireAuthorization = 'user/requireAuthorization',
@@ -151,6 +167,16 @@ enum RatingType {
   Perfect = 'perfect',
 }
 
+enum BookmarkButtonType {
+  PlaceCard = 'place-card',
+  Property = 'property',
+}
+
+enum FavoritesStatusType {
+  True = 1,
+  False = 0,
+}
+
 export {
   LogoSize,
   LoaderParam,
@@ -158,6 +184,7 @@ export {
   PropertyParam,
   MapIconParam,
   OfferCardImgSize,
+  BookmarkIconSize,
   CommentLengthLimit,
   AppRoute,
   APIRoute,
@@ -168,5 +195,7 @@ export {
   ActionType,
   CityType,
   SortingType,
-  RatingType
+  RatingType,
+  BookmarkButtonType,
+  FavoritesStatusType
 };

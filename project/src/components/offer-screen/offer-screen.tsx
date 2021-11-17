@@ -8,14 +8,15 @@ import LoadingScreen from '../loading-screen/loadingScreen';
 import Reviews from '../reviews/reviews';
 import Map from '../map/map';
 import {addClassModifier, getRatingPercentage, getStatefulItems} from '../../common/utils';
-import {AppRoute, OfferType, PropertyParam, RequestStatus} from '../../common/const';
+import {AppRoute, BookmarkButtonType, OfferType, PropertyParam, RequestStatus} from '../../common/const';
 import {getNearbyOffersAction, getOfferAction, getReviewsAction} from '../../store/data/data-api-actions';
 import {setOfferRequestStatus} from '../../store/data/data-actions';
 import {getOffer, getOfferRequestStatus, getNearbyOffers, getNearbyOffersRequestStatus, getReviewsRequestStatus} from '../../store/data/data-selectors';
-import {OfferScreenIdParamValue} from '../../types/offer';
+import {OfferIdParamValue} from '../../types/offer';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 
 function OfferScreen(): JSX.Element {
-  const {id} = useParams<OfferScreenIdParamValue>();
+  const {id} = useParams<OfferIdParamValue>();
 
   const offer = useSelector(getOffer);
   const nearbyOffers = useSelector(getNearbyOffers);
@@ -27,15 +28,15 @@ function OfferScreen(): JSX.Element {
 
   useEffect(() => {
     if (offer?.id !== Number(id)) {
-      dispatch(getOfferAction(id));
-      dispatch(getNearbyOffersAction(id));
-      dispatch(getReviewsAction(id));
+      dispatch(getOfferAction({id}));
+      dispatch(getNearbyOffersAction({id}));
+      dispatch(getReviewsAction({id}));
     }
 
     return () => {
       dispatch(setOfferRequestStatus(RequestStatus.Unknown));
     };
-  }, [dispatch, id]);
+  }, [dispatch, offer?.id, id]);
 
   if (offerRequestStatus === RequestStatus.Fail) {
     return <Redirect to={AppRoute.MainScreen} />;
@@ -92,15 +93,11 @@ function OfferScreen(): JSX.Element {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button
-                  className={`${addClassModifier(isFavorite, 'property__bookmark-button')} button`}
-                  type="button"
-                >
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark" />
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <BookmarkButton
+                  id={{id: id.toString()}}
+                  favoritesStatus={Number(!isFavorite)}
+                  buttonType={BookmarkButtonType.Property}
+                />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">

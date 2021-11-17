@@ -5,7 +5,7 @@ import {postReviewAction} from '../../store/data/data-api-actions';
 import {getIsReviewLoading} from '../../store/data/data-selectors';
 import {getStatefulItems} from '../../common/utils';
 import {CommentLengthLimit, RatingType} from '../../common/const';
-import {OfferScreenIdParamValue} from '../../types/offer';
+import {OfferIdParamValue} from '../../types/offer';
 
 const initialReviewState = {
   rating: 0,
@@ -13,7 +13,7 @@ const initialReviewState = {
 };
 
 function ReviewsForm(): JSX.Element {
-  const {id} = useParams<OfferScreenIdParamValue>();
+  const id = useParams<OfferIdParamValue>();
 
   const isReviewLoading = useSelector(getIsReviewLoading);
 

@@ -1,10 +1,12 @@
+import {CityType} from '../common/const';
+
 type Location = {
   latitude: number;
   longitude: number;
   zoom: number;
 }
 
-type OfferScreenIdParamValue = {
+type OfferIdParamValue = {
   id: string;
 }
 
@@ -12,7 +14,7 @@ type Offer = {
   bedrooms: number;
   city: {
     location: Location;
-    name: string;
+    name: CityType;
   }
   description: string;
   goods: string[];
@@ -39,7 +41,7 @@ type RawOffer = {
   'bedrooms': number;
   'city': {
     'location': Location;
-    'name': string;
+    'name': CityType;
   }
   'description': string;
   'goods': string[];
@@ -62,4 +64,4 @@ type RawOffer = {
   'type': string;
 }
 
-export type {Location, OfferScreenIdParamValue, Offer, RawOffer};
+export type {Location, OfferIdParamValue, Offer, RawOffer};
