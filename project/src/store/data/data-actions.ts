@@ -102,6 +102,15 @@ const setReviewRequestStatus = createAction(
   }),
 );
 
+const updateAllOffers = createAction(
+  ActionType.UpdateAllOffers,
+  (updatedOffer: Offer) => ({
+    payload: {
+      updatedOffer,
+    },
+  }),
+);
+
 export {
   loadOffer,
   setOfferRequestStatus,
@@ -113,5 +122,6 @@ export {
   setFavoriteOffersRequestStatus,
   loadReviews,
   setReviewsRequestStatus,
-  setReviewRequestStatus
+  setReviewRequestStatus,
+  updateAllOffers
 };

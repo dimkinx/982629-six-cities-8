@@ -12,8 +12,10 @@ import {
   setNearbyOffersRequestStatus,
   loadReviews,
   setReviewsRequestStatus,
-  setReviewRequestStatus
+  setReviewRequestStatus,
+  updateAllOffers
 } from './data-actions';
+import {updateFavoriteOffers, updateOffers} from '../../common/utils';
 
 const initialState: DataState = {
   offer: {
@@ -75,6 +77,12 @@ const dataReducer = createReducer(initialState, (builder) => {
     })
     .addCase(setReviewRequestStatus, (state, action) => {
       state.review.requestStatus = action.payload.requestStatus;
+    })
+    .addCase(updateAllOffers, (state, action) => {
+      state.offer.data = action.payload.updatedOffer;
+      state.nearbyOffers.data = updateOffers(state.nearbyOffers.data, action.payload.updatedOffer);
+      state.offers.data = updateOffers(state.offers.data, action.payload.updatedOffer);
+      state.favoriteOffers.data = updateFavoriteOffers(state.favoriteOffers.data, action.payload.updatedOffer);
     });
 });
 

@@ -7,8 +7,8 @@ const addClassModifier = (predicate: boolean, className: string, modifier = 'act
 
 const getRatingPercentage = (rating: number): string => `${Math.round(rating) / Object.values(RatingType).length * 100}%`;
 
-const getOfferCities = (offers: Offer[]): string[] => (
-  [...new Set(offers.reduce((acc: string[], offer) => ([...acc, offer.city.name]), []))].sort()
+const getOfferCities = (offers: Offer[]): CityType[] => (
+  [...new Set(offers.reduce((acc: CityType[], offer) => ([...acc, offer.city.name]), []))].sort()
 );
 
 const getStatefulItems = (items: string[], itemValueName: string): {id: string, [itemValueName: string]: string}[] => (
@@ -36,4 +36,40 @@ const getSortedOffersByType = (offers: Offer[], sortingType: SortingType): Offer
   }
 };
 
-export {addClassModifier, getRatingPercentage, getOfferCities, getStatefulItems, getFilteredOffersByCity, getSortedOffersByType};
+const updateOffers = (offers: Offer[], updatedOffer: Offer): Offer[] => {
+  const index = offers.findIndex((offer) => offer.id === updatedOffer.id);
+
+  if (index !== -1) {
+    return [
+      ...offers.slice(0, index),
+      updatedOffer,
+      ...offers.slice(index + 1),
+    ];
+  }
+
+  return offers;
+};
+
+const updateFavoriteOffers = (favoriteOffers: Offer[], updatedOffer: Offer): Offer[] => {
+  const index = favoriteOffers.findIndex((favoriteOffer) => favoriteOffer.id === updatedOffer.id);
+
+  if (index === -1) {
+    return [...favoriteOffers, updatedOffer];
+  }
+
+  return [
+    ...favoriteOffers.slice(0, index),
+    ...favoriteOffers.slice(index + 1),
+  ];
+};
+
+export {
+  addClassModifier,
+  getRatingPercentage,
+  getOfferCities,
+  getStatefulItems,
+  getFilteredOffersByCity,
+  getSortedOffersByType,
+  updateOffers,
+  updateFavoriteOffers
+};

@@ -3,7 +3,7 @@ import {createSelector} from 'reselect';
 import {getFilteredOffersByCity, getSortedOffersByType} from '../../common/utils';
 import {getCity, getSorting} from '../user/user-selectors';
 import {Offer} from '../../types/offer';
-import {PropertyParams, RequestStatus} from '../../common/const';
+import {PropertyParam, RequestStatus} from '../../common/const';
 import {Review} from '../../types/review';
 import {compareReviewsByDate} from '../../common/date-time-utils';
 
@@ -33,7 +33,7 @@ const getIsReviewLoading = (state: State): boolean => state.data.review.requestS
 
 const getSortedReviews = createSelector(
   [getReviews],
-  (reviews) => reviews.slice(0, PropertyParams.ReviewsMaxCount).sort(compareReviewsByDate),
+  (reviews) => reviews.slice(0, PropertyParam.ReviewsMaxCount).sort(compareReviewsByDate),
 );
 
 const getFilteredOffers = createSelector(

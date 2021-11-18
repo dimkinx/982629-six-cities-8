@@ -1,11 +1,11 @@
 import Loader from 'react-loader-spinner';
-import {LoaderParams} from '../../common/const';
+import {LoaderParam} from '../../common/const';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import './style.css';
 
-function LoadingScreen(): JSX.Element {
-  const {Type, Color, Size: {Width, Height}} = LoaderParams;
+const {Type, Color, Size: {Width, Height}} = LoaderParam;
 
+function LoadingScreen(): JSX.Element {
   return (
     <div className="wrapper-loading">
       <Loader

@@ -2,11 +2,14 @@ import {FormEvent, useRef} from 'react';
 import {useDispatch} from 'react-redux';
 import {loginAction} from '../../store/user/user-api-actions';
 import Logo from '../logo/logo';
+import {useHistory} from 'react-router-dom';
 
 function LoginScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -16,6 +19,7 @@ function LoginScreen(): JSX.Element {
         login: loginRef.current.value,
         password: passwordRef.current.value,
       }));
+      history.goBack();
     }
   };
 

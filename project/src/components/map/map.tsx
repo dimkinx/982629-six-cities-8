@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import {useEffect, useRef} from 'react';
 import useMap from '../../hooks/use-map';
 import {Location, Offer} from '../../types/offer';
-import {MapIconParams} from '../../common/const';
+import {MapIconParam} from '../../common/const';
 
 type MapProps = {
   className: string;
@@ -13,26 +13,26 @@ type MapProps = {
 }
 
 const defaultCustomIcon = new Icon({
-  iconUrl: MapIconParams.DefaultImgUrl,
+  iconUrl: MapIconParam.DefaultImgUrl,
   iconSize: [
-    MapIconParams.Size.Width,
-    MapIconParams.Size.Height,
+    MapIconParam.Size.Width,
+    MapIconParam.Size.Height,
   ],
   iconAnchor: [
-    MapIconParams.AnchorCoordinate.X,
-    MapIconParams.AnchorCoordinate.Y,
+    MapIconParam.AnchorCoordinate.X,
+    MapIconParam.AnchorCoordinate.Y,
   ],
 });
 
 const currentCustomIcon = new Icon({
-  iconUrl: MapIconParams.ActiveImgUrl,
+  iconUrl: MapIconParam.ActiveImgUrl,
   iconSize: [
-    MapIconParams.Size.Width,
-    MapIconParams.Size.Height,
+    MapIconParam.Size.Width,
+    MapIconParam.Size.Height,
   ],
   iconAnchor: [
-    MapIconParams.AnchorCoordinate.X,
-    MapIconParams.AnchorCoordinate.Y,
+    MapIconParam.AnchorCoordinate.X,
+    MapIconParam.AnchorCoordinate.Y,
   ],
 });
 
