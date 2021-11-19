@@ -16,10 +16,8 @@ function FavoritesScreen(): JSX.Element {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (requestStatus === RequestStatus.Unknown) {
-      dispatch(getFavoriteOffersAction());
-    }
-  }, [dispatch, requestStatus]);
+    dispatch(getFavoriteOffersAction());
+  }, [dispatch]);
 
   if (requestStatus === RequestStatus.Loading) {
     return <LoadingScreen />;
