@@ -34,7 +34,7 @@ type UserState = {
   sort: SortingType,
   auth: {
     data: AuthData | null,
-    error: ErrorMessage,
+    error: ErrorMessage | string,
     status: AuthStatus,
   },
 };

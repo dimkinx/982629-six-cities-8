@@ -1,5 +1,7 @@
 import {OfferIdParamValue} from '../types/offer';
 
+const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
+
 const LogoSize = {
   Header: {
     Width: 81,
@@ -178,6 +180,7 @@ enum FavoritesStatusType {
 }
 
 export {
+  AUTH_TOKEN_KEY_NAME,
   LogoSize,
   LoaderParam,
   ToastParam,

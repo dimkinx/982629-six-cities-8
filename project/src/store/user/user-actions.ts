@@ -42,7 +42,7 @@ const requireLogout = createAction(ActionType.RequireLogout);
 
 const setAuthError = createAction(
   ActionType.SetAuthError,
-  (error: ErrorMessage) => ({
+  (error: ErrorMessage | string) => ({
     payload: {
       error,
     },
