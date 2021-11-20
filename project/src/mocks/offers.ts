@@ -1,5 +1,5 @@
 import {address, commerce, datatype, image, internet, lorem} from 'faker';
-import {Location, Offer} from '../types/offer';
+import {Location, Offer, RawOffer} from '../types/offer';
 import {CityType} from '../common/const';
 
 const createMockLocation = (): Location => ({
@@ -38,6 +38,35 @@ const createMockOffer = (): Offer => ({
   type: lorem.word(),
 });
 
+const createMockRawOffer = (): RawOffer => ({
+  'bedrooms': datatype.number(5),
+  'city': {
+    'location': createMockLocation(),
+    'name': address.city() as CityType,
+  },
+  'description': commerce.productDescription(),
+  'goods': [lorem.words(10)],
+  'host': {
+    'avatar_url': internet.avatar(),
+    'id': datatype.number(),
+    'is_pro': datatype.boolean(),
+    'name': internet.userName(),
+  },
+  'id': datatype.number(),
+  'images': new Array(datatype.number(10)).fill(null).map(() => image.imageUrl()),
+  'is_favorite': datatype.boolean(),
+  'is_premium': datatype.boolean(),
+  'location': createMockLocation(),
+  'max_adults': datatype.number(5),
+  'preview_image': image.imageUrl(),
+  'price': datatype.number(),
+  'rating': datatype.float({precision: 1, max: 5}),
+  'title': lorem.paragraph(),
+  'type': lorem.word(),
+});
+
 const createMockOffers = (): Offer[] => new Array(datatype.number(10)).fill(null).map(() => createMockOffer());
 
-export {createMockOffer, createMockOffers};
+const createMockRawOffers = (): RawOffer[] => new Array(datatype.number(10)).fill(null).map(() => createMockRawOffer());
+
+export {createMockOffer, createMockRawOffer, createMockOffers, createMockRawOffers};

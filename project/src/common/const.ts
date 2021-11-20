@@ -82,13 +82,13 @@ const AppRoute = {
 } as const;
 
 const APIRoute = {
-  GetOffer: ({id}: OfferIdParamValue) => `/hotels/${id}`,
+  GetOffer: (id: OfferIdParamValue) => `/hotels/${id}`,
   GetOffers: () => '/hotels',
-  GetNearbyOffers: ({id}: OfferIdParamValue) => `/hotels/${id}/nearby`,
+  GetNearbyOffers: (id: OfferIdParamValue) => `/hotels/${id}/nearby`,
   GetFavoriteOffers: () => '/favorite',
-  PostFavoritesStatus: ({id}: OfferIdParamValue, status: FavoritesStatusType) => `/favorite/${id}/${status}`,
-  GetReviews: ({id}: OfferIdParamValue) => `/comments/${id}`,
-  PostReview: ({id}: OfferIdParamValue) => `/comments/${id}`,
+  PostFavoritesStatus: (id: OfferIdParamValue, status: FavoritesStatusType) => `/favorite/${id}/${status}`,
+  GetReviews: (id: OfferIdParamValue) => `/comments/${id}`,
+  PostReview: (id: OfferIdParamValue) => `/comments/${id}`,
   Login: () => '/login',
   Logout: () => '/logout',
 } as const;

@@ -1,5 +1,10 @@
 import {datatype, image, internet, lorem} from 'faker';
-import {Review} from '../types/review';
+import {RawReview, Review, UserReview} from '../types/review';
+
+const createMockUserReview = (): UserReview => ({
+  rating: datatype.number(),
+  comment: lorem.paragraphs(),
+});
 
 const createMockReview = (): Review => ({
   comment: lorem.paragraphs(),
@@ -14,6 +19,21 @@ const createMockReview = (): Review => ({
   },
 });
 
+const createMockRawReview = (): RawReview => ({
+  'comment': lorem.paragraphs(),
+  'date': datatype.datetime().toISOString(),
+  'id': datatype.number(),
+  'rating': datatype.float({precision: 1, max: 5}),
+  'user': {
+    'avatar_url': internet.avatar(),
+    'id': datatype.number(),
+    'is_pro': datatype.boolean(),
+    'name': internet.userName(),
+  },
+});
+
 const createMockReviews = (): Review[] => new Array(datatype.number(10)).fill(null).map(() => createMockReview());
 
-export {createMockReviews};
+const createMockRawReviews = (): RawReview[] => new Array(datatype.number(10)).fill(null).map(() => createMockRawReview());
+
+export {createMockUserReview, createMockReviews, createMockRawReviews};
