@@ -7,11 +7,11 @@ import {RequestStatus, LogoSize} from '../../common/const';
 import {getFavoriteOffersAction} from '../../store/data/data-api-actions';
 import LoadingScreen from '../loading-screen/loadingScreen';
 import {addClassModifier} from '../../common/utils';
-import {getFavoriteOffers, getFavoriteOffersRequestStatus} from '../../store/data/data-selectors';
+import {getFavoriteOffersRequestStatus, getIsFavoriteOffersEmpty} from '../../store/data/data-selectors';
 
 function FavoritesScreen(): JSX.Element {
-  const favoriteOffers = useSelector(getFavoriteOffers);
   const requestStatus = useSelector(getFavoriteOffersRequestStatus);
+  const isFavoriteOffersEmpty = useSelector(getIsFavoriteOffersEmpty);
 
   const dispatch = useDispatch();
 
@@ -24,22 +24,10 @@ function FavoritesScreen(): JSX.Element {
   }
 
   return (
-    <div className={addClassModifier(!favoriteOffers.length, 'page', 'favorites-empty')}>
+    <div className={addClassModifier(isFavoriteOffersEmpty, 'page', 'favorites-empty')}>
       <Header />
 
-      {Boolean(favoriteOffers.length) && (
-        <main className="page__main page__main--favorites">
-          <div className="page__favorites-container container">
-            <section className="favorites">
-              <h1 className="favorites__title">Saved listing</h1>
-              <FavoritesList
-                favoriteOffers={favoriteOffers}
-              />
-            </section>
-          </div>
-        </main>
-      )}
-      {!favoriteOffers.length && (
+      {isFavoriteOffersEmpty ? (
         <main className="page__main page__main--favorites page__main--favorites-empty">
           <div className="page__favorites-container container">
             <section className="favorites favorites--empty">
@@ -48,6 +36,15 @@ function FavoritesScreen(): JSX.Element {
                 <b className="favorites__status">Nothing yet saved.</b>
                 <p className="favorites__status-description">Save properties to narrow down search or plan your future trips.</p>
               </div>
+            </section>
+          </div>
+        </main>
+      ) : (
+        <main className="page__main page__main--favorites">
+          <div className="page__favorites-container container">
+            <section className="favorites">
+              <h1 className="favorites__title">Saved listing</h1>
+              <FavoritesList />
             </section>
           </div>
         </main>

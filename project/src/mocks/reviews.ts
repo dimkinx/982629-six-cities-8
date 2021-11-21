@@ -36,4 +36,4 @@ const createMockReviews = (): Review[] => new Array(datatype.number(10)).fill(nu
 
 const createMockRawReviews = (): RawReview[] => new Array(datatype.number(10)).fill(null).map(() => createMockRawReview());
 
-export {createMockUserReview, createMockReviews, createMockRawReviews};
+export {createMockUserReview, createMockReview, createMockReviews, createMockRawReviews};

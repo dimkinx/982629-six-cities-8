@@ -46,7 +46,7 @@ function OfferCard({offer, offerType, onActiveCardIdSelect}: OfferCardProps): JS
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <BookmarkButton
-            id={{id: id.toString()}}
+            id={`${id}`}
             favoritesStatus={Number(!isFavorite)}
             buttonType={BookmarkButtonType.PlaceCard}
           />

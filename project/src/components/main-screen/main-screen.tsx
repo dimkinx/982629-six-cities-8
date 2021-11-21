@@ -37,7 +37,7 @@ function MainScreen(): JSX.Element {
       <main className={`${addClassModifier(!sortedOffers.length, 'page__main', 'index-empty')} page__main--index`}>
         <h1 className="visually-hidden">Cities</h1>
         <MainScreenTabs currentCity={currentCity} />
-        {sortedOffers.length || (offersRequestStatus !== RequestStatus.Fail) ? <MainScreenCities /> : <MainScreenCitiesEmpty />}
+        {sortedOffers.length ? <MainScreenCities /> : <MainScreenCitiesEmpty />}
       </main>
     </div>
   );

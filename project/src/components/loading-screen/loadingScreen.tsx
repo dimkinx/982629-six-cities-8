@@ -7,14 +7,17 @@ const {Type, Color, Size: {Width, Height}} = LoaderParam;
 
 function LoadingScreen(): JSX.Element {
   return (
-    <div className="wrapper-loading">
-      <Loader
-        type={Type}
-        color={Color}
-        width={Width}
-        height={Height}
-      />
-    </div>
+    <>
+      <h1 className="visually-hidden">Loading screen</h1>
+      <div className="wrapper-loading">
+        <Loader
+          type={Type}
+          color={Color}
+          width={Width}
+          height={Height}
+        />
+      </div>
+    </>
   );
 }
 

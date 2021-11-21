@@ -13,7 +13,7 @@ function MainScreenSort(props: MainScreenSortProps): JSX.Element {
   const [isSortingOpen, setIsSortingOpen] = useState(false);
 
   const handleSortingTypeClick = () => {
-    setIsSortingOpen(true);
+    setIsSortingOpen(!isSortingOpen);
   };
 
   return (
@@ -24,6 +24,7 @@ function MainScreenSort(props: MainScreenSortProps): JSX.Element {
         onClick={handleSortingTypeClick}
         className="places__sorting-type"
         tabIndex={0}
+        data-testid="sorting-span"
       >
         {currentSort}
         <svg className="places__sorting-arrow" width="7" height="4">
@@ -32,6 +33,7 @@ function MainScreenSort(props: MainScreenSortProps): JSX.Element {
       </span>
       <ul
         className={`${addClassModifier(isSortingOpen, 'places__options', 'opened')} places__options--custom`}
+        data-testid="sorting-list"
       >
         {Object.values(SortingType).map((sort) => (
           <MainScreenSortItem

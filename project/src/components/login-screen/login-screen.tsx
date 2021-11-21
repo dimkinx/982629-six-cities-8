@@ -45,6 +45,7 @@ function LoginScreen(): JSX.Element {
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
+                  data-testid="login"
                   ref={loginRef}
                   className="login__input form__input"
                   type="email"
@@ -56,6 +57,7 @@ function LoginScreen(): JSX.Element {
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
                 <input
+                  data-testid="password"
                   ref={passwordRef}
                   className="login__input form__input"
                   type="password"
