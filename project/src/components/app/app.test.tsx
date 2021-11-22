@@ -72,9 +72,8 @@ const fakeApp = (
 );
 
 describe('Application Routing', () => {
-  store.dispatch = jest.fn();
-
   it('should render "MainScreen" when user navigate to "/"', () => {
+    store.dispatch = jest.fn();
     history.push(AppRoute.MainScreen);
     render(fakeApp);
 
@@ -95,6 +94,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "FavoritesScreen" when user navigate to "/favorites"', () => {
+    store.dispatch = jest.fn();
     history.push(AppRoute.FavoritesScreen);
     render(fakeApp);
 
@@ -102,6 +102,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "OfferScreen" when user navigate to "/offer/:id"', () => {
+    store.dispatch = jest.fn();
     history.push(`/offer/${mockOffer.id}`);
     render(fakeApp);
 
@@ -109,6 +110,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "NotFoundScreen" when user navigate to non-existent route', () => {
+    store.dispatch = jest.fn();
     history.push('/non-existent-route');
     render(fakeApp);
 
