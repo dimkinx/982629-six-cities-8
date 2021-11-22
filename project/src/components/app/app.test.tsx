@@ -10,10 +10,11 @@ import {AppRoute, AuthStatus, CityType, ErrorMessage, RequestStatus, SortingType
 import App from './app';
 
 const mockStore = configureMockStore();
+const history = createMemoryHistory();
 const mockOffer = createMockOffer();
 const mockOffers = createMockOffers();
 const mockNearbyOffers = createMockOffers();
-const mockFavoriteOffers = createMockOffers();
+const mockFavoriteOffers = createMockOffers().map((offer) => ({...offer, isFavorite: true}));
 const mockReviews = createMockReviews();
 const mockAuthData = createMockAuthData();
 
@@ -62,8 +63,7 @@ const noAuthStore = mockStore({
   },
 });
 
-const history = createMemoryHistory();
-const fakeApp = (
+const FakeApp = (
   <Provider store={store}>
     <Router history={history}>
       <App />
@@ -72,17 +72,40 @@ const fakeApp = (
 );
 
 describe('Application Routing', () => {
+  store.dispatch = jest.fn();
+
   it('should render "MainScreen" when user navigate to "/"', () => {
-    store.dispatch = jest.fn();
     history.push(AppRoute.MainScreen);
-    render(fakeApp);
+    render(FakeApp);
 
     expect(screen.getByRole('heading', {level: 1})).toHaveTextContent(/Cities/i);
+  });
+
+  it('should render "FavoritesScreen" when user navigate to "/favorites"', () => {
+    history.push(AppRoute.FavoritesScreen);
+    render(FakeApp);
+
+    expect(screen.getByRole('heading', {level: 1})).toHaveTextContent(/Saved listing/i);
+  });
+
+  it('should render "OfferScreen" when user navigate to "/offer/:id"', () => {
+    history.push(`/offer/${mockOffer.id}`);
+    render(FakeApp);
+
+    expect(screen.getByRole('heading', {level: 1})).toHaveTextContent(new RegExp(`${mockOffer.title}`));
+  });
+
+  it('should render "NotFoundScreen" when user navigate to non-existent route', () => {
+    history.push('/non-existent-route');
+    render(FakeApp);
+
+    expect(screen.getByRole('heading', {level: 1})).toHaveTextContent(/404/i);
   });
 
   it('should render "LoginScreen" when user navigate to "/login"', () => {
     noAuthStore.dispatch = jest.fn();
     history.push(AppRoute.LoginScreen);
+
     render(
       <Provider store={noAuthStore}>
         <Router history={history}>
@@ -91,29 +114,5 @@ describe('Application Routing', () => {
       </Provider>);
 
     expect(screen.getByRole('heading', {level: 1})).toHaveTextContent(/Sign in/i);
-  });
-
-  it('should render "FavoritesScreen" when user navigate to "/favorites"', () => {
-    store.dispatch = jest.fn();
-    history.push(AppRoute.FavoritesScreen);
-    render(fakeApp);
-
-    expect(screen.getByRole('heading', {level: 1})).toHaveTextContent(/Saved listing/i);
-  });
-
-  it('should render "OfferScreen" when user navigate to "/offer/:id"', () => {
-    store.dispatch = jest.fn();
-    history.push(`/offer/${mockOffer.id}`);
-    render(fakeApp);
-
-    expect(screen.getByRole('heading', {level: 1})).toHaveTextContent(new RegExp(`${mockOffer.title}`));
-  });
-
-  it('should render "NotFoundScreen" when user navigate to non-existent route', () => {
-    store.dispatch = jest.fn();
-    history.push('/non-existent-route');
-    render(fakeApp);
-
-    expect(screen.getByRole('heading', {level: 1})).toHaveTextContent(/404/i);
   });
 });
