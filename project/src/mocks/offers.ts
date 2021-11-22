@@ -69,4 +69,4 @@ const createMockOffers = (): Offer[] => new Array(datatype.number(10)).fill(null
 
 const createMockRawOffers = (): RawOffer[] => new Array(datatype.number(10)).fill(null).map(() => createMockRawOffer());
 
-export {createMockOffer, createMockRawOffer, createMockOffers, createMockRawOffers};
+export {createMockLocation, createMockOffer, createMockRawOffer, createMockOffers, createMockRawOffers};
