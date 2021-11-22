@@ -1,9 +1,9 @@
 import {State} from '../../types/state';
 import {createSelector} from 'reselect';
-import {getFilteredOffersByCity, getSortedOffersByType} from '../../common/utils';
+import {getFilteredOffersByCity, getOfferCities, getSortedOffersByType} from '../../common/utils';
 import {getCity, getSorting} from '../user/user-selectors';
 import {Offer} from '../../types/offer';
-import {PropertyParam, RequestStatus} from '../../common/const';
+import {CityType, PropertyParam, RequestStatus} from '../../common/const';
 import {Review} from '../../types/review';
 import {compareReviewsByDate} from '../../common/date-time-utils';
 
@@ -30,6 +30,16 @@ const getReviewsRequestStatus = (state: State): RequestStatus => state.data.revi
 const getReviewRequestStatus = (state: State): RequestStatus => state.data.review.requestStatus;
 
 const getIsReviewLoading = (state: State): boolean => state.data.review.requestStatus === RequestStatus.Loading;
+
+const getIsFavoriteOffersEmpty = createSelector(
+  [getFavoriteOffers],
+  (favoriteOffers): boolean => !favoriteOffers.length,
+);
+
+const getFavoriteOffersCities = createSelector(
+  [getFavoriteOffers],
+  (favoriteOffers): CityType[] => !favoriteOffers.length ? [] : getOfferCities(favoriteOffers),
+);
 
 const getSortedReviews = createSelector(
   [getReviews],
@@ -58,6 +68,8 @@ export {
   getReviewsRequestStatus,
   getReviewRequestStatus,
   getIsReviewLoading,
+  getIsFavoriteOffersEmpty,
+  getFavoriteOffersCities,
   getSortedReviews,
   getFilteredOffers,
   getSortedOffers

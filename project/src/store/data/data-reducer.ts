@@ -17,7 +17,7 @@ import {
 } from './data-actions';
 import {updateFavoriteOffers, updateOffers} from '../../common/utils';
 
-const initialState: DataState = {
+const dataInitialState: DataState = {
   offer: {
     data: null,
     requestStatus: RequestStatus.Unknown,
@@ -43,7 +43,7 @@ const initialState: DataState = {
   },
 };
 
-const dataReducer = createReducer(initialState, (builder) => {
+const dataReducer = createReducer(dataInitialState, (builder) => {
   builder
     .addCase(loadOffer, (state, action) => {
       state.offer.data = action.payload.offer;
@@ -86,4 +86,4 @@ const dataReducer = createReducer(initialState, (builder) => {
     });
 });
 
-export {dataReducer};
+export {dataInitialState, dataReducer};

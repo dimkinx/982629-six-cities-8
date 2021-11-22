@@ -14,13 +14,13 @@ const checkAuthAction = (): ThunkActionResult => (
         dispatch(setAuthData(adaptAuthDataToClient(rawAuthData)));
         dispatch(setAuthError(ErrorMessage.NoFailure));
       })
-      .catch((error) => {
-        dispatch(setAuthError(error.message));
+      .catch(() => {
+        dispatch(requireAuthorization(AuthStatus.NoAuth));
       });
   }
 );
 
-const loginAction = ({login: email, password}: UserAuthData): ThunkActionResult => (
+const loginAction = ({email, password}: UserAuthData): ThunkActionResult => (
   async (dispatch, _getState, api) => {
     await api.post<RawAuthData>(APIRoute.Login(), {email, password})
       .then(({data: rawAuthData}) => {

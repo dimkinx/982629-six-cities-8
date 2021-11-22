@@ -13,7 +13,10 @@ function OfferList(props: OfferListProps): JSX.Element {
   const {offers, offerType, onActiveCardIdSelect} = props;
 
   return (
-    <div className={`${offerType === OfferType.Main ? `${offerType}__places-list tabs__content` : `${offerType}__list`} places__list`}>
+    <div
+      className={`${offerType === OfferType.Main ? `${offerType}__places-list tabs__content` : `${offerType}__list`} places__list`}
+      data-testid="places-list"
+    >
       {offers.map((offer) => (
         <OfferCard
           key={offer.id}

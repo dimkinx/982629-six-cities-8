@@ -3,7 +3,7 @@ import {CityType, SortingType, AuthStatus, ErrorMessage} from '../../common/cons
 import {UserState} from '../../types/state';
 import {setCity, setSort, setAuthData, requireAuthorization, requireLogout, setAuthError} from './user-actions';
 
-const initialState: UserState = {
+const userInitialState: UserState = {
   city: CityType.Paris,
   sort: SortingType.Popular,
   auth: {
@@ -13,7 +13,7 @@ const initialState: UserState = {
   },
 };
 
-const userReducer = createReducer(initialState, (builder) => {
+const userReducer = createReducer(userInitialState, (builder) => {
   builder
     .addCase(setCity, (state, action) => {
       state.city = action.payload.city;
@@ -35,4 +35,4 @@ const userReducer = createReducer(initialState, (builder) => {
     });
 });
 
-export {userReducer};
+export {userInitialState, userReducer};

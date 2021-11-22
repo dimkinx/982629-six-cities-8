@@ -1,17 +1,20 @@
 import FavoritesListLink from '../favorites-list-link/favorites-list-link';
 import OfferCard from '../offer-card/offer-card';
-import {getFilteredOffersByCity, getOfferCities} from '../../common/utils';
+import {getFilteredOffersByCity} from '../../common/utils';
 import {OfferType} from '../../common/const';
-import {Offer} from '../../types/offer';
+import {useSelector} from 'react-redux';
+import {getFavoriteOffers, getFavoriteOffersCities} from '../../store/data/data-selectors';
 
-type FavoritesListProps = {
-  favoriteOffers: Offer[];
-}
+function FavoritesList(): JSX.Element {
+  const favoriteOffersCities = useSelector(getFavoriteOffersCities);
+  const favoriteOffers = useSelector(getFavoriteOffers);
 
-function FavoritesList({favoriteOffers}: FavoritesListProps): JSX.Element {
   return (
-    <ul className="favorites__list">
-      {getOfferCities(favoriteOffers).map((city) => (
+    <ul
+      className="favorites__list"
+      data-testid="favorites__list"
+    >
+      {favoriteOffersCities.map((city) => (
         <li
           key={city}
           className="favorites__locations-items"

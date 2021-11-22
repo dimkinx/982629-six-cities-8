@@ -16,7 +16,7 @@ import {OfferIdParamValue} from '../../types/offer';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 
 function OfferScreen(): JSX.Element {
-  const {id} = useParams<OfferIdParamValue>();
+  const {id} = useParams<{id: OfferIdParamValue}>();
 
   const offer = useSelector(getOffer);
   const nearbyOffers = useSelector(getNearbyOffers);
@@ -28,9 +28,9 @@ function OfferScreen(): JSX.Element {
 
   useEffect(() => {
     if (offer?.id !== Number(id)) {
-      dispatch(getOfferAction({id}));
-      dispatch(getNearbyOffersAction({id}));
-      dispatch(getReviewsAction({id}));
+      dispatch(getOfferAction(id));
+      dispatch(getNearbyOffersAction(id));
+      dispatch(getReviewsAction(id));
     }
 
     return () => {
@@ -94,7 +94,7 @@ function OfferScreen(): JSX.Element {
                   {title}
                 </h1>
                 <BookmarkButton
-                  id={{id: id.toString()}}
+                  id={`${id}`}
                   favoritesStatus={Number(!isFavorite)}
                   buttonType={BookmarkButtonType.Property}
                 />

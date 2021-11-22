@@ -6,9 +6,7 @@ type Location = {
   zoom: number;
 }
 
-type OfferIdParamValue = {
-  id: string;
-}
+type OfferIdParamValue = string;
 
 type Offer = {
   bedrooms: number;

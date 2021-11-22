@@ -39,13 +39,13 @@ function Header(): JSX.Element {
               </li>
               {isAuthorized && (
                 <li className="header__nav-item">
-                  <a
+                  <Link
                     onClick={handleSignOutClick}
                     className="header__nav-link"
-                    href="/"
+                    to="/"
                   >
                     <span className="header__signout">Sign out</span>
-                  </a>
+                  </Link>
                 </li>
               )}
             </ul>
