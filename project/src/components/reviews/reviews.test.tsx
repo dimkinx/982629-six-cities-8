@@ -31,6 +31,24 @@ const store = mockStore({
   },
 });
 
+const noAuthStore = mockStore({
+  data: {
+    reviews: {
+      data: mockReviews,
+      requestStatus: RequestStatus.Success,
+    },
+    review: {
+      requestStatus: RequestStatus.Unknown,
+    },
+  },
+  user: {
+    auth: {
+      status: AuthStatus.NoAuth,
+      data: null,
+    },
+  },
+});
+
 describe('Component: Reviews', () => {
   it('should render correctly', () => {
     store.dispatch = jest.fn();
@@ -43,5 +61,31 @@ describe('Component: Reviews', () => {
       </Redux.Provider>);
 
     expect(screen.getByRole('heading', {level: 2})).toHaveTextContent(/Reviews/i);
+  });
+
+  it('should be displayed Reviews Form for authorized user', () => {
+    store.dispatch = jest.fn();
+
+    render(
+      <Redux.Provider store={store}>
+        <Router history={history}>
+          <Reviews />
+        </Router>
+      </Redux.Provider>);
+
+    expect(screen.getByText(/Your review/i)).toBeInTheDocument();
+  });
+
+  it('shouldn\'t show up Reviews Form for unauthorized user', () => {
+    noAuthStore.dispatch = jest.fn();
+
+    render(
+      <Redux.Provider store={noAuthStore}>
+        <Router history={history}>
+          <Reviews />
+        </Router>
+      </Redux.Provider>);
+
+    expect(screen.queryByText(/Your review/i)).toBeNull();
   });
 });
