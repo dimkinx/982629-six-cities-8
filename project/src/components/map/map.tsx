@@ -66,17 +66,6 @@ function Map({className, cityLocation, offers, activeCardId}: MapProps): JSX.Ele
           cityLocation.zoom,
         );
       }
-
-      if (activeCardId) {
-        const activeOffer: Offer | undefined = offers.find((offer) => offer.id === activeCardId);
-
-        activeOffer && map.panTo(
-          [
-            activeOffer.location.latitude,
-            activeOffer.location.longitude,
-          ],
-        );
-      }
     }
   }, [map, cityLocation, offers, activeCardId]);
 
