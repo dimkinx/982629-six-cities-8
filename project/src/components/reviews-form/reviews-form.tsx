@@ -61,6 +61,7 @@ function ReviewsForm(): JSX.Element {
               type="radio"
               checked={Number(rating.id) + 1 === review.rating}
               disabled={isReviewLoading}
+              data-testid={`${Number(rating.id) + 1}-stars`}
             />
             <label
               htmlFor={`${Number(rating.id) + 1}-stars`}
@@ -84,6 +85,7 @@ function ReviewsForm(): JSX.Element {
         minLength={CommentLengthLimit.Min}
         maxLength={CommentLengthLimit.Max}
         disabled={isReviewLoading}
+        data-testid="comment"
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

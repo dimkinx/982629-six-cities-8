@@ -9,7 +9,7 @@ import {createMockOffers} from '../../mocks/offers';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
-const mockFavoriteOffers = createMockOffers();
+const mockFavoriteOffers = createMockOffers().map((offer) => ({...offer, isFavorite: true}));
 
 const emptyStore = mockStore({
   data: {

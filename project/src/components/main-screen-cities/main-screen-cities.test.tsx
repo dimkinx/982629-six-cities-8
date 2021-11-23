@@ -10,6 +10,7 @@ import MainScreenCities from './main-screen-cities';
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
 const mockOffers = createMockOffers();
+const mockCityName = mockOffers[0].city.name;
 
 const store = mockStore({
   data: {
@@ -19,7 +20,7 @@ const store = mockStore({
     },
   },
   user: {
-    city: mockOffers[0].city.name,
+    city: mockCityName,
     sort: SortingType.Popular,
     auth: {
       status: AuthStatus.NoAuth,
