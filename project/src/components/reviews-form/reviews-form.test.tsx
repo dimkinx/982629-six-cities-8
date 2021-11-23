@@ -32,9 +32,8 @@ const store = mockStore({
 });
 
 describe('Component: ReviewsForm', () => {
-  jest.spyOn(ReactRouter, 'useParams').mockReturnValue({id: mockOffer.id.toString()});
-
   it('should render correctly', () => {
+    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({id: mockOffer.id.toString()});
     store.dispatch = jest.fn();
 
     render(
@@ -48,6 +47,7 @@ describe('Component: ReviewsForm', () => {
   });
 
   it('should be disabled until fields is empty', () => {
+    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({id: mockOffer.id.toString()});
     store.dispatch = jest.fn();
 
     render(
