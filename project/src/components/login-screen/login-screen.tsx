@@ -6,7 +6,7 @@ import Logo from '../logo/logo';
 import {setCity} from '../../store/user/user-actions';
 import {getCity} from '../../store/user/user-selectors';
 import {getRandomCity} from '../../common/utils';
-import {AppRoute, CityType} from '../../common/const';
+import {AppRoute, CityType, PASSWORD_REGEXP, PASSWORD_TITLE} from '../../common/const';
 
 function LoginScreen(): JSX.Element {
   const randomCity = getRandomCity(Object.values(CityType));
@@ -76,6 +76,8 @@ function LoginScreen(): JSX.Element {
                   type="password"
                   name="password"
                   placeholder="Password"
+                  pattern={PASSWORD_REGEXP}
+                  title={PASSWORD_TITLE}
                   required
                 />
               </div>

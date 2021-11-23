@@ -2,6 +2,10 @@ import {OfferIdParamValue} from '../types/offer';
 
 const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
 
+const PASSWORD_REGEXP = '^((?=.*\\d)(?=.*[a-zA-Z])[\\S]{2,})$';
+
+const PASSWORD_TITLE = 'Password must be at least one letter and one number, excluding spaces';
+
 const LogoSize = {
   Header: {
     Width: 81,
@@ -182,6 +186,8 @@ enum FavoritesStatusType {
 
 export {
   AUTH_TOKEN_KEY_NAME,
+  PASSWORD_REGEXP,
+  PASSWORD_TITLE,
   LogoSize,
   LoaderParam,
   ToastParam,
