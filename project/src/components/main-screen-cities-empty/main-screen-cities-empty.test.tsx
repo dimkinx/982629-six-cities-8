@@ -11,7 +11,7 @@ const history = createMemoryHistory();
 
 const store = mockStore({
   user: {
-    city: CityType.Paris,
+    city: CityType.Dusseldorf,
   },
 });
 

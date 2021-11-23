@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {postFavoritesStatusAction} from '../../store/data/data-api-actions';
-import {AppRoute, BookmarkButtonType, BookmarkIconSize, FavoritesStatusType} from '../../common/const';
+import {AppRoute, BookmarkButtonType, BookmarkIconSize} from '../../common/const';
 import {addClassModifier} from '../../common/utils';
 import {OfferIdParamValue} from '../../types/offer';
 import {useHistory} from 'react-router-dom';
@@ -8,7 +8,7 @@ import {getIsAuthorized} from '../../store/user/user-selectors';
 
 type BookmarkButtonProps = {
   id: OfferIdParamValue;
-  favoritesStatus: FavoritesStatusType;
+  favoritesStatus: number;
   buttonType: BookmarkButtonType;
 }
 

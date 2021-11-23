@@ -1,11 +1,11 @@
-import {CityType, RatingType, SortingType} from './const';
+import {CityType, Ratings, SortingType} from './const';
 import {Offer} from '../types/offer';
 
 const addClassModifier = (predicate: boolean, className: string, modifier = 'active'): string => predicate
   ? `${className} ${className}--${modifier}`
   : className;
 
-const getRatingPercentage = (rating: number): string => `${Math.round(rating) / Object.values(RatingType).length * 100}%`;
+const getRatingPercentage = (rating: number): string => `${Math.round(rating) / Ratings.length * 100}%`;
 
 const getOfferCities = (offers: Offer[]): CityType[] => (
   [...new Set(offers.reduce((acc: CityType[], offer) => ([...acc, offer.city.name]), []))]

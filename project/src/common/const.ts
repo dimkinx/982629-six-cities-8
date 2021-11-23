@@ -6,6 +6,14 @@ const PASSWORD_REGEXP = '^((?=.*\\d)(?=.*[a-zA-Z])[\\S]{2,})$';
 
 const PASSWORD_TITLE = 'Password must be at least one letter and one number, excluding spaces';
 
+const Ratings = [
+  'terribly',
+  'badly',
+  'not bad',
+  'good',
+  'perfect',
+];
+
 const LogoSize = {
   Header: {
     Width: 81,
@@ -90,7 +98,7 @@ const APIRoute = {
   GetOffers: () => '/hotels',
   GetNearbyOffers: (id: OfferIdParamValue) => `/hotels/${id}/nearby`,
   GetFavoriteOffers: () => '/favorite',
-  PostFavoritesStatus: (id: OfferIdParamValue, status: FavoritesStatusType) => `/favorite/${id}/${status}`,
+  PostFavoritesStatus: (id: OfferIdParamValue, status: number) => `/favorite/${id}/${status}`,
   GetReviews: (id: OfferIdParamValue) => `/comments/${id}`,
   PostReview: (id: OfferIdParamValue) => `/comments/${id}`,
   Login: () => '/login',
@@ -166,28 +174,16 @@ enum SortingType {
   Rating = 'Top rated first',
 }
 
-enum RatingType {
-  Terribly = 'terribly',
-  Badly = 'badly',
-  NotBad = 'not bad',
-  Good = 'good',
-  Perfect = 'perfect',
-}
-
 enum BookmarkButtonType {
   PlaceCard = 'place-card',
   Property = 'property',
-}
-
-enum FavoritesStatusType {
-  True = 1,
-  False = 0,
 }
 
 export {
   AUTH_TOKEN_KEY_NAME,
   PASSWORD_REGEXP,
   PASSWORD_TITLE,
+  Ratings,
   LogoSize,
   LoaderParam,
   ToastParam,
@@ -205,7 +201,5 @@ export {
   ActionType,
   CityType,
   SortingType,
-  RatingType,
-  BookmarkButtonType,
-  FavoritesStatusType
+  BookmarkButtonType
 };
