@@ -13,7 +13,7 @@ const initialReviewState = {
 };
 
 function ReviewsForm(): JSX.Element {
-  const id = useParams<OfferIdParamValue>();
+  const {id} = useParams<{id: OfferIdParamValue}>();
 
   const isReviewLoading = useSelector(getIsReviewLoading);
 
