@@ -17,7 +17,6 @@ const mockOffer = createMockOffer();
 const mockAuthData = createMockAuthData();
 const mockComment = lorem.sentence(10, 30);
 
-
 const store = mockStore({
   data: {
     review: {
