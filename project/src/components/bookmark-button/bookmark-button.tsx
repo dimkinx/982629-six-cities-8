@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {postFavoritesStatusAction} from '../../store/data/data-api-actions';
-import {AppRoute, BookmarkButtonType, BookmarkIconSize, FavoritesStatusType} from '../../common/const';
+import {AppRoute, BookmarkButtonType, BookmarkIconSize} from '../../common/const';
 import {addClassModifier} from '../../common/utils';
 import {OfferIdParamValue} from '../../types/offer';
 import {useHistory} from 'react-router-dom';
@@ -8,12 +8,13 @@ import {getIsAuthorized} from '../../store/user/user-selectors';
 
 type BookmarkButtonProps = {
   id: OfferIdParamValue;
-  favoritesStatus: FavoritesStatusType;
+  favoritesStatus: number;
   buttonType: BookmarkButtonType;
 }
 
 function BookmarkButton(props: BookmarkButtonProps): JSX.Element {
   const {id, favoritesStatus, buttonType} = props;
+  const isOfferUpdate: boolean = buttonType === BookmarkButtonType.Property;
 
   const isAuthorized = useSelector(getIsAuthorized);
 
@@ -21,7 +22,9 @@ function BookmarkButton(props: BookmarkButtonProps): JSX.Element {
   const history = useHistory();
 
   const handleButtonClick = () => {
-    isAuthorized ? dispatch(postFavoritesStatusAction(id, favoritesStatus)) : history.push(AppRoute.LoginScreen);
+    isAuthorized
+      ? dispatch(postFavoritesStatusAction(id, favoritesStatus, isOfferUpdate))
+      : history.push(AppRoute.LoginScreen);
   };
 
   return (

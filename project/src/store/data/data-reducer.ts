@@ -3,6 +3,7 @@ import {RequestStatus} from '../../common/const';
 import {DataState} from '../../types/state';
 import {
   loadOffer,
+  updateOffer,
   setOfferRequestStatus,
   loadOffers,
   setOffersRequestStatus,
@@ -48,6 +49,9 @@ const dataReducer = createReducer(dataInitialState, (builder) => {
     .addCase(loadOffer, (state, action) => {
       state.offer.data = action.payload.offer;
     })
+    .addCase(updateOffer, (state, action) => {
+      state.offer.data = action.payload.updatedOffer;
+    })
     .addCase(setOfferRequestStatus, (state, action) => {
       state.offer.requestStatus = action.payload.requestStatus;
     })
@@ -79,7 +83,6 @@ const dataReducer = createReducer(dataInitialState, (builder) => {
       state.review.requestStatus = action.payload.requestStatus;
     })
     .addCase(updateAllOffers, (state, action) => {
-      state.offer.data = action.payload.updatedOffer;
       state.nearbyOffers.data = updateOffers(state.nearbyOffers.data, action.payload.updatedOffer);
       state.offers.data = updateOffers(state.offers.data, action.payload.updatedOffer);
       state.favoriteOffers.data = updateFavoriteOffers(state.favoriteOffers.data, action.payload.updatedOffer);

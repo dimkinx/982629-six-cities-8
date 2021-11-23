@@ -11,10 +11,11 @@ import {
   setOffersRequestStatus,
   setReviewRequestStatus,
   setReviewsRequestStatus,
-  updateAllOffers
+  updateAllOffers,
+  updateOffer
 } from './data-actions';
 import {adaptOfferToClient, adaptReviewToClient} from '../../services/adapters';
-import {APIRoute, ErrorMessage, FavoritesStatusType, RequestStatus} from '../../common/const';
+import {APIRoute, ErrorMessage, RequestStatus} from '../../common/const';
 import {OfferIdParamValue, RawOffer} from '../../types/offer';
 import {RawReview, UserReview} from '../../types/review';
 import {ThunkActionResult} from '../../types/thunk-action';
@@ -109,12 +110,15 @@ const postReviewAction = (id: OfferIdParamValue, review: UserReview): ThunkActio
   }
 );
 
-const postFavoritesStatusAction = (id: OfferIdParamValue, status: FavoritesStatusType): ThunkActionResult => (
+const postFavoritesStatusAction = (id: OfferIdParamValue, status: number, isOfferUpdate: boolean): ThunkActionResult => (
   async (dispatch, _getState, api): Promise<void> => {
     await api.post<RawOffer>(APIRoute.PostFavoritesStatus(id, status))
       .then(({data}) => {
+        if (isOfferUpdate) {
+          dispatch(updateOffer(adaptOfferToClient(data)));
+          dispatch(setOfferRequestStatus(RequestStatus.Updated));
+        }
         dispatch(updateAllOffers(adaptOfferToClient(data)));
-        dispatch(setOfferRequestStatus(RequestStatus.Updated));
         dispatch(setNearbyOffersRequestStatus(RequestStatus.Updated));
         dispatch(setOffersRequestStatus(RequestStatus.Updated));
         dispatch(setFavoriteOffersRequestStatus(RequestStatus.Updated));

@@ -19,7 +19,7 @@ const emptyStore = mockStore({
     },
   },
   user: {
-    city: CityType.Paris,
+    city: CityType.Hamburg,
     sort: SortingType.Popular,
     auth: {
       status: AuthStatus.Unknown,
@@ -35,7 +35,7 @@ const store = mockStore({
     },
   },
   user: {
-    city: CityType.Paris,
+    city: CityType.Hamburg,
     sort: SortingType.Popular,
     auth: {
       status: AuthStatus.NoAuth,

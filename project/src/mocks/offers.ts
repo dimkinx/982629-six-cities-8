@@ -15,7 +15,7 @@ const createMockOffer = (): Offer => ({
   bedrooms: datatype.number(5),
   city: {
     location: createMockLocation(),
-    name: CityType.Paris,
+    name: CityType.Hamburg,
   },
   description: commerce.productDescription(),
   goods: [lorem.words(10)],
@@ -42,7 +42,7 @@ const createMockRawOffer = (): RawOffer => ({
   'bedrooms': datatype.number(5),
   'city': {
     'location': createMockLocation(),
-    'name': CityType.Paris,
+    'name': CityType.Hamburg,
   },
   'description': commerce.productDescription(),
   'goods': [lorem.words(10)],

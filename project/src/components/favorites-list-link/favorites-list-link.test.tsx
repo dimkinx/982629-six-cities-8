@@ -15,12 +15,12 @@ describe('Component: FavoritesListLink', () => {
       <Redux.Provider store={mockStore({})}>
         <Router history={history}>
           <FavoritesListLink
-            currentCity={CityType.Paris}
+            currentCity={CityType.Brussels}
           />
         </Router>
       </Redux.Provider>);
 
     expect(screen.getByRole('link')).toBeInTheDocument();
-    expect(screen.getByText(CityType.Paris)).toBeInTheDocument();
+    expect(screen.getByText(CityType.Brussels)).toBeInTheDocument();
   });
 });

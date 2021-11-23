@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {postReviewAction} from '../../store/data/data-api-actions';
 import {getIsReviewLoading} from '../../store/data/data-selectors';
 import {getStatefulItems} from '../../common/utils';
-import {CommentLengthLimit, RatingType} from '../../common/const';
+import {CommentLengthLimit, Ratings} from '../../common/const';
 import {OfferIdParamValue} from '../../types/offer';
 
 const initialReviewState = {
@@ -13,7 +13,7 @@ const initialReviewState = {
 };
 
 function ReviewsForm(): JSX.Element {
-  const id = useParams<OfferIdParamValue>();
+  const {id} = useParams<{id: OfferIdParamValue}>();
 
   const isReviewLoading = useSelector(getIsReviewLoading);
 
@@ -24,7 +24,7 @@ function ReviewsForm(): JSX.Element {
 
   const isRatingValid = Boolean(review.rating);
   const isCommentValid = review.comment.length >= CommentLengthLimit.Min && review.comment.length <= CommentLengthLimit.Max;
-  const statefulRatings = getStatefulItems(Object.values(RatingType), 'title').reverse();
+  const statefulRatings = getStatefulItems(Ratings, 'title').reverse();
 
   const handleFieldChange = (evt: {target: HTMLInputElement | HTMLTextAreaElement}) => {
     const {name, value} = evt.target;

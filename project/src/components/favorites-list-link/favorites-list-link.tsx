@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {setCity} from '../../store/user/user-actions';
 import {AppRoute, CityType} from '../../common/const';
