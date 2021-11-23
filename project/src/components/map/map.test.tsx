@@ -1,9 +1,10 @@
 import {render, screen} from '@testing-library/react';
 import Map from './map';
-import {createMockOffers} from '../../mocks/offers';
+import {createMockOffer, createMockOffers} from '../../mocks/offers';
 
 const mockOffers = createMockOffers();
-const mockCityLocation = mockOffers[0].city.location;
+const mockOffer = createMockOffer();
+const mockCityLocation = mockOffer.city.location;
 
 describe('Component: Map', () => {
   it('should render correctly', () => {

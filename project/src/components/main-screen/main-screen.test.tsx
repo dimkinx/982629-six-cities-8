@@ -4,13 +4,12 @@ import {Router} from 'react-router-dom';
 import MainScreen from './main-screen';
 import {createMemoryHistory} from 'history';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import {AuthStatus, RequestStatus, SortingType} from '../../common/const';
+import {AuthStatus, CityType, RequestStatus, SortingType} from '../../common/const';
 import {createMockOffers} from '../../mocks/offers';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
 const mockOffers = createMockOffers();
-const mockCityName = mockOffers[0].city.name;
 
 const emptyStore = mockStore({
   data: {
@@ -20,7 +19,7 @@ const emptyStore = mockStore({
     },
   },
   user: {
-    city: mockCityName,
+    city: CityType.Paris,
     sort: SortingType.Popular,
     auth: {
       status: AuthStatus.Unknown,
@@ -36,7 +35,7 @@ const store = mockStore({
     },
   },
   user: {
-    city: mockCityName,
+    city: CityType.Paris,
     sort: SortingType.Popular,
     auth: {
       status: AuthStatus.NoAuth,
