@@ -49,6 +49,8 @@ const updateFavoriteOffers = (favoriteOffers: Offer[], updatedOffer: Offer): Off
     .filter((favoriteOffer) => favoriteOffer.isFavorite);
 };
 
+const getRandomCity = (cities: CityType[]): CityType => cities[Math.floor(Math.random() * cities.length)];
+
 export {
   addClassModifier,
   getRatingPercentage,
@@ -57,5 +59,6 @@ export {
   getFilteredOffersByCity,
   getSortedOffersByType,
   updateOffers,
-  updateFavoriteOffers
+  updateFavoriteOffers,
+  getRandomCity
 };
