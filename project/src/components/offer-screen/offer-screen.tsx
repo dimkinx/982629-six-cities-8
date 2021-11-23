@@ -94,7 +94,7 @@ function OfferScreen(): JSX.Element {
                   {title}
                 </h1>
                 <BookmarkButton
-                  id={`${id}`}
+                  id={id}
                   favoritesStatus={Number(!isFavorite)}
                   buttonType={BookmarkButtonType.Property}
                 />

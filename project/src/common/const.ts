@@ -126,6 +126,7 @@ const enum OfferType {
 
 const enum ActionType {
   LoadOffer = 'data/loadOffer',
+  UpdateOffer = 'data/updateOffer',
   SetOfferRequestStatus = 'data/setOfferRequestStatus',
   LoadOffers = 'data/loadOffers',
   SetOffersRequestStatus = 'data/setOffersRequestStatus',

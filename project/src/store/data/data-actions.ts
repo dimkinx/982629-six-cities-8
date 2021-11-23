@@ -12,6 +12,15 @@ const loadOffer = createAction(
   }),
 );
 
+const updateOffer = createAction(
+  ActionType.UpdateOffer,
+  (updatedOffer: Offer) => ({
+    payload: {
+      updatedOffer,
+    },
+  }),
+);
+
 const setOfferRequestStatus = createAction(
   ActionType.SetOfferRequestStatus,
   (requestStatus: RequestStatus) => ({
@@ -113,6 +122,7 @@ const updateAllOffers = createAction(
 
 export {
   loadOffer,
+  updateOffer,
   setOfferRequestStatus,
   loadOffers,
   setOffersRequestStatus,

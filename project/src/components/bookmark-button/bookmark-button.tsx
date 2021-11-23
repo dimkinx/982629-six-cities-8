@@ -14,6 +14,7 @@ type BookmarkButtonProps = {
 
 function BookmarkButton(props: BookmarkButtonProps): JSX.Element {
   const {id, favoritesStatus, buttonType} = props;
+  const isOfferUpdate: boolean = buttonType === BookmarkButtonType.Property;
 
   const isAuthorized = useSelector(getIsAuthorized);
 
@@ -21,7 +22,9 @@ function BookmarkButton(props: BookmarkButtonProps): JSX.Element {
   const history = useHistory();
 
   const handleButtonClick = () => {
-    isAuthorized ? dispatch(postFavoritesStatusAction(id, favoritesStatus)) : history.push(AppRoute.LoginScreen);
+    isAuthorized
+      ? dispatch(postFavoritesStatusAction(id, favoritesStatus, isOfferUpdate))
+      : history.push(AppRoute.LoginScreen);
   };
 
   return (

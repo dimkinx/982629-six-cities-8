@@ -3,6 +3,7 @@ import {
   loadFavoriteOffers,
   loadNearbyOffers,
   loadOffer,
+  updateOffer,
   loadOffers,
   loadReviews,
   setFavoriteOffersRequestStatus,
@@ -30,6 +31,19 @@ describe('Reducer: user', () => {
     const mockOffer = createMockOffer();
 
     expect(dataReducer(dataInitialState, loadOffer(mockOffer)))
+      .toEqual({
+        ...dataInitialState,
+        offer: {
+          ...dataInitialState.offer,
+          data: mockOffer,
+        },
+      });
+  });
+
+  it('should update offer by set favorites status', () => {
+    const mockOffer = createMockOffer();
+
+    expect(dataReducer(dataInitialState, updateOffer(mockOffer)))
       .toEqual({
         ...dataInitialState,
         offer: {
@@ -174,10 +188,6 @@ describe('Reducer: user', () => {
     expect(dataReducer(dataInitialState, updateAllOffers(mockUpdatedOffer)))
       .toEqual({
         ...dataInitialState,
-        offer: {
-          ...dataInitialState.offer,
-          data: mockUpdatedOffer,
-        },
         nearbyOffers: {
           ...dataInitialState.nearbyOffers,
           data: updateOffers(dataInitialState.nearbyOffers.data, mockUpdatedOffer),

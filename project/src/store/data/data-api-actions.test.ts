@@ -19,6 +19,7 @@ import {
   loadFavoriteOffers,
   loadNearbyOffers,
   loadOffer,
+  updateOffer,
   loadOffers,
   loadReviews,
   setFavoriteOffersRequestStatus,
@@ -153,16 +154,18 @@ describe('Async API actions: Data', () => {
   it('should dispatch UpdateAllOffers when POST /favorite/:id/:status', async () => {
     const store = mockStore();
     const status = datatype.number({min: 0, max: 1});
+    const isOfferUpdate = true;
 
     mockAPI
       .onPost(APIRoute.PostFavoritesStatus(mockOfferIdParamValue, status))
       .reply(200, mockRawOffer);
 
-    await store.dispatch(postFavoritesStatusAction(mockOfferIdParamValue, status));
+    await store.dispatch(postFavoritesStatusAction(mockOfferIdParamValue, status, isOfferUpdate));
 
     expect(store.getActions()).toEqual([
-      updateAllOffers(mockOffer),
+      updateOffer(mockOffer),
       setOfferRequestStatus(RequestStatus.Updated),
+      updateAllOffers(mockOffer),
       setNearbyOffersRequestStatus(RequestStatus.Updated),
       setOffersRequestStatus(RequestStatus.Updated),
       setFavoriteOffersRequestStatus(RequestStatus.Updated),
