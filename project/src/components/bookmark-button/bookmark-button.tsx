@@ -30,7 +30,7 @@ function BookmarkButton(props: BookmarkButtonProps): JSX.Element {
   return (
     <button
       onClick={handleButtonClick}
-      className={`${addClassModifier(!favoritesStatus, `${buttonType}__bookmark-button`)} button`}
+      className={`${addClassModifier(isAuthorized && !favoritesStatus, `${buttonType}__bookmark-button`)} button`}
       type="button"
     >
       <svg

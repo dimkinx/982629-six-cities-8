@@ -2,9 +2,9 @@ import {FormEvent, Fragment, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {postReviewAction} from '../../store/data/data-api-actions';
-import {getIsReviewLoading} from '../../store/data/data-selectors';
+import {getIsReviewLoading, getReviewRequestStatus} from '../../store/data/data-selectors';
 import {getStatefulItems} from '../../common/utils';
-import {CommentLengthLimit, Ratings} from '../../common/const';
+import {CommentLengthLimit, Ratings, RequestStatus} from '../../common/const';
 import {OfferIdParamValue} from '../../types/offer';
 
 const initialReviewState = {
@@ -15,6 +15,7 @@ const initialReviewState = {
 function ReviewsForm(): JSX.Element {
   const {id} = useParams<{id: OfferIdParamValue}>();
 
+  const reviewRequestStatus = useSelector(getReviewRequestStatus);
   const isReviewLoading = useSelector(getIsReviewLoading);
 
   const [review, setReview] = useState(initialReviewState);
@@ -34,12 +35,17 @@ function ReviewsForm(): JSX.Element {
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     dispatch(postReviewAction(id, review));
-    setReview(initialReviewState);
   };
 
   useEffect(() => {
     setIsDisabled(!(isRatingValid && isCommentValid));
   }, [isRatingValid, isCommentValid]);
+
+  useEffect(() => {
+    if (reviewRequestStatus === RequestStatus.Success) {
+      setReview(initialReviewState);
+    }
+  }, [reviewRequestStatus]);
 
   return (
     <form

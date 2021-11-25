@@ -113,6 +113,8 @@ const enum ErrorMessage {
   FailToLoadFavoriteOffers = 'Failed to load saved places',
   FailToLoadReviews = 'Failed to load reviews',
   FailToSendReview = 'Failed to send review',
+  FailedToAddToFavorites = 'Failed to add to favorites',
+  FailedToRemoveFromFavorites = 'Failed to remove from favorites',
 }
 
 const enum AuthStatus {
