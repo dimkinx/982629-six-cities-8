@@ -122,6 +122,9 @@ const postFavoritesStatusAction = (id: OfferIdParamValue, status: number, isOffe
         dispatch(setNearbyOffersRequestStatus(RequestStatus.Updated));
         dispatch(setOffersRequestStatus(RequestStatus.Updated));
         dispatch(setFavoriteOffersRequestStatus(RequestStatus.Updated));
+      })
+      .catch(() => {
+        toast.error(status ? ErrorMessage.FailedToAddToFavorites : ErrorMessage.FailedToRemoveFromFavorites);
       });
   }
 );

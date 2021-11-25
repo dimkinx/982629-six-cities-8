@@ -27,16 +27,14 @@ function OfferScreen(): JSX.Element {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (offer?.id !== Number(id)) {
-      dispatch(getOfferAction(id));
-      dispatch(getNearbyOffersAction(id));
-      dispatch(getReviewsAction(id));
-    }
+    dispatch(getOfferAction(id));
+    dispatch(getNearbyOffersAction(id));
+    dispatch(getReviewsAction(id));
 
     return () => {
       dispatch(setOfferRequestStatus(RequestStatus.Unknown));
     };
-  }, [dispatch, offer?.id, id]);
+  }, [dispatch, id]);
 
   if (offerRequestStatus === RequestStatus.Fail) {
     return <Redirect to={AppRoute.MainScreen} />;
@@ -46,7 +44,8 @@ function OfferScreen(): JSX.Element {
     return <NotFoundScreen />;
   }
 
-  if (offer?.id !== Number(id)
+  if (offer === null
+    || offerRequestStatus === RequestStatus.Unknown
     || offerRequestStatus === RequestStatus.Loading
     || nearbyOffersRequestStatus === RequestStatus.Loading
     || reviewsRequestStatus === RequestStatus.Loading) {
