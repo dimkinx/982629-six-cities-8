@@ -43,7 +43,7 @@ const getFavoriteOffersCities = createSelector(
 
 const getSortedReviews = createSelector(
   [getReviews],
-  (reviews) => reviews.slice(0, PropertyParam.ReviewsMaxCount).sort(compareReviewsByDate),
+  (reviews) => [...reviews].sort(compareReviewsByDate).slice(0, PropertyParam.ReviewsMaxCount),
 );
 
 const getFilteredOffers = createSelector(
